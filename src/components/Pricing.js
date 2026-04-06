@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
+const API_URL = 'https://pindeskapi.himalayancoders.com';
+
 const plans = [
   {
     name: 'Free',
@@ -7,7 +9,8 @@ const plans = [
     period: 'forever',
     description: 'For small teams getting started.',
     features: ['Up to 50 requests/month', 'Basic status tracking', 'Slack integration', '1 workspace'],
-    cta: 'Get Started Free',
+    cta: 'Add to Slack — Free',
+    href: `${API_URL}/slack/install`,
     featured: false,
   },
   {
@@ -16,7 +19,8 @@ const plans = [
     period: '/month',
     description: 'Full power and automation for growing teams.',
     features: ['Unlimited requests', 'Auto follow-ups & reminders', 'Priority support', 'Dashboard & analytics', 'Unlimited workspaces', 'Custom reminder intervals'],
-    cta: 'Start Pro Trial',
+    cta: 'Add to Slack — Go Pro',
+    href: `${API_URL}/slack/install?plan=pro`,
     featured: true,
   },
 ];
@@ -78,13 +82,16 @@ const Pricing = () => {
                 ))}
               </ul>
 
-              <button className={`w-full py-3.5 px-6 rounded-full font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 ${
-                plan.featured
-                  ? 'bg-white text-gray-900 hover:bg-gray-100 shadow-lg hover:shadow-xl'
-                  : 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white hover:from-violet-700 hover:to-indigo-700 shadow-lg shadow-violet-500/25 hover:shadow-xl'
-              }`}>
+              <a
+                href={plan.href}
+                className={`block w-full py-3.5 px-6 rounded-full font-semibold text-sm text-center transition-all duration-300 hover:-translate-y-0.5 ${
+                  plan.featured
+                    ? 'bg-white text-gray-900 hover:bg-gray-100 shadow-lg hover:shadow-xl'
+                    : 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white hover:from-violet-700 hover:to-indigo-700 shadow-lg shadow-violet-500/25 hover:shadow-xl'
+                }`}
+              >
                 {plan.cta}
-              </button>
+              </a>
             </div>
           ))}
         </div>

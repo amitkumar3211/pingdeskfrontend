@@ -27,7 +27,7 @@ const Navbar = () => {
           {[['Features', '#features'], ['How it Works', '#how-it-works'], ['Pricing', '#pricing']].map(([label, href]) => (
             <a key={label} href={href} className="text-sm text-gray-500 hover:text-violet-600 transition-colors font-medium">{label}</a>
           ))}
-          <a href="#cta" className="text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 px-6 py-2.5 rounded-full transition-all shadow-md shadow-violet-500/25 hover:shadow-lg hover:shadow-violet-500/30 hover:-translate-y-0.5">
+          <a href="https://pindeskapi.himalayancoders.com/slack/install" className="text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 px-6 py-2.5 rounded-full transition-all shadow-md shadow-violet-500/25 hover:shadow-lg hover:shadow-violet-500/30 hover:-translate-y-0.5">
             Add to Slack
           </a>
         </div>
