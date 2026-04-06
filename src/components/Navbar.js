@@ -15,7 +15,7 @@ const Navbar = () => {
       scrolled ? 'bg-white/95 backdrop-blur-xl shadow-lg shadow-gray-200/30 py-3' : 'bg-transparent py-5'
     }`}>
       <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-2.5 group">
+        <a href="/" className="flex items-center gap-2.5 group">
           <div className="relative w-9 h-9 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-violet-500/25 group-hover:shadow-violet-500/40 transition-shadow">
             <span className="text-white font-black text-lg leading-none">P</span>
             <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white" />

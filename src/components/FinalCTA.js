@@ -34,7 +34,7 @@ const FinalCTA = () => {
               Join hundreds of teams who use Pingdesk to keep Slack requests organized and on track.
             </p>
             <a
-              href="#"
+              href="/slack/install"
               className="group inline-flex items-center gap-2.5 bg-white hover:bg-gray-50 text-gray-900 font-semibold px-10 py-4.5 rounded-full text-base transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
             >
               <svg className="w-5 h-5 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
