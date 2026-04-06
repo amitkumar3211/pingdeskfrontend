@@ -11,10 +11,12 @@ const Footer = () => {
             <span className="text-base font-bold text-gray-900">Pingdesk</span>
           </div>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-6 flex-wrap justify-center">
             <a href="#features" className="text-sm text-gray-400 hover:text-violet-600 transition-colors">Features</a>
-            <a href="#how-it-works" className="text-sm text-gray-400 hover:text-violet-600 transition-colors">How it Works</a>
             <a href="#pricing" className="text-sm text-gray-400 hover:text-violet-600 transition-colors">Pricing</a>
+            <a href="/privacy" className="text-sm text-gray-400 hover:text-violet-600 transition-colors">Privacy</a>
+            <a href="/terms" className="text-sm text-gray-400 hover:text-violet-600 transition-colors">Terms</a>
+            <a href="/support" className="text-sm text-gray-400 hover:text-violet-600 transition-colors">Support</a>
           </div>
 
           <p className="text-sm text-gray-400">&copy; {new Date().getFullYear()} Pingdesk. All rights reserved.</p>
