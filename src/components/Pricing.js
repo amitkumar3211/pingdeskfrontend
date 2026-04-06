@@ -5,23 +5,25 @@ const API_URL = 'https://pindeskapi.himalayancoders.com';
 const plans = [
   {
     name: 'Free',
-    price: '₹0',
+    price: '$0',
     period: 'forever',
     description: 'For small teams getting started.',
-    features: ['Up to 50 requests/month', 'Basic status tracking', 'Slack integration', '1 workspace'],
+    features: ['Up to 3 users', '50 requests/month', 'Basic status tracking', 'Slack integration'],
     cta: 'Add to Slack — Free',
     href: `${API_URL}/slack/install`,
     featured: false,
   },
   {
     name: 'Pro',
-    price: '₹499',
-    period: '/month',
+    price: '$4',
+    originalPrice: '$8',
+    period: '/user/month',
     description: 'Full power and automation for growing teams.',
-    features: ['Unlimited requests', 'Auto follow-ups & reminders', 'Priority support', 'Dashboard & analytics', 'Unlimited workspaces', 'Custom reminder intervals'],
+    features: ['Unlimited requests', 'Auto follow-ups & reminders', 'Dashboard & analytics', 'CSV export', 'Custom reminder intervals', 'Priority support'],
     cta: 'Add to Slack — Go Pro',
     href: `${API_URL}/slack/install?plan=pro`,
     featured: true,
+    earlyBird: true,
   },
 ];
 
@@ -56,18 +58,25 @@ const Pricing = () => {
               } ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
               style={{ transitionDelay: `${i * 150 + 200}ms` }}
             >
-              {plan.featured && (
+              {plan.earlyBird && (
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                  <span className="bg-gradient-to-r from-violet-500 to-indigo-500 text-white text-xs font-bold px-5 py-1.5 rounded-full shadow-lg shadow-violet-500/30">Most Popular</span>
+                  <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-5 py-1.5 rounded-full shadow-lg shadow-orange-500/30">Early Bird — 50% off</span>
                 </div>
               )}
 
               <h3 className={`text-lg font-bold ${plan.featured ? 'text-white' : 'text-gray-900'}`}>{plan.name}</h3>
               <div className="flex items-baseline gap-1.5 mt-3 mb-1">
+                {plan.originalPrice && (
+                  <span className={`text-2xl font-bold line-through ${plan.featured ? 'text-gray-500' : 'text-gray-400'} mr-1`}>{plan.originalPrice}</span>
+                )}
                 <span className={`text-5xl font-black ${plan.featured ? 'text-white' : 'text-gray-900'}`}>{plan.price}</span>
                 <span className="text-sm text-gray-400">{plan.period}</span>
               </div>
-              <p className={`text-sm mb-8 ${plan.featured ? 'text-gray-400' : 'text-gray-500'}`}>{plan.description}</p>
+              <p className={`text-sm mb-2 ${plan.featured ? 'text-gray-400' : 'text-gray-500'}`}>{plan.description}</p>
+              {plan.earlyBird && (
+                <p className="text-xs text-amber-400 font-semibold mb-6">Limited to first 500 teams</p>
+              )}
+              {!plan.earlyBird && <div className="mb-6" />}
 
               <ul className="space-y-4 mb-10">
                 {plan.features.map((f, j) => (
