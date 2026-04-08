@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { events } from '../lib/analytics';
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -25,9 +26,9 @@ const Navbar = () => {
 
         <div className="hidden md:flex items-center gap-8">
           {[['Features', '#features'], ['How it Works', '#how-it-works'], ['Pricing', '#pricing']].map(([label, href]) => (
-            <a key={label} href={href} className="text-sm text-gray-500 hover:text-violet-600 transition-colors font-medium">{label}</a>
+            <a key={label} href={href} onClick={() => events.navClick(label)} className="text-sm text-gray-500 hover:text-violet-600 transition-colors font-medium">{label}</a>
           ))}
-          <a href="https://pindeskapi.himalayancoders.com/slack/install" className="text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 px-6 py-2.5 rounded-full transition-all shadow-md shadow-violet-500/25 hover:shadow-lg hover:shadow-violet-500/30 hover:-translate-y-0.5">
+          <a href="https://pindeskapi.himalayancoders.com/slack/install" onClick={() => events.addToSlackClick('navbar')} className="text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 px-6 py-2.5 rounded-full transition-all shadow-md shadow-violet-500/25 hover:shadow-lg hover:shadow-violet-500/30 hover:-translate-y-0.5">
             Add to Slack
           </a>
         </div>
@@ -44,9 +45,9 @@ const Navbar = () => {
       {mobileOpen && (
         <div className="md:hidden bg-white/95 backdrop-blur-xl border-t border-gray-100/50 px-6 py-6 flex flex-col gap-5 shadow-xl">
           {[['Features', '#features'], ['How it Works', '#how-it-works'], ['Pricing', '#pricing']].map(([label, href]) => (
-            <a key={label} href={href} className="text-sm text-gray-600 font-medium" onClick={() => setMobileOpen(false)}>{label}</a>
+            <a key={label} href={href} className="text-sm text-gray-600 font-medium" onClick={() => { events.navClick(label); setMobileOpen(false); }}>{label}</a>
           ))}
-          <a href="#cta" className="text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 px-6 py-3 rounded-full text-center shadow-lg shadow-violet-500/25" onClick={() => setMobileOpen(false)}>Add to Slack</a>
+          <a href="https://pindeskapi.himalayancoders.com/slack/install" className="text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 px-6 py-3 rounded-full text-center shadow-lg shadow-violet-500/25" onClick={() => { events.addToSlackClick('navbar_mobile'); setMobileOpen(false); }}>Add to Slack</a>
         </div>
       )}
     </nav>

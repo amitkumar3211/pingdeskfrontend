@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { events } from '../lib/analytics';
 
 const SlackDemo = () => {
   const [step, setStep] = useState(0);
@@ -280,6 +281,7 @@ const Hero = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
             <a
               href="https://pindeskapi.himalayancoders.com/slack/install"
+              onClick={() => events.addToSlackClick('hero')}
               className="group w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-semibold px-9 py-4 rounded-full text-base transition-all shadow-xl shadow-violet-500/25 hover:shadow-2xl hover:shadow-violet-500/30 hover:-translate-y-1"
             >
               <svg className="w-5 h-5 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">

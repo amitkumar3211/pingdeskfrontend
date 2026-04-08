@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { fetchDashboard, updateSettings, createOrder, verifyPayment, getExportUrl } from './api';
+import { events } from '../lib/analytics';
 
 /* ───── Animated Counter ───── */
 const AnimCount = ({ to, duration = 1200 }) => {
@@ -96,6 +97,7 @@ const Dashboard = () => {
       const d = await fetchDashboard(token, filter, page);
       setData(d);
       setReminderHours(d.workspace.reminder_hours);
+      events.dashboardView();
     } catch { setData(null); }
     finally { setLoading(false); }
   }, [token, filter, page]);
@@ -120,23 +122,41 @@ const Dashboard = () => {
 
   const handleSaveSettings = async () => {
     const res = await updateSettings(token, parseInt(reminderHours));
-    if (res.success) { setSettingsMsg('Saved!'); setTimeout(() => setSettingsMsg(''), 2000); }
+    if (res.success) {
+      setSettingsMsg('Saved!');
+      events.settingsUpdate('reminder_interval_hours');
+      setTimeout(() => setSettingsMsg(''), 2000);
+    }
   };
 
   const handleUpgrade = async () => {
     try {
+      events.checkoutStarted();
       const order = await createOrder(token);
+      events.paymentInitiated();
       const rzp = new window.Razorpay({
         key: order.key, amount: order.amount, currency: order.currency,
         name: 'Pingdesk', description: 'Pro Plan — Monthly', order_id: order.order_id,
         handler: async (r) => {
           const res = await verifyPayment(token, { payment_id: r.razorpay_payment_id, order_id: r.razorpay_order_id, signature: r.razorpay_signature });
-          if (res.success) { setUpgradeMsg('Welcome to Pro! Your workspace has been upgraded.'); load(); }
+          if (res.success) {
+            events.paymentSuccess(r.razorpay_payment_id);
+            setUpgradeMsg('Welcome to Pro! Your workspace has been upgraded.');
+            load();
+          } else {
+            events.paymentFailed('verification_failed');
+          }
         },
         prefill: { name: order.workspace_name }, theme: { color: '#7C3AED' },
+        modal: {
+          ondismiss: () => events.paymentFailed('user_dismissed'),
+        },
       });
       rzp.open();
-    } catch { alert('Something went wrong.'); }
+    } catch {
+      events.paymentFailed('order_creation_failed');
+      alert('Something went wrong.');
+    }
   };
 
   /* ── Loading ── */
@@ -186,7 +206,7 @@ const Dashboard = () => {
           </div>
           <div className="flex items-center gap-3">
             {workspace.is_pro && (
-              <a href={getExportUrl(token)} className="hidden sm:flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors">
+              <a href={getExportUrl(token)} onClick={() => events.csvExport()} className="hidden sm:flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
                 Export
               </a>
@@ -385,7 +405,7 @@ const Dashboard = () => {
                 { key: 'in_progress', label: 'In Progress', count: stats.in_progress },
                 { key: 'done', label: 'Done', count: stats.done },
               ].map((f) => (
-                <button key={f.key} onClick={() => { setFilter(f.key); setPage(1); }}
+                <button key={f.key} onClick={() => { setFilter(f.key); setPage(1); events.filterChange(f.key); }}
                   className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 ${
                     filter === f.key ? 'bg-gray-900 text-white shadow-md' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
                   }`}>
@@ -394,7 +414,7 @@ const Dashboard = () => {
               ))}
             </div>
             {workspace.is_pro && (
-              <a href={getExportUrl(token)} className="sm:hidden flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold bg-white text-gray-600 border border-gray-100 hover:bg-gray-50 shadow-sm">
+              <a href={getExportUrl(token)} onClick={() => events.csvExport()} className="sm:hidden flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold bg-white text-gray-600 border border-gray-100 hover:bg-gray-50 shadow-sm">
                 <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
                 CSV
               </a>
@@ -542,7 +562,7 @@ const Dashboard = () => {
                 <p className="text-white/60 text-sm mb-2 max-w-md mx-auto">Unlock weekly charts, team performance analytics, CSV export, custom reminders, and unlimited requests.</p>
                 <p className="text-white/80 text-lg font-bold mb-1"><span className="line-through text-white/40 text-base mr-1">$8</span> $4/user/month</p>
                 <p className="text-amber-300 text-xs font-semibold mb-6">Limited to first 500 teams</p>
-                <button onClick={handleUpgrade}
+                <button onClick={() => { events.upgradeClick('dashboard_cta'); handleUpgrade(); }}
                   className="bg-white text-violet-700 font-semibold text-sm px-10 py-3.5 rounded-full hover:bg-gray-50 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-0.5">
                   Upgrade — Early Bird ₹1,650/month
                 </button>

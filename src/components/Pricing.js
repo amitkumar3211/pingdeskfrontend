@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { events } from '../lib/analytics';
 
 const API_URL = 'https://pindeskapi.himalayancoders.com';
 
@@ -93,6 +94,10 @@ const Pricing = () => {
 
               <a
                 href={plan.href}
+                onClick={() => {
+                  events.pricingPlanClick(plan.name.toLowerCase());
+                  events.addToSlackClick('pricing', plan.name.toLowerCase());
+                }}
                 className={`block w-full py-3.5 px-6 rounded-full font-semibold text-sm text-center transition-all duration-300 hover:-translate-y-0.5 ${
                   plan.featured
                     ? 'bg-white text-gray-900 hover:bg-gray-100 shadow-lg hover:shadow-xl'

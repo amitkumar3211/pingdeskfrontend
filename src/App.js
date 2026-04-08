@@ -15,6 +15,7 @@ import Dashboard from './dashboard/Dashboard';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Support from './pages/Support';
+import { useRouteTracker } from './lib/useRouteTracker';
 
 const LandingPage = () => (
   <div className="bg-white font-sans text-gray-900 antialiased overflow-x-hidden">
@@ -33,9 +34,15 @@ const LandingPage = () => (
   </div>
 );
 
+const RouteTracker = () => {
+  useRouteTracker();
+  return null;
+};
+
 function App() {
   return (
     <BrowserRouter>
+      <RouteTracker />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/dashboard/:token" element={<Dashboard />} />
