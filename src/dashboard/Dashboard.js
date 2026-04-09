@@ -86,6 +86,7 @@ const Dashboard = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('');
+  const [range, setRange] = useState('all');
   const [page, setPage] = useState(1);
   const [reminderHours, setReminderHours] = useState('');
   const [settingsMsg, setSettingsMsg] = useState('');
@@ -94,13 +95,13 @@ const Dashboard = () => {
 
   const load = useCallback(async () => {
     try {
-      const d = await fetchDashboard(token, filter, page);
+      const d = await fetchDashboard(token, filter, page, range);
       setData(d);
       setReminderHours(d.workspace.reminder_hours);
       events.dashboardView();
     } catch { setData(null); }
     finally { setLoading(false); }
-  }, [token, filter, page]);
+  }, [token, filter, page, range]);
 
   useEffect(() => { load(); }, [load]);
 
@@ -206,7 +207,7 @@ const Dashboard = () => {
           </div>
           <div className="flex items-center gap-3">
             {workspace.is_pro && (
-              <a href={getExportUrl(token)} onClick={() => events.csvExport()} className="hidden sm:flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors">
+              <a href={getExportUrl(token, range)} onClick={() => events.csvExport()} className="hidden sm:flex items-center gap-1.5 text-xs font-medium text-gray-500 hover:text-gray-700 transition-colors">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
                 Export
               </a>
@@ -397,28 +398,54 @@ const Dashboard = () => {
 
         {/* ── Filters ── */}
         <FadeIn delay={500}>
-          <div className="flex items-center justify-between mb-5">
-            <div className="flex items-center gap-2 bg-white rounded-xl border border-gray-100 p-1 shadow-sm">
-              {[
-                { key: '', label: 'All', count: stats.total },
-                { key: 'pending', label: 'Pending', count: stats.pending },
-                { key: 'in_progress', label: 'In Progress', count: stats.in_progress },
-                { key: 'done', label: 'Done', count: stats.done },
-              ].map((f) => (
-                <button key={f.key} onClick={() => { setFilter(f.key); setPage(1); events.filterChange(f.key); }}
-                  className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 ${
-                    filter === f.key ? 'bg-gray-900 text-white shadow-md' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
-                  }`}>
-                  {f.label} <span className="ml-1 opacity-60">{f.count}</span>
-                </button>
-              ))}
+          <div className="flex flex-col gap-3 mb-5">
+            {/* Date range tabs */}
+            <div className="flex items-center justify-between flex-wrap gap-3">
+              <div className="flex items-center gap-2 bg-white rounded-xl border border-gray-100 p-1 shadow-sm">
+                {[
+                  { key: 'today', label: 'Today' },
+                  { key: 'week', label: 'This Week' },
+                  { key: 'month', label: 'This Month' },
+                  { key: 'year', label: 'This Year' },
+                  { key: 'all', label: 'All Time' },
+                ].map((r) => (
+                  <button
+                    key={r.key}
+                    onClick={() => { setRange(r.key); setPage(1); events.filterChange(`range:${r.key}`); }}
+                    className={`px-3.5 py-2 rounded-lg text-xs font-semibold transition-all duration-200 ${
+                      range === r.key ? 'bg-violet-600 text-white shadow-md' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    {r.label}
+                  </button>
+                ))}
+              </div>
             </div>
-            {workspace.is_pro && (
-              <a href={getExportUrl(token)} onClick={() => events.csvExport()} className="sm:hidden flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold bg-white text-gray-600 border border-gray-100 hover:bg-gray-50 shadow-sm">
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
-                CSV
-              </a>
-            )}
+
+            {/* Status tabs + mobile CSV */}
+            <div className="flex items-center justify-between flex-wrap gap-3">
+              <div className="flex items-center gap-2 bg-white rounded-xl border border-gray-100 p-1 shadow-sm">
+                {[
+                  { key: '', label: 'All', count: stats.total },
+                  { key: 'pending', label: 'Pending', count: stats.pending },
+                  { key: 'in_progress', label: 'In Progress', count: stats.in_progress },
+                  { key: 'done', label: 'Done', count: stats.done },
+                ].map((f) => (
+                  <button key={f.key} onClick={() => { setFilter(f.key); setPage(1); events.filterChange(f.key); }}
+                    className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all duration-200 ${
+                      filter === f.key ? 'bg-gray-900 text-white shadow-md' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                    }`}>
+                    {f.label} <span className="ml-1 opacity-60">{f.count}</span>
+                  </button>
+                ))}
+              </div>
+              {workspace.is_pro && (
+                <a href={getExportUrl(token, range)} onClick={() => events.csvExport()} className="sm:hidden flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold bg-white text-gray-600 border border-gray-100 hover:bg-gray-50 shadow-sm">
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+                  CSV
+                </a>
+              )}
+            </div>
           </div>
         </FadeIn>
 
