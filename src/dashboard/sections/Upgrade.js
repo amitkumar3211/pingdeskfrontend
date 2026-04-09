@@ -1,22 +1,60 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { events } from '../../lib/analytics';
 import { createOrder, verifyPayment } from '../api';
 import { FadeIn, SectionHeader } from '../components/shared';
 
-const PRICE_PER_SEAT_RUPEES = 330; // ₹330/seat early bird
+// Default per-seat prices. Backend is authoritative — these are just for the
+// live preview before the user clicks "Pay".
+const PRICE_INR = 330; // ₹330/seat early bird
+const PRICE_USD = 4;   //  $4/seat early bird
+
+/**
+ * Detect a sensible default currency based on the user's locale/timezone.
+ * India → INR. Everywhere else → USD.
+ */
+const detectCurrency = () => {
+  try {
+    const stored = localStorage.getItem('pingdesk_currency');
+    if (stored === 'INR' || stored === 'USD') return stored;
+
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    if (tz === 'Asia/Kolkata' || tz === 'Asia/Calcutta') return 'INR';
+
+    const lang = (navigator.language || '').toLowerCase();
+    if (lang === 'en-in' || lang.endsWith('-in')) return 'INR';
+
+    return 'USD';
+  } catch {
+    return 'USD';
+  }
+};
+
+const formatPrice = (amount, currency) => {
+  if (currency === 'USD') {
+    return `$${amount.toLocaleString('en-US')}`;
+  }
+  return `₹${amount.toLocaleString('en-IN')}`;
+};
 
 const Upgrade = ({ token, workspace, onChange }) => {
   const isPro = workspace.is_pro;
   const minSeats = workspace.pro_min_seats || 3;
   const [seats, setSeats] = useState(isPro ? 1 : minSeats);
+  const [currency, setCurrency] = useState(detectCurrency);
   const [busy, setBusy] = useState(false);
   const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
+  // Persist user's currency choice across sessions
+  useEffect(() => {
+    try { localStorage.setItem('pingdesk_currency', currency); } catch {}
+  }, [currency]);
+
   // For Pro: minimum is 1 (you're adding seats). For Free upgrade: minimum is the floor.
   const floor = isPro ? 1 : minSeats;
 
-  const total = seats * PRICE_PER_SEAT_RUPEES;
+  const pricePerSeat = currency === 'USD' ? PRICE_USD : PRICE_INR;
+  const total = seats * pricePerSeat;
 
   const dec = () => setSeats((s) => Math.max(floor, s - 1));
   const inc = () => setSeats((s) => Math.min(500, s + 1));
@@ -26,7 +64,10 @@ const Upgrade = ({ token, workspace, onChange }) => {
     setBusy(true);
     try {
       events.checkoutStarted();
-      const order = await createOrder(token, seats);
+      const order = await createOrder(token, seats, currency);
+      if (order.error) {
+        throw new Error(order.error);
+      }
       events.paymentInitiated();
       const rzp = new window.Razorpay({
         key: order.key,
@@ -150,9 +191,25 @@ const Upgrade = ({ token, workspace, onChange }) => {
 
               {/* Right: seat picker */}
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-7">
-                <p className="text-xs text-white/40 font-bold uppercase tracking-wider mb-1">
-                  {isPro ? 'Add seats' : 'How many seats?'}
-                </p>
+                <div className="flex items-start justify-between mb-1 gap-3">
+                  <p className="text-xs text-white/40 font-bold uppercase tracking-wider">
+                    {isPro ? 'Add seats' : 'How many seats?'}
+                  </p>
+                  {/* Currency toggle */}
+                  <div className="flex items-center gap-0.5 bg-white/5 rounded-full p-0.5 border border-white/10">
+                    {['USD', 'INR'].map((c) => (
+                      <button
+                        key={c}
+                        onClick={() => setCurrency(c)}
+                        className={`text-[10px] font-bold px-2.5 py-1 rounded-full transition-all ${
+                          currency === c ? 'bg-white text-gray-900' : 'text-white/60 hover:text-white'
+                        }`}
+                      >
+                        {c === 'USD' ? '$ USD' : '₹ INR'}
+                      </button>
+                    ))}
+                  </div>
+                </div>
                 <p className="text-white/80 text-xs mb-6">
                   {isPro
                     ? `Currently you have ${workspace.seats_total} seats.`
@@ -200,10 +257,10 @@ const Upgrade = ({ token, workspace, onChange }) => {
                 <div className="bg-white/5 rounded-xl p-4 mb-5">
                   <div className="flex items-baseline justify-between">
                     <div>
-                      <p className="text-xs text-white/40 font-medium">{seats} × ₹{PRICE_PER_SEAT_RUPEES}/seat</p>
+                      <p className="text-xs text-white/40 font-medium">{seats} × {formatPrice(pricePerSeat, currency)}/seat</p>
                       <p className="text-xs text-white/40 font-medium">per month</p>
                     </div>
-                    <p className="text-3xl font-black text-white tabular-nums">₹{total.toLocaleString('en-IN')}</p>
+                    <p className="text-3xl font-black text-white tabular-nums">{formatPrice(total, currency)}</p>
                   </div>
                 </div>
 
@@ -212,7 +269,11 @@ const Upgrade = ({ token, workspace, onChange }) => {
                   disabled={busy}
                   className="w-full bg-white hover:bg-gray-50 text-gray-900 font-bold text-sm px-6 py-3.5 rounded-full transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 disabled:opacity-50"
                 >
-                  {busy ? 'Opening checkout...' : isPro ? `Add ${seats} seat${seats > 1 ? 's' : ''} for ₹${total.toLocaleString('en-IN')}` : `Pay ₹${total.toLocaleString('en-IN')} / month`}
+                  {busy
+                    ? 'Opening checkout...'
+                    : isPro
+                      ? `Add ${seats} seat${seats > 1 ? 's' : ''} for ${formatPrice(total, currency)}`
+                      : `Pay ${formatPrice(total, currency)} / month`}
                 </button>
                 <p className="text-center text-[11px] text-white/40 mt-3">Secured by Razorpay · Cancel anytime</p>
               </div>

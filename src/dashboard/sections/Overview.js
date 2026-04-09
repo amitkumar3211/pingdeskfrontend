@@ -2,9 +2,27 @@ import { useState } from 'react';
 import { events } from '../../lib/analytics';
 import { Avatar, FadeIn, StatCard, StatusBadge } from '../components/shared';
 
+// Same detection logic as Upgrade.js — keeps the banner price honest
+// without forcing the user to navigate to the Upgrade page first.
+const isIndia = () => {
+  try {
+    const stored = localStorage.getItem('pingdesk_currency');
+    if (stored === 'INR') return true;
+    if (stored === 'USD') return false;
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    if (tz === 'Asia/Kolkata' || tz === 'Asia/Calcutta') return true;
+    const lang = (navigator.language || '').toLowerCase();
+    return lang === 'en-in' || lang.endsWith('-in');
+  } catch {
+    return false;
+  }
+};
+
 const Overview = ({ data, range, setRange, filter, setFilter, page, setPage, onGoToUpgrade }) => {
   const { workspace, stats, requests, pro } = data;
   const [activeRow, setActiveRow] = useState(null);
+  const india = isIndia();
+  const startingPrice = india ? '₹990/mo' : '$12/mo';
 
   return (
     <>
@@ -20,7 +38,7 @@ const Overview = ({ data, range, setRange, filter, setFilter, page, setPage, onG
               </div>
               <div>
                 <p className="text-sm font-bold text-gray-900">Unlock charts, exports, and unlimited seats</p>
-                <p className="text-xs text-gray-500">Pro plans start at ₹990/mo (3 seats — early bird).</p>
+                <p className="text-xs text-gray-500">Pro plans start at {startingPrice} (3 seats — early bird).</p>
               </div>
             </div>
             <button

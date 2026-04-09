@@ -19,11 +19,11 @@ export const updateSettings = async (token, reminderHours) => {
   return res.json();
 };
 
-export const createOrder = async (token, seats = 3) => {
+export const createOrder = async (token, seats = 3, currency = 'INR') => {
   const res = await fetch(`${API}/${token}/create-order`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ seats }),
+    body: JSON.stringify({ seats, currency }),
   });
   return res.json();
 };
