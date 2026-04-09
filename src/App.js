@@ -16,6 +16,8 @@ import Dashboard from './dashboard/Dashboard';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Support from './pages/Support';
+import Refund from './pages/Refund';
+import Shipping from './pages/Shipping';
 import { useRouteTracker } from './lib/useRouteTracker';
 
 const LandingPage = () => (
@@ -51,6 +53,10 @@ function App() {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/support" element={<Support />} />
+        <Route path="/contact" element={<Support />} />
+        <Route path="/refund" element={<Refund />} />
+        <Route path="/cancellation" element={<Refund />} />
+        <Route path="/shipping" element={<Shipping />} />
       </Routes>
     </BrowserRouter>
   );

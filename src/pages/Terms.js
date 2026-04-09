@@ -96,12 +96,14 @@ const Terms = () => {
       </main>
 
       <footer className="border-t border-gray-100 py-8 px-6">
-        <div className="max-w-3xl mx-auto flex items-center justify-between text-sm text-gray-400">
+        <div className="max-w-3xl mx-auto flex items-center justify-between text-sm text-gray-400 flex-wrap gap-3">
           <span>&copy; {new Date().getFullYear()} Pingdesk</span>
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-wrap">
             <a href="/privacy" className="hover:text-gray-600">Privacy</a>
             <a href="/terms" className="hover:text-gray-600">Terms</a>
-            <a href="/support" className="hover:text-gray-600">Support</a>
+            <a href="/refund" className="hover:text-gray-600">Refund</a>
+            <a href="/shipping" className="hover:text-gray-600">Shipping</a>
+            <a href="/contact" className="hover:text-gray-600">Contact</a>
           </div>
         </div>
       </footer>

@@ -14,7 +14,7 @@ const Support = () => {
       </nav>
 
       <main className="max-w-3xl mx-auto px-6 py-16">
-        <h1 className="text-4xl font-black text-gray-900 mb-4">Support</h1>
+        <h1 className="text-4xl font-black text-gray-900 mb-4">Contact Us & Support</h1>
         <p className="text-lg text-gray-500 mb-12">Need help? We're here for you.</p>
 
         <div className="space-y-6">
@@ -88,10 +88,12 @@ const Support = () => {
       <footer className="border-t border-gray-100 py-8 px-6">
         <div className="max-w-3xl mx-auto flex items-center justify-between text-sm text-gray-400">
           <span>&copy; {new Date().getFullYear()} Pingdesk</span>
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-wrap">
             <a href="/privacy" className="hover:text-gray-600">Privacy</a>
             <a href="/terms" className="hover:text-gray-600">Terms</a>
-            <a href="/support" className="hover:text-gray-600">Support</a>
+            <a href="/refund" className="hover:text-gray-600">Refund</a>
+            <a href="/shipping" className="hover:text-gray-600">Shipping</a>
+            <a href="/contact" className="hover:text-gray-600">Contact</a>
           </div>
         </div>
       </footer>
