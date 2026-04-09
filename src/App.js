@@ -9,6 +9,7 @@ import HowItWorks from './components/HowItWorks';
 import WhoItsFor from './components/WhoItsFor';
 import Testimonials from './components/Testimonials';
 import Pricing from './components/Pricing';
+import Security from './components/Security';
 import FinalCTA from './components/FinalCTA';
 import Footer from './components/Footer';
 import Dashboard from './dashboard/Dashboard';
@@ -28,6 +29,7 @@ const LandingPage = () => (
     <HowItWorks />
     <WhoItsFor />
     <Testimonials />
+    <Security />
     <Pricing />
     <FinalCTA />
     <Footer />

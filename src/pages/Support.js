@@ -30,7 +30,7 @@ const Support = () => {
                 </div>
                 <div>
                   <p className="font-semibold text-gray-900">Email</p>
-                  <a href="mailto:support@pingdesk.app" className="text-violet-600 hover:underline">support@pingdesk.app</a>
+                  <a href="mailto:amitkumar326310@gmail.com" className="text-violet-600 hover:underline">amitkumar326310@gmail.com</a>
                   <p className="text-sm text-gray-400 mt-0.5">We typically respond within 24 hours.</p>
                 </div>
               </div>
@@ -64,7 +64,7 @@ const Support = () => {
                 },
                 {
                   q: 'Can I cancel my Pro subscription?',
-                  a: 'Yes, you can cancel anytime. Your Pro features will remain active until the end of your billing period. Contact support@pingdesk.app to cancel.',
+                  a: 'Yes, you can cancel anytime. Your Pro features will remain active until the end of your billing period. Contact amitkumar326310@gmail.com to cancel.',
                 },
                 {
                   q: 'How do I uninstall Pingdesk?',

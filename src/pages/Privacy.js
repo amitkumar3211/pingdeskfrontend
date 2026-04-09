@@ -94,7 +94,7 @@ const Privacy = () => {
           <section>
             <h2 className="text-xl font-bold text-gray-900 mb-3">11. Contact Us</h2>
             <p>If you have questions about this Privacy Policy or your data, contact us at:</p>
-            <p className="mt-2"><strong>Email:</strong> <a href="mailto:support@pingdesk.app" className="text-violet-600 hover:underline">support@pingdesk.app</a></p>
+            <p className="mt-2"><strong>Email:</strong> <a href="mailto:amitkumar326310@gmail.com" className="text-violet-600 hover:underline">amitkumar326310@gmail.com</a></p>
           </section>
         </div>
       </main>

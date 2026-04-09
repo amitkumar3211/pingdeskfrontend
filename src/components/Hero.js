@@ -1,26 +1,43 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { events } from '../lib/analytics';
 
 const SlackDemo = () => {
   const [step, setStep] = useState(0);
   const [key, setKey] = useState(0);
+  const scrollRef = useRef(null);
+  const bottomRef = useRef(null);
 
   const startAnimation = useCallback(() => {
     setStep(0);
     setKey(k => k + 1);
+    if (scrollRef.current) scrollRef.current.scrollTop = 0;
   }, []);
 
   useEffect(() => {
-    const timings = [1500, 3000, 4500, 6000, 7500, 9000];
+    // Reset scroll to top each time the loop restarts
+    if (scrollRef.current) scrollRef.current.scrollTop = 0;
+    const timings = [1800, 3600, 5200, 6800, 8400, 10000];
     const timers = timings.map((delay, i) =>
       setTimeout(() => setStep(i + 1), delay)
     );
-    const loopTimer = setTimeout(() => startAnimation(), 12000);
+    const loopTimer = setTimeout(() => startAnimation(), 13500);
     return () => {
       timers.forEach(clearTimeout);
       clearTimeout(loopTimer);
     };
   }, [key, startAnimation]);
+
+  // Smooth auto-scroll the chat container to the latest message (without scrolling the page)
+  useEffect(() => {
+    if (step > 0 && scrollRef.current) {
+      const el = scrollRef.current;
+      // Small delay so the new message renders before we scroll to it
+      const t = setTimeout(() => {
+        el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+      }, 350);
+      return () => clearTimeout(t);
+    }
+  }, [step]);
 
   return (
     <div className="rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-2xl shadow-gray-300/40">
@@ -84,18 +101,19 @@ const SlackDemo = () => {
             <span className="hidden md:inline text-[12px] text-gray-400 border-l border-gray-200 pl-3 ml-1">Track all team requests</span>
           </div>
 
-          <div className="h-[420px] lg:h-[460px] px-4 md:px-6 py-4 overflow-hidden flex flex-col justify-end">
+          <div ref={scrollRef} className="slack-scroll h-[420px] lg:h-[460px] px-4 md:px-6 py-4 overflow-y-auto scroll-smooth">
             <div className="space-y-0.5">
 
               {/* Step 1 */}
-              <div className={`transition-all duration-500 ${step >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}>
+              {step >= 1 && (
+              <div className="animate-fade-in-up">
                 <div className="flex items-start gap-3 py-2 px-2 rounded-lg hover:bg-gray-50/50">
                   <div className="w-9 h-9 rounded-lg bg-teal-600 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-white text-[11px] font-bold">AK</span>
+                    <span className="text-white text-[11px] font-bold">JD</span>
                   </div>
                   <div className="min-w-0">
                     <div className="flex items-baseline gap-2">
-                      <span className="text-[14px] font-bold text-gray-900">Amit Kumar</span>
+                      <span className="text-[14px] font-bold text-gray-900">James Donovan</span>
                       <span className="text-[11px] text-gray-400">10:30 AM</span>
                     </div>
                     <div className="mt-1 bg-gray-50 border border-gray-200 rounded-lg px-3.5 py-2 inline-block">
@@ -108,9 +126,11 @@ const SlackDemo = () => {
                   </div>
                 </div>
               </div>
+              )}
 
               {/* Step 2 */}
-              <div className={`transition-all duration-600 ${step >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}>
+              {step >= 2 && (
+              <div className="animate-fade-in-up">
                 <div className="flex items-start gap-3 py-2 px-2 rounded-lg">
                   <div className="relative w-9 h-9 rounded-lg bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <span className="text-white text-[11px] font-black">P</span>
@@ -137,18 +157,22 @@ const SlackDemo = () => {
                   </div>
                 </div>
               </div>
+              )}
 
               {/* Step 3 */}
-              <div className={`transition-all duration-400 ${step >= 3 ? 'opacity-100' : 'opacity-0'}`}>
+              {step >= 3 && (
+              <div className="animate-fade-in-up">
                 <div className="flex items-center gap-3 my-3">
                   <div className="flex-1 h-px bg-red-200/60" />
                   <span className="text-[11px] text-red-400 font-medium px-3 border border-red-200/60 rounded-full bg-white py-1">24 hours — no response</span>
                   <div className="flex-1 h-px bg-red-200/60" />
                 </div>
               </div>
+              )}
 
               {/* Step 4 */}
-              <div className={`transition-all duration-600 ${step >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}>
+              {step >= 4 && (
+              <div className="animate-fade-in-up">
                 <div className="flex items-start gap-3 py-2 px-2 rounded-lg">
                   <div className="relative w-9 h-9 rounded-lg bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <span className="text-white text-[11px] font-black">P</span>
@@ -174,9 +198,11 @@ const SlackDemo = () => {
                   </div>
                 </div>
               </div>
+              )}
 
               {/* Step 5 */}
-              <div className={`transition-all duration-600 ${step >= 5 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}>
+              {step >= 5 && (
+              <div className="animate-fade-in-up">
                 <div className="flex items-start gap-3 py-2 px-2 rounded-lg">
                   <div className="w-9 h-9 rounded-lg bg-pink-500 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <span className="text-white text-[11px] font-bold">SM</span>
@@ -192,9 +218,11 @@ const SlackDemo = () => {
                   </div>
                 </div>
               </div>
+              )}
 
               {/* Step 6 */}
-              <div className={`transition-all duration-600 ${step >= 6 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}>
+              {step >= 6 && (
+              <div className="animate-fade-in-up">
                 <div className="flex items-start gap-3 py-2 px-2 rounded-lg">
                   <div className="relative w-9 h-9 rounded-lg bg-gradient-to-br from-violet-600 to-indigo-600 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <span className="text-white text-[11px] font-black">P</span>
@@ -215,7 +243,10 @@ const SlackDemo = () => {
                   </div>
                 </div>
               </div>
+              )}
 
+              {/* Bottom anchor for auto-scroll */}
+              <div ref={bottomRef} className="h-1" />
             </div>
           </div>
 
