@@ -60,7 +60,7 @@ const Admins = ({ token, workspace, onGoToUpgrade }) => {
         title="Admins"
         description="Workspace admins can edit/delete any request and manage team access."
         action={
-          workspace.is_pro ? (
+          workspace.features?.multi_admin ? (
             <button
               onClick={() => { setError(''); setPickerOpen(true); }}
               className="text-xs font-bold px-5 py-2.5 rounded-full transition-all shadow-sm bg-gradient-to-r from-violet-600 to-indigo-600 text-white hover:shadow-md hover:-translate-y-0.5"
@@ -78,7 +78,7 @@ const Admins = ({ token, workspace, onGoToUpgrade }) => {
         }
       />
 
-      {!workspace.is_pro && (
+      {!workspace.features?.multi_admin && (
         <FadeIn>
           <div className="mb-6 bg-gradient-to-br from-violet-50 to-indigo-50 border border-violet-100 rounded-2xl p-5 flex items-start gap-4">
             <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center flex-shrink-0">
@@ -87,8 +87,8 @@ const Admins = ({ token, workspace, onGoToUpgrade }) => {
               </svg>
             </div>
             <div>
-              <p className="text-sm font-bold text-gray-900">Multiple admins is a Pro feature</p>
-              <p className="text-xs text-gray-500 mt-1">Free workspaces have a single admin (the installer). Upgrade to Pro to delegate admin access to multiple people.</p>
+              <p className="text-sm font-bold text-gray-900">Multiple admins is a Growth feature</p>
+              <p className="text-xs text-gray-500 mt-1">Starter workspaces have a single admin (the installer). Upgrade to Growth or higher to delegate admin access to multiple people.</p>
             </div>
           </div>
         </FadeIn>

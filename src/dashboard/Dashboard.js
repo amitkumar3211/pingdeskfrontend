@@ -4,12 +4,13 @@ import { events } from '../lib/analytics';
 import { fetchDashboard } from './api';
 import DashboardLayout from './components/DashboardLayout';
 import Admins from './sections/Admins';
+import Billing from './sections/Billing';
 import Overview from './sections/Overview';
 import Settings from './sections/Settings';
 import Team from './sections/Team';
 import Upgrade from './sections/Upgrade';
 
-const VALID_SECTIONS = ['overview', 'team', 'admins', 'settings', 'upgrade'];
+const VALID_SECTIONS = ['overview', 'team', 'admins', 'billing', 'settings', 'upgrade'];
 
 const getInitialSection = () => {
   const hash = window.location.hash.replace('#', '');
@@ -140,6 +141,14 @@ const Dashboard = () => {
           token={token}
           workspace={data.workspace}
           onGoToUpgrade={goToUpgrade}
+        />
+      )}
+      {section === 'billing' && (
+        <Billing
+          token={token}
+          workspace={data.workspace}
+          onGoToUpgrade={goToUpgrade}
+          onChange={load}
         />
       )}
       {section === 'settings' && (

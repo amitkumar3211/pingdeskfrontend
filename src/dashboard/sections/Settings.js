@@ -42,20 +42,20 @@ const Settings = ({ token, workspace, onGoToUpgrade, onChange }) => {
                 <span className={`text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
                   workspace.is_pro ? 'bg-gradient-to-r from-violet-500 to-indigo-500 text-white' : 'bg-gray-100 text-gray-600'
                 }`}>
-                  {workspace.plan}
+                  {workspace.plan_name || workspace.plan}
                 </span>
               </dd>
             </div>
             <div>
-              <dt className="text-xs text-gray-400 font-medium">Seats</dt>
+              <dt className="text-xs text-gray-400 font-medium">Users</dt>
               <dd className="text-gray-900 font-semibold mt-0.5">
                 {workspace.seats_used} of {workspace.seats_total} used
               </dd>
             </div>
-            {workspace.subscription_ends_at && (
+            {workspace.current_period_end && (
               <div>
-                <dt className="text-xs text-gray-400 font-medium">Renews</dt>
-                <dd className="text-gray-900 font-semibold mt-0.5">{workspace.subscription_ends_at}</dd>
+                <dt className="text-xs text-gray-400 font-medium">{workspace.cancel_at_period_end ? 'Ends' : 'Next bill'}</dt>
+                <dd className="text-gray-900 font-semibold mt-0.5">{workspace.current_period_end}</dd>
               </div>
             )}
           </dl>
@@ -70,7 +70,7 @@ const Settings = ({ token, workspace, onGoToUpgrade, onChange }) => {
             How often Pingdesk should remind assignees about open requests.
           </p>
 
-          {workspace.is_pro ? (
+          {workspace.features?.custom_reminder_interval ? (
             <div className="flex items-end gap-3 flex-wrap">
               <div>
                 <label className="block text-xs font-medium text-gray-600 mb-1.5">Hours</label>

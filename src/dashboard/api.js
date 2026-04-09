@@ -19,21 +19,39 @@ export const updateSettings = async (token, reminderHours) => {
   return res.json();
 };
 
-export const createOrder = async (token, seats = 3, currency = 'INR') => {
-  const res = await fetch(`${API}/${token}/create-order`, {
+// Plans + subscriptions (autopay)
+export const fetchPlans = async (token) => {
+  const res = await fetch(`${API}/${token}/plans`);
+  if (!res.ok) throw new Error('Failed to load plans');
+  return res.json();
+};
+
+export const createSubscription = async (token, plan, currency = 'INR') => {
+  const res = await fetch(`${API}/${token}/subscription`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ seats, currency }),
+    body: JSON.stringify({ plan, currency }),
   });
   return res.json();
 };
 
-export const verifyPayment = async (token, data) => {
-  const res = await fetch(`${API}/${token}/verify-payment`, {
+export const verifySubscription = async (token, data) => {
+  const res = await fetch(`${API}/${token}/subscription/verify`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   });
+  return res.json();
+};
+
+export const cancelSubscription = async (token) => {
+  const res = await fetch(`${API}/${token}/subscription/cancel`, { method: 'POST' });
+  return res.json();
+};
+
+export const fetchInvoices = async (token) => {
+  const res = await fetch(`${API}/${token}/invoices`);
+  if (!res.ok) throw new Error('Failed to load invoices');
   return res.json();
 };
 

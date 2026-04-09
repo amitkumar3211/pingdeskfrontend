@@ -22,7 +22,7 @@ const Overview = ({ data, range, setRange, filter, setFilter, page, setPage, onG
   const { workspace, stats, requests, pro } = data;
   const [activeRow, setActiveRow] = useState(null);
   const india = isIndia();
-  const startingPrice = india ? '₹990/mo' : '$12/mo';
+  const startingPrice = india ? '₹999/mo' : '$12/mo';
 
   return (
     <>
@@ -37,8 +37,8 @@ const Overview = ({ data, range, setRange, filter, setFilter, page, setPage, onG
                 </svg>
               </div>
               <div>
-                <p className="text-sm font-bold text-gray-900">Unlock charts, exports, and unlimited seats</p>
-                <p className="text-xs text-gray-500">Pro plans start at {startingPrice} (3 seats — early bird).</p>
+                <p className="text-sm font-bold text-gray-900">Unlock charts, exports, and unlimited requests</p>
+                <p className="text-xs text-gray-500">Plans start at {startingPrice} for 15 users.</p>
               </div>
             </div>
             <button

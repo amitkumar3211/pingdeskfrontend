@@ -1,106 +1,95 @@
 import { useEffect, useState } from 'react';
 import { events } from '../../lib/analytics';
-import { createOrder, verifyPayment } from '../api';
+import { createSubscription, fetchPlans, verifySubscription } from '../api';
 import { FadeIn, SectionHeader } from '../components/shared';
 
-// Default per-seat prices. Backend is authoritative — these are just for the
-// live preview before the user clicks "Pay".
-const PRICE_INR = 330; // ₹330/seat early bird
-const PRICE_USD = 4;   //  $4/seat early bird
-
 /**
- * Detect a sensible default currency based on the user's locale/timezone.
- * India → INR. Everywhere else → USD.
+ * Currency detection — same logic across the dashboard.
+ * India → INR, everywhere else → USD. Persisted in localStorage.
  */
 const detectCurrency = () => {
   try {
     const stored = localStorage.getItem('pingdesk_currency');
     if (stored === 'INR' || stored === 'USD') return stored;
-
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
     if (tz === 'Asia/Kolkata' || tz === 'Asia/Calcutta') return 'INR';
-
     const lang = (navigator.language || '').toLowerCase();
     if (lang === 'en-in' || lang.endsWith('-in')) return 'INR';
-
     return 'USD';
   } catch {
     return 'USD';
   }
 };
 
-const formatPrice = (amount, currency) => {
-  if (currency === 'USD') {
-    return `$${amount.toLocaleString('en-US')}`;
-  }
-  return `₹${amount.toLocaleString('en-IN')}`;
+const FEATURE_LABELS = {
+  dashboard_view: 'Dashboard',
+  charts: 'Activity charts & analytics',
+  csv_export: 'CSV export',
+  custom_reminder_interval: 'Custom reminder intervals',
+  multi_admin: 'Multiple workspace admins',
+  priority_support: 'Priority support',
+  sso: 'SSO (coming soon)',
+  audit_logs: 'Audit logs (coming soon)',
 };
 
 const Upgrade = ({ token, workspace, onChange }) => {
-  const isPro = workspace.is_pro;
-  const minSeats = workspace.pro_min_seats || 3;
-  const [seats, setSeats] = useState(isPro ? 1 : minSeats);
+  const [plans, setPlans] = useState(null);
   const [currency, setCurrency] = useState(detectCurrency);
-  const [busy, setBusy] = useState(false);
+  const [busyPlan, setBusyPlan] = useState(null);
   const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
-  // Persist user's currency choice across sessions
   useEffect(() => {
     try { localStorage.setItem('pingdesk_currency', currency); } catch {}
   }, [currency]);
 
-  // For Pro: minimum is 1 (you're adding seats). For Free upgrade: minimum is the floor.
-  const floor = isPro ? 1 : minSeats;
+  useEffect(() => {
+    fetchPlans(token).then((res) => setPlans(res.plans || [])).catch(() => setPlans([]));
+  }, [token]);
 
-  const pricePerSeat = currency === 'USD' ? PRICE_USD : PRICE_INR;
-  const total = seats * pricePerSeat;
+  const currentPlan = workspace.plan || 'free';
 
-  const dec = () => setSeats((s) => Math.max(floor, s - 1));
-  const inc = () => setSeats((s) => Math.min(500, s + 1));
-
-  const handlePay = async () => {
+  const handleSubscribe = async (planKey) => {
     setErrorMsg('');
-    setBusy(true);
+    setSuccessMsg('');
+    setBusyPlan(planKey);
     try {
       events.checkoutStarted();
-      const order = await createOrder(token, seats, currency);
-      if (order.error) {
-        throw new Error(order.error);
+      const sub = await createSubscription(token, planKey, currency);
+      if (sub.error) {
+        setErrorMsg(sub.error);
+        setBusyPlan(null);
+        return;
       }
       events.paymentInitiated();
+
       const rzp = new window.Razorpay({
-        key: order.key,
-        amount: order.amount,
-        currency: order.currency,
+        key: sub.key,
+        subscription_id: sub.subscription_id,
         name: 'Pingdesk',
-        description: isPro ? `Add ${seats} seat${seats > 1 ? 's' : ''}` : `Pro Plan — ${seats} seats`,
-        order_id: order.order_id,
+        description: `${sub.plan_name} plan — billed monthly`,
+        prefill: { name: sub.workspace_name },
+        theme: { color: '#7C3AED' },
         handler: async (r) => {
-          const res = await verifyPayment(token, {
+          const res = await verifySubscription(token, {
             payment_id: r.razorpay_payment_id,
-            order_id: r.razorpay_order_id,
+            subscription_id: r.razorpay_subscription_id,
             signature: r.razorpay_signature,
-            seats,
           });
           if (res.success) {
             events.paymentSuccess(r.razorpay_payment_id);
-            setSuccessMsg(isPro
-              ? `${seats} seat${seats > 1 ? 's' : ''} added. You now have ${res.seats_total} total.`
-              : `Welcome to Pro! Your workspace has ${res.seats_total} seats.`
-            );
+            setSuccessMsg(res.message || 'Subscription active.');
             onChange?.();
           } else {
             events.paymentFailed('verification_failed');
-            setErrorMsg('Payment verification failed. Please contact support if your card was charged.');
+            setErrorMsg(res.error || 'Payment verification failed.');
           }
+          setBusyPlan(null);
         },
-        prefill: { name: order.workspace_name },
-        theme: { color: '#7C3AED' },
         modal: {
           ondismiss: () => {
             events.paymentFailed('user_dismissed');
-            setBusy(false);
+            setBusyPlan(null);
           },
         },
       });
@@ -108,17 +97,39 @@ const Upgrade = ({ token, workspace, onChange }) => {
     } catch (e) {
       events.paymentFailed('order_creation_failed');
       setErrorMsg('Could not start checkout. Please try again.');
-      setBusy(false);
+      setBusyPlan(null);
     }
   };
+
+  if (plans === null) {
+    return <div className="py-20 flex justify-center"><div className="w-8 h-8 rounded-full border-2 border-violet-100 border-t-violet-500 animate-spin" /></div>;
+  }
+
+  // Hide free from the upgrade picker — it's the default
+  const paidPlans = plans.filter((p) => p.is_paid);
 
   return (
     <>
       <SectionHeader
-        title={isPro ? 'Manage Plan' : 'Upgrade to Pro'}
-        description={isPro
-          ? `You're on the Pro plan with ${workspace.seats_total} seats. Buy more whenever your team grows.`
-          : 'Pick how many seats you need. You can always add more later.'}
+        title={workspace.is_pro ? 'Manage Plan' : 'Upgrade to Pingdesk Pro'}
+        description={workspace.is_pro
+          ? `You're on the ${workspace.plan_name} plan. Switch any time.`
+          : 'Pick the plan that fits your team. Cancel any time.'}
+        action={
+          <div className="flex items-center gap-0.5 bg-gray-100 rounded-full p-0.5">
+            {['USD', 'INR'].map((c) => (
+              <button
+                key={c}
+                onClick={() => setCurrency(c)}
+                className={`text-[11px] font-bold px-3 py-1.5 rounded-full transition-all ${
+                  currency === c ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                {c === 'USD' ? '$ USD' : '₹ INR'}
+              </button>
+            ))}
+          </div>
+        }
       />
 
       {successMsg && (
@@ -139,147 +150,103 @@ const Upgrade = ({ token, workspace, onChange }) => {
         </FadeIn>
       )}
 
-      <FadeIn>
-        <div className="relative rounded-3xl overflow-hidden shadow-xl">
-          {/* Background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-900 to-violet-950" />
-          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)', backgroundSize: '24px 24px' }} />
-          <div className="absolute top-0 right-0 w-96 h-96 bg-violet-500/15 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl" />
+      {/* Plan grid */}
+      <div className="grid md:grid-cols-3 gap-6 mb-8">
+        {paidPlans.map((plan, idx) => {
+          const isCurrent = currentPlan === plan.key;
+          const isFeatured = plan.key === 'growth'; // middle tier highlighted
+          const price = plan.price[currency];
+          const isBusy = busyPlan === plan.key;
 
-          <div className="relative z-10 p-8 md:p-12">
-            {!isPro && (
-              <span className="inline-block bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[11px] font-bold px-4 py-1.5 rounded-full mb-5 shadow-lg shadow-orange-500/30">
-                Early Bird — 50% off
-              </span>
-            )}
+          return (
+            <FadeIn key={plan.key} delay={100 * idx}>
+              <div className={`relative rounded-2xl p-7 transition-all duration-500 hover:-translate-y-1 h-full flex flex-col ${
+                isFeatured
+                  ? 'bg-gradient-to-br from-gray-900 via-gray-900 to-violet-950 text-white shadow-2xl shadow-gray-900/30 ring-1 ring-white/10'
+                  : 'bg-white border-2 border-gray-100 hover:border-violet-200 hover:shadow-xl'
+              }`}>
+                {isFeatured && (
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                    <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] font-bold px-4 py-1 rounded-full shadow-lg shadow-orange-500/30 uppercase tracking-wider">
+                      Most Popular
+                    </span>
+                  </div>
+                )}
 
-            <div className="grid lg:grid-cols-2 gap-10 items-start">
-              {/* Left: features */}
-              <div>
-                <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-3">
-                  {isPro ? 'Add more seats' : 'Pingdesk Pro'}
-                </h2>
-                <p className="text-white/60 text-base mb-6">
-                  {isPro
-                    ? 'Need more people on the team? Buy seats à la carte and they activate instantly.'
-                    : 'Everything in Free, plus the features your team will actually use.'}
-                </p>
-                {!isPro && (
-                  <ul className="space-y-2.5">
-                    {[
-                      'Unlimited requests per month',
-                      'Custom reminder intervals',
-                      'CSV exports of all your data',
-                      'Trend charts (today / week / month / year)',
-                      'Team performance analytics',
-                      'Multiple workspace admins',
-                      'Priority support',
-                    ].map((f, i) => (
-                      <li key={i} className="flex items-center gap-3 text-sm text-white/80">
-                        <span className="w-5 h-5 rounded-full bg-violet-500/20 flex items-center justify-center flex-shrink-0">
-                          <svg className="w-3 h-3 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                <h3 className={`text-lg font-bold ${isFeatured ? 'text-white' : 'text-gray-900'}`}>{plan.name}</h3>
+                <p className={`text-xs mt-1 mb-5 ${isFeatured ? 'text-gray-400' : 'text-gray-500'}`}>{plan.tagline}</p>
+
+                <div className="mb-5">
+                  <div className="flex items-baseline gap-1.5">
+                    <span className={`text-4xl font-black ${isFeatured ? 'text-white' : 'text-gray-900'}`}>{price.display}</span>
+                    <span className={`text-xs ${isFeatured ? 'text-gray-400' : 'text-gray-400'}`}>/ month</span>
+                  </div>
+                  <p className={`text-xs mt-1 ${isFeatured ? 'text-gray-400' : 'text-gray-500'}`}>
+                    Up to {plan.seats} users · unlimited requests
+                  </p>
+                </div>
+
+                <ul className="space-y-2.5 mb-6 flex-1">
+                  {Object.entries(plan.features)
+                    .filter(([, enabled]) => enabled)
+                    .map(([feat]) => (
+                      <li key={feat} className="flex items-center gap-2.5 text-xs">
+                        <span className={`w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 ${isFeatured ? 'bg-violet-500/20' : 'bg-violet-50'}`}>
+                          <svg className={`w-2.5 h-2.5 ${isFeatured ? 'text-violet-400' : 'text-violet-500'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                           </svg>
                         </span>
-                        {f}
+                        <span className={isFeatured ? 'text-gray-300' : 'text-gray-600'}>{FEATURE_LABELS[feat] || feat}</span>
                       </li>
                     ))}
-                  </ul>
-                )}
-              </div>
-
-              {/* Right: seat picker */}
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-7">
-                <div className="flex items-start justify-between mb-1 gap-3">
-                  <p className="text-xs text-white/40 font-bold uppercase tracking-wider">
-                    {isPro ? 'Add seats' : 'How many seats?'}
-                  </p>
-                  {/* Currency toggle */}
-                  <div className="flex items-center gap-0.5 bg-white/5 rounded-full p-0.5 border border-white/10">
-                    {['USD', 'INR'].map((c) => (
-                      <button
-                        key={c}
-                        onClick={() => setCurrency(c)}
-                        className={`text-[10px] font-bold px-2.5 py-1 rounded-full transition-all ${
-                          currency === c ? 'bg-white text-gray-900' : 'text-white/60 hover:text-white'
-                        }`}
-                      >
-                        {c === 'USD' ? '$ USD' : '₹ INR'}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <p className="text-white/80 text-xs mb-6">
-                  {isPro
-                    ? `Currently you have ${workspace.seats_total} seats.`
-                    : `Minimum ${minSeats} seats — perfect for small teams.`}
-                </p>
-
-                <div className="flex items-center justify-between mb-8">
-                  <button
-                    onClick={dec}
-                    disabled={seats <= floor}
-                    className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white text-2xl font-bold flex items-center justify-center disabled:opacity-30 transition-all"
-                  >
-                    −
-                  </button>
-                  <div className="text-center">
-                    <p className="text-6xl font-black text-white tracking-tight tabular-nums">{seats}</p>
-                    <p className="text-xs text-white/40 font-medium uppercase tracking-wider mt-1">{seats === 1 ? 'seat' : 'seats'}</p>
-                  </div>
-                  <button
-                    onClick={inc}
-                    className="w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white text-2xl font-bold flex items-center justify-center transition-all"
-                  >
-                    +
-                  </button>
-                </div>
-
-                {/* Quick presets */}
-                {!isPro && (
-                  <div className="flex items-center justify-center gap-2 mb-6">
-                    {[3, 5, 10, 25].map((n) => (
-                      <button
-                        key={n}
-                        onClick={() => setSeats(n)}
-                        className={`text-[11px] font-bold px-3 py-1.5 rounded-full transition-all ${
-                          seats === n ? 'bg-white text-gray-900' : 'bg-white/10 text-white/70 hover:bg-white/15'
-                        }`}
-                      >
-                        {n}
-                      </button>
-                    ))}
-                  </div>
-                )}
-
-                {/* Price */}
-                <div className="bg-white/5 rounded-xl p-4 mb-5">
-                  <div className="flex items-baseline justify-between">
-                    <div>
-                      <p className="text-xs text-white/40 font-medium">{seats} × {formatPrice(pricePerSeat, currency)}/seat</p>
-                      <p className="text-xs text-white/40 font-medium">per month</p>
-                    </div>
-                    <p className="text-3xl font-black text-white tabular-nums">{formatPrice(total, currency)}</p>
-                  </div>
-                </div>
+                </ul>
 
                 <button
-                  onClick={handlePay}
-                  disabled={busy}
-                  className="w-full bg-white hover:bg-gray-50 text-gray-900 font-bold text-sm px-6 py-3.5 rounded-full transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 disabled:opacity-50"
+                  onClick={() => handleSubscribe(plan.key)}
+                  disabled={isCurrent || isBusy}
+                  className={`w-full py-3 px-5 rounded-full text-sm font-bold transition-all ${
+                    isCurrent
+                      ? 'bg-emerald-50 text-emerald-700 cursor-default'
+                      : isFeatured
+                        ? 'bg-white text-gray-900 hover:bg-gray-50 shadow-lg hover:shadow-xl hover:-translate-y-0.5'
+                        : 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white hover:from-violet-700 hover:to-indigo-700 shadow-md hover:shadow-lg hover:-translate-y-0.5'
+                  } ${isBusy ? 'opacity-50' : ''}`}
                 >
-                  {busy
-                    ? 'Opening checkout...'
-                    : isPro
-                      ? `Add ${seats} seat${seats > 1 ? 's' : ''} for ${formatPrice(total, currency)}`
-                      : `Pay ${formatPrice(total, currency)} / month`}
+                  {isBusy ? 'Opening checkout...' : isCurrent ? 'Current plan' : `Subscribe to ${plan.name}`}
                 </button>
-                <p className="text-center text-[11px] text-white/40 mt-3">Secured by Razorpay · Cancel anytime</p>
               </div>
+            </FadeIn>
+          );
+        })}
+      </div>
+
+      {/* Enterprise card */}
+      <FadeIn delay={400}>
+        <div className="bg-white border border-gray-100 rounded-2xl p-7 shadow-sm flex items-center justify-between flex-wrap gap-4">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center flex-shrink-0">
+              <svg className="w-6 h-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-gray-900">Enterprise</h3>
+              <p className="text-xs text-gray-500 mt-1">Custom seat counts, SSO, audit logs, SLA, and dedicated support. For organizations with 200+ users.</p>
             </div>
           </div>
+          <a
+            href="mailto:amitkumar326310@gmail.com?subject=Pingdesk%20Enterprise%20Inquiry"
+            className="bg-gray-900 text-white text-xs font-bold px-5 py-2.5 rounded-full hover:bg-gray-800 transition-all shadow-sm"
+          >
+            Contact Sales
+          </a>
         </div>
+      </FadeIn>
+
+      <FadeIn delay={500}>
+        <p className="text-center text-[11px] text-gray-400 mt-8">
+          All plans renew automatically. Secured by Razorpay. Cancel anytime from the Billing page.
+        </p>
       </FadeIn>
     </>
   );
