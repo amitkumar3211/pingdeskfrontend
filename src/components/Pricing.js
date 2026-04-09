@@ -1,21 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { events } from '../lib/analytics';
+import { detectCurrencySync, refreshCurrencyFromIp, setCurrencyChoice } from '../dashboard/lib/currency';
 
 const API_URL = 'https://pindeskapi.himalayancoders.com';
-
-const detectCurrency = () => {
-  try {
-    const stored = localStorage.getItem('pingdesk_currency');
-    if (stored === 'INR' || stored === 'USD') return stored;
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-    if (tz === 'Asia/Kolkata' || tz === 'Asia/Calcutta') return 'INR';
-    const lang = (navigator.language || '').toLowerCase();
-    if (lang === 'en-in' || lang.endsWith('-in')) return 'INR';
-    return 'USD';
-  } catch {
-    return 'USD';
-  }
-};
 
 const plans = [
   {
@@ -90,7 +77,7 @@ const plans = [
 const Pricing = () => {
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
-  const [currency, setCurrency] = useState(detectCurrency);
+  const [currency, setCurrency] = useState(detectCurrencySync);
 
   useEffect(() => {
     const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setInView(true); }, { threshold: 0.15 });
@@ -98,9 +85,18 @@ const Pricing = () => {
     return () => obs.disconnect();
   }, []);
 
+  // First-paint best guess (sync). Then async IP lookup confirms or corrects.
+  // Skips if user already manually picked a currency.
   useEffect(() => {
-    try { localStorage.setItem('pingdesk_currency', currency); } catch {}
-  }, [currency]);
+    const userPicked = localStorage.getItem('pingdesk_currency');
+    if (userPicked === 'INR' || userPicked === 'USD') return;
+    let cancelled = false;
+    refreshCurrencyFromIp().then((c) => {
+      if (!cancelled && c && c !== currency) setCurrency(c);
+    });
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <section id="pricing" className="py-20 md:py-28 px-6" ref={ref}>
@@ -117,7 +113,7 @@ const Pricing = () => {
             {['USD', 'INR'].map((c) => (
               <button
                 key={c}
-                onClick={() => setCurrency(c)}
+                onClick={() => { setCurrency(c); setCurrencyChoice(c); }}
                 className={`text-[11px] font-bold px-4 py-1.5 rounded-full transition-all ${
                   currency === c ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
                 }`}

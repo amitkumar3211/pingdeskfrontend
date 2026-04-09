@@ -2,24 +2,7 @@ import { useEffect, useState } from 'react';
 import { events } from '../../lib/analytics';
 import { createSubscription, fetchPlans, verifySubscription } from '../api';
 import { FadeIn, SectionHeader } from '../components/shared';
-
-/**
- * Currency detection — same logic across the dashboard.
- * India → INR, everywhere else → USD. Persisted in localStorage.
- */
-const detectCurrency = () => {
-  try {
-    const stored = localStorage.getItem('pingdesk_currency');
-    if (stored === 'INR' || stored === 'USD') return stored;
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-    if (tz === 'Asia/Kolkata' || tz === 'Asia/Calcutta') return 'INR';
-    const lang = (navigator.language || '').toLowerCase();
-    if (lang === 'en-in' || lang.endsWith('-in')) return 'INR';
-    return 'USD';
-  } catch {
-    return 'USD';
-  }
-};
+import { detectCurrencySync, refreshCurrencyFromIp, setCurrencyChoice } from '../lib/currency';
 
 const FEATURE_LABELS = {
   dashboard_view: 'Dashboard',
@@ -34,14 +17,25 @@ const FEATURE_LABELS = {
 
 const Upgrade = ({ token, workspace, onChange }) => {
   const [plans, setPlans] = useState(null);
-  const [currency, setCurrency] = useState(detectCurrency);
+  const [currency, setCurrency] = useState(detectCurrencySync);
   const [busyPlan, setBusyPlan] = useState(null);
   const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
 
+  // First-paint: best-effort sync detection. Then async IP lookup
+  // confirms (or corrects) the choice. Only applies if the user hasn't
+  // already manually picked a currency (locked in localStorage).
   useEffect(() => {
-    try { localStorage.setItem('pingdesk_currency', currency); } catch {}
-  }, [currency]);
+    const userPicked = localStorage.getItem('pingdesk_currency');
+    if (userPicked === 'INR' || userPicked === 'USD') return;
+
+    let cancelled = false;
+    refreshCurrencyFromIp().then((c) => {
+      if (!cancelled && c && c !== currency) setCurrency(c);
+    });
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     fetchPlans(token).then((res) => setPlans(res.plans || [])).catch(() => setPlans([]));
@@ -120,7 +114,7 @@ const Upgrade = ({ token, workspace, onChange }) => {
             {['USD', 'INR'].map((c) => (
               <button
                 key={c}
-                onClick={() => setCurrency(c)}
+                onClick={() => { setCurrency(c); setCurrencyChoice(c); }}
                 className={`text-[11px] font-bold px-3 py-1.5 rounded-full transition-all ${
                   currency === c ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'
                 }`}

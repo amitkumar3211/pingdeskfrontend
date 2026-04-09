@@ -1,28 +1,12 @@
 import { useState } from 'react';
 import { events } from '../../lib/analytics';
 import { Avatar, FadeIn, StatCard, StatusBadge } from '../components/shared';
-
-// Same detection logic as Upgrade.js — keeps the banner price honest
-// without forcing the user to navigate to the Upgrade page first.
-const isIndia = () => {
-  try {
-    const stored = localStorage.getItem('pingdesk_currency');
-    if (stored === 'INR') return true;
-    if (stored === 'USD') return false;
-    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-    if (tz === 'Asia/Kolkata' || tz === 'Asia/Calcutta') return true;
-    const lang = (navigator.language || '').toLowerCase();
-    return lang === 'en-in' || lang.endsWith('-in');
-  } catch {
-    return false;
-  }
-};
+import { detectCurrencySync } from '../lib/currency';
 
 const Overview = ({ data, range, setRange, filter, setFilter, page, setPage, onGoToUpgrade }) => {
   const { workspace, stats, requests, pro } = data;
   const [activeRow, setActiveRow] = useState(null);
-  const india = isIndia();
-  const startingPrice = india ? '₹999/mo' : '$12/mo';
+  const startingPrice = detectCurrencySync() === 'INR' ? '₹999/mo' : '$12/mo';
 
   return (
     <>
