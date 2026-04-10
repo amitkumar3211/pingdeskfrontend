@@ -103,7 +103,53 @@ const Security = () => {
           ))}
         </div>
 
-        <div className={`bg-white border border-gray-100 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ transitionDelay: '700ms' }}>
+        {/* Slack permissions transparency */}
+        <div className={`bg-white border border-gray-100 rounded-2xl p-6 md:p-8 mb-6 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ transitionDelay: '650ms' }}>
+          <div className="flex items-center gap-3 mb-5">
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <div>
+              <p className="text-base font-bold text-gray-900">Only 4 Slack permissions. Nothing more.</p>
+              <p className="text-xs text-gray-500 mt-0.5">We request the bare minimum to function. Here's exactly what and why.</p>
+            </div>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4">
+            {[
+              { scope: 'commands', why: 'Handle the /request slash command — this is how you create, edit, and manage requests.' },
+              { scope: 'chat:write', why: 'Post request confirmations, status updates, and reminders in your channels.' },
+              { scope: 'chat:write.public', why: 'Let you use /request in any public channel without needing to invite the bot first.' },
+              { scope: 'users:read', why: 'Show real names in the dashboard instead of raw Slack user IDs like U0AQX3RV2N.' },
+            ].map((p) => (
+              <div key={p.scope} className="flex items-start gap-3 bg-gray-50 rounded-xl p-4">
+                <span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg className="w-3 h-3 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </span>
+                <div>
+                  <p className="text-sm font-bold text-gray-900">{p.scope}</p>
+                  <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{p.why}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 flex items-start gap-3 bg-red-50/50 border border-red-100/50 rounded-xl p-4">
+            <span className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg className="w-3 h-3 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </span>
+            <div>
+              <p className="text-sm font-bold text-gray-900">What we don't request</p>
+              <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">No access to your messages, files, DMs, channels, or conversations. We can't read anything in your workspace — only respond to /request and post messages as PingDesk.</p>
+            </div>
+          </div>
+        </div>
+
+        <div className={`bg-white border border-gray-100 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} style={{ transitionDelay: '750ms' }}>
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-full bg-violet-50 text-violet-600 flex items-center justify-center flex-shrink-0">
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
