@@ -47,7 +47,7 @@ const plans = [
     features: [
       'Up to 50 users',
       'Everything in Starter',
-      'Multiple workspace admins',
+      'Multiple admins per workspace',
       'Priority support',
       'Team performance reports',
     ],
