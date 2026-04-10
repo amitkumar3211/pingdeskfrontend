@@ -3,6 +3,18 @@ import { events } from '../../lib/analytics';
 import { Avatar, FadeIn, StatCard, StatusBadge } from '../components/shared';
 import { detectCurrencySync } from '../lib/currency';
 
+/** Format an ISO date string in the user's local timezone */
+const fmtDate = (iso) => {
+  if (!iso) return '—';
+  try {
+    return new Date(iso).toLocaleString(undefined, {
+      month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit',
+    });
+  } catch {
+    return iso;
+  }
+};
+
 /* ───── Welcome banner for first-time users (0 requests) ───── */
 const WelcomeBanner = ({ workspaceName }) => {
   const [step, setStep] = useState(0);
@@ -430,7 +442,7 @@ const Overview = ({ data, range, setRange, filter, setFilter, page, setPage, onG
                           ) : <span className="text-gray-300 text-sm">—</span>}
                         </td>
                         <td className="px-5 py-4"><StatusBadge status={r.status} /></td>
-                        <td className="px-5 py-4 text-xs text-gray-400">{r.created_at}</td>
+                        <td className="px-5 py-4 text-xs text-gray-400">{fmtDate(r.created_at)}</td>
                       </tr>
                     ))}
                   </tbody>
