@@ -39,10 +39,19 @@ const pillars = [
   },
   {
     title: 'You own your data',
-    desc: 'Export everything to CSV anytime. Uninstall Pingdesk and we delete your data within 30 days, no questions asked. Email us and we wipe it sooner.',
+    desc: 'Export everything to CSV anytime. Request data deletion by email and we wipe it within 30 days, no questions asked. Your data is always portable.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Uninstall = instant stop',
+    desc: 'Remove Pingdesk from your Slack workspace and we instantly cancel your subscription, stop all reminders, and revoke the bot token. No surprise charges, ever. Your request history stays for 30 days in case you come back.',
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M5.636 5.636a9 9 0 1012.728 0M12 3v9" />
       </svg>
     ),
   },
