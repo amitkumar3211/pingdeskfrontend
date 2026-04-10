@@ -49,7 +49,6 @@ const plans = [
       'Everything in Starter',
       'Multiple admins per workspace',
       'Priority support',
-      'Team completion analytics',
     ],
     cta: 'Start with Growth',
     href: `${API_URL}/slack/install?plan=growth`,
