@@ -1,17 +1,141 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { events } from '../../lib/analytics';
 import { Avatar, FadeIn, StatCard, StatusBadge } from '../components/shared';
 import { detectCurrencySync } from '../lib/currency';
+
+/* ───── Welcome banner for first-time users (0 requests) ───── */
+const WelcomeBanner = ({ workspaceName }) => {
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    const timers = [
+      setTimeout(() => setStep(1), 400),
+      setTimeout(() => setStep(2), 900),
+      setTimeout(() => setStep(3), 1400),
+      setTimeout(() => setStep(4), 1900),
+    ];
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  return (
+    <div className="mb-8 relative overflow-hidden rounded-3xl">
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-600 via-indigo-600 to-purple-700" />
+      <div className="absolute inset-0 opacity-10" style={{
+        backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
+        backgroundSize: '32px 32px',
+      }} />
+      <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4" />
+      <div className="absolute bottom-0 left-0 w-64 h-64 bg-violet-400/15 rounded-full blur-3xl translate-y-1/2 -translate-x-1/4" />
+
+      <div className="relative z-10 px-8 py-12 md:px-12 md:py-14">
+        {/* Welcome text */}
+        <div className={`transition-all duration-700 ${step >= 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-5">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400" />
+            </span>
+            <span className="text-xs font-semibold text-white/90">Ready to go</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-2">
+            Welcome to Pingdesk!
+          </h2>
+          <p className="text-white/60 text-base md:text-lg mb-8 max-w-xl">
+            {workspaceName} is all set up. Create your first request in 3 easy steps.
+          </p>
+        </div>
+
+        {/* Steps */}
+        <div className="space-y-4 max-w-lg mb-10">
+          {[
+            { num: '1', text: 'Go to any Slack channel', delay: 1 },
+            { num: '2', text: 'Type:  /request Review homepage design @teammate', code: true, delay: 2 },
+            { num: '3', text: 'That\'s it — Pingdesk starts tracking automatically', delay: 3 },
+          ].map((s) => (
+            <div
+              key={s.num}
+              className={`flex items-start gap-4 transition-all duration-700 ${
+                step >= s.delay ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
+              }`}
+            >
+              <span className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-black flex-shrink-0 transition-all duration-500 ${
+                step >= s.delay ? 'bg-white text-violet-700 shadow-lg scale-100' : 'bg-white/10 text-white/40 scale-90'
+              }`}>
+                {s.num}
+              </span>
+              <div className="pt-1">
+                {s.code ? (
+                  <p className="text-white/90 text-sm font-medium">
+                    Type: <code className="bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-lg text-violet-200 font-mono text-xs ml-1">/request Review homepage design @teammate</code>
+                  </p>
+                ) : (
+                  <p className="text-white/90 text-sm font-medium">{s.text}</p>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <div className={`flex flex-wrap gap-3 transition-all duration-700 delay-500 ${
+          step >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+        }`}>
+          <a
+            href="https://slack.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2.5 bg-white hover:bg-gray-50 text-gray-900 font-bold text-sm px-7 py-3.5 rounded-full transition-all shadow-xl hover:shadow-2xl hover:-translate-y-0.5"
+          >
+            <svg className="w-5 h-5 transition-transform group-hover:scale-110" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zm1.271 0a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zm0 1.271a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zm-1.271 0a2.528 2.528 0 0 1-2.521 2.521 2.528 2.528 0 0 1-2.521-2.521V2.522A2.528 2.528 0 0 1 15.164 0a2.528 2.528 0 0 1 2.521 2.522v6.312zM15.164 18.956a2.528 2.528 0 0 1 2.521 2.522A2.528 2.528 0 0 1 15.164 24a2.528 2.528 0 0 1-2.521-2.522v-2.522h2.521zm0-1.271a2.528 2.528 0 0 1-2.521-2.521 2.528 2.528 0 0 1 2.521-2.521h6.314A2.528 2.528 0 0 1 24 15.164a2.528 2.528 0 0 1-2.522 2.521h-6.314z" />
+            </svg>
+            Open Slack
+          </a>
+          <button
+            className="inline-flex items-center gap-2 text-white/70 hover:text-white font-medium text-sm px-5 py-3.5 rounded-full border border-white/20 hover:border-white/40 transition-all hover:-translate-y-0.5"
+            onClick={() => {
+              const el = document.getElementById('how-to-video');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            Learn more
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Subtle helper commands */}
+        <div className={`mt-8 flex flex-wrap gap-x-6 gap-y-2 transition-all duration-700 delay-700 ${
+          step >= 4 ? 'opacity-100' : 'opacity-0'
+        }`}>
+          {[
+            '/request mine — see your assigned tasks',
+            '/request dashboard — open this dashboard',
+            '/request help — all commands',
+          ].map((cmd) => (
+            <span key={cmd} className="text-[11px] text-white/30 font-mono">{cmd}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Overview = ({ data, range, setRange, filter, setFilter, page, setPage, onGoToUpgrade }) => {
   const { workspace, stats, requests, pro } = data;
   const [activeRow, setActiveRow] = useState(null);
   const startingPrice = detectCurrencySync() === 'INR' ? '₹999/mo' : '$12/mo';
+  const isFirstTime = stats.total === 0;
 
   return (
     <>
+      {/* ── Welcome banner for new workspaces ── */}
+      {isFirstTime && <WelcomeBanner workspaceName={workspace.name} />}
+
       {/* ── Free plan small upgrade banner ── */}
-      {!workspace.is_pro && (
+      {!workspace.is_pro && !isFirstTime && (
         <FadeIn>
           <div className="mb-6 bg-gradient-to-r from-violet-50 to-indigo-50 border border-violet-100 rounded-2xl px-5 py-4 flex items-center justify-between flex-wrap gap-3">
             <div className="flex items-center gap-3">
@@ -36,7 +160,7 @@ const Overview = ({ data, range, setRange, filter, setFilter, page, setPage, onG
       )}
 
       {/* ── Free plan usage card ── */}
-      {!workspace.is_pro && (
+      {!workspace.is_pro && !isFirstTime && (
         <FadeIn delay={50}>
           <div className="mb-8 bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
             <div className="flex items-center justify-between mb-3">
