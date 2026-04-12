@@ -19,6 +19,7 @@ import Support from './pages/Support';
 import Refund from './pages/Refund';
 import Shipping from './pages/Shipping';
 import Docs from './pages/Docs';
+import Admin from './pages/Admin';
 import { useRouteTracker } from './lib/useRouteTracker';
 
 const LandingPage = () => (
@@ -59,6 +60,7 @@ function App() {
         <Route path="/cancellation" element={<Refund />} />
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/docs" element={<Docs />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );
