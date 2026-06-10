@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { events } from '../lib/analytics';
 
 const faqs = [
   {
