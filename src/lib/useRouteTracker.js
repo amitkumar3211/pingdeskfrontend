@@ -13,6 +13,11 @@ const pageTitles = {
   '/shipping': 'Shipping Policy — Pingdesk',
   '/blog': 'Blog — Slack Productivity Tips & Guides | Pingdesk',
   '/slack-app': 'Pingdesk for Slack — Request Tracking App | Install Free',
+  '/slack-ticketing-system': 'Slack Ticketing System — Turn Slack Into a Help Desk | Pingdesk',
+  '/slack-request-tracking': 'Slack Request Tracking — Track Requests in Slack | Pingdesk',
+  '/slack-help-desk': 'Slack Help Desk for Internal Teams — IT, HR, Ops | Pingdesk',
+  '/compare/halp-alternative': 'Best Halp Alternatives for 2026 — Slack Ticketing | Pingdesk',
+  '/compare/pingdesk-vs-others': 'Pingdesk vs ClearFeed vs Suptask vs Wrangle — Comparison 2026',
 };
 
 export const useRouteTracker = () => {

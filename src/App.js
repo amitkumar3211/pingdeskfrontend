@@ -23,6 +23,11 @@ import Docs from './pages/Docs';
 import Admin from './pages/Admin';
 import Blog from './pages/Blog';
 import SlackApp from './pages/SlackApp';
+import SlackTicketingSystem from './pages/seo/SlackTicketingSystem';
+import SlackRequestTracking from './pages/seo/SlackRequestTracking';
+import SlackHelpDesk from './pages/seo/SlackHelpDesk';
+import HalpAlternative from './pages/compare/HalpAlternative';
+import PingdeskVsOthers from './pages/compare/PingdeskVsOthers';
 import { useRouteTracker } from './lib/useRouteTracker';
 
 const LandingPage = () => (
@@ -66,6 +71,11 @@ function App() {
         <Route path="/docs" element={<Docs />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/slack-app" element={<SlackApp />} />
+        <Route path="/slack-ticketing-system" element={<SlackTicketingSystem />} />
+        <Route path="/slack-request-tracking" element={<SlackRequestTracking />} />
+        <Route path="/slack-help-desk" element={<SlackHelpDesk />} />
+        <Route path="/compare/halp-alternative" element={<HalpAlternative />} />
+        <Route path="/compare/pingdesk-vs-others" element={<PingdeskVsOthers />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>

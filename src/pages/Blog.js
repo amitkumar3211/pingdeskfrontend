@@ -244,6 +244,187 @@ Teams using Pingdesk's auto-follow-ups report:
 Pingdesk is free for up to 3 users. Auto-follow-ups are included on all plans.
     `,
   },
+  {
+    slug: 'slack-task-management-apps',
+    title: 'Best Slack Apps for Task Management in 2026',
+    excerpt: 'From lightweight request tracking to full project boards, these Slack apps help your team stay on top of tasks without leaving the workspace.',
+    category: 'Roundup',
+    date: 'Jun 8, 2026',
+    readTime: '6 min read',
+    content: `
+## Why Manage Tasks in Slack?
+
+Your team spends 8+ hours a day in Slack. Switching to a separate task management tool creates friction, and friction kills adoption. The best approach: manage tasks where the work already happens.
+
+## Top Slack Task Management Apps
+
+### 1. Pingdesk — Request & Task Tracking
+
+**Best for**: Tracking requests, follow-ups, and ad-hoc tasks.
+
+Pingdesk lets you create tasks with \`/request\` and assign them to teammates. Every task has a status (Pending, In Progress, Done) and automatic follow-up reminders if it goes unanswered.
+
+- Free for up to 3 users
+- Auto follow-up reminders
+- Web dashboard with analytics
+- 60-second setup
+
+### 2. Linear — Engineering Task Management
+
+**Best for**: Sprint planning and issue tracking for engineering teams.
+
+Linear's Slack integration lets you create issues, sync status updates, and get notifications. It's a full project management tool, not just Slack-native.
+
+### 3. Asana — Cross-functional Project Management
+
+**Best for**: Marketing, ops, and cross-functional teams that need project timelines.
+
+Create Asana tasks from Slack messages and get due date reminders. More heavyweight than Pingdesk but offers Gantt charts, portfolios, and resource management.
+
+### 4. Todoist — Personal Task Lists
+
+**Best for**: Individual productivity within Slack.
+
+Add personal tasks from Slack and get reminders. Best for individual contributors, not team request tracking.
+
+### 5. Workast — Task Manager Built for Slack
+
+**Best for**: Teams that want Kanban boards inside Slack.
+
+Create tasks from any Slack message and organize them on boards. More project-management-focused than Pingdesk.
+
+## When to Use What
+
+| Need | Best Tool |
+|------|-----------|
+| Track team requests with follow-ups | Pingdesk |
+| Engineering sprint planning | Linear |
+| Cross-functional project management | Asana |
+| Personal task lists | Todoist |
+| Kanban boards in Slack | Workast |
+
+## Try Pingdesk
+
+If your main problem is requests getting lost in Slack, Pingdesk is the fastest solution. Free to start, 60-second setup, auto follow-ups included.
+    `,
+  },
+  {
+    slug: 'slack-follow-up-automation',
+    title: 'How to Never Miss a Follow-up in Slack Again',
+    excerpt: 'Tired of manually tracking who owes you a response? Here are 3 ways to automate Slack follow-ups, from built-in features to dedicated tools.',
+    category: 'Guide',
+    date: 'Jun 6, 2026',
+    readTime: '5 min read',
+    content: `
+## The Follow-up Tax
+
+Every team pays a "follow-up tax" — time spent tracking down responses to requests, reminders, and approvals. For the average team, this is **5+ hours per week** spent on manual follow-ups.
+
+## Method 1: Slack Reminders (Free, Limited)
+
+Slack has built-in reminders: \`/remind @sarah to review the design in 2 hours\`. The problem? You're still manually tracking every request. And if Sarah ignores the reminder, you're back to square one.
+
+**Pros**: Free, built-in
+**Cons**: Manual setup for every request, no tracking, no accountability
+
+## Method 2: Slack Workflow Builder (Free, More Setup)
+
+Slack's Workflow Builder can create basic automated flows. You could build a workflow that sends a follow-up message after a time delay. But it requires setup per workflow, can't track status, and doesn't adapt based on whether someone responded.
+
+**Pros**: Free, customizable
+**Cons**: Complex setup, no status tracking, doesn't know if someone responded
+
+## Method 3: Pingdesk (Best — Automatic & Intelligent)
+
+Pingdesk automates follow-ups as a core feature. When you create a request with \`/request\`, Pingdesk:
+
+1. **Tracks status automatically** — Pending, In Progress, Done
+2. **Sends reminders if no action** — After 24 hours (configurable), Pingdesk sends a polite reminder to the assignee
+3. **Stops when resolved** — Once the assignee clicks "In Progress" or "Mark as Done," reminders stop
+4. **Shows everything in a dashboard** — See all pending requests, who's blocked, and what's overdue
+
+### Why This Works Better
+
+- **Zero manual effort** — You don't have to remember to follow up
+- **Not awkward** — The bot follows up, not you
+- **Accountable** — Everyone can see the status in the channel
+- **Configurable** — Set reminder intervals from 1 hour to 7 days
+
+## The Math
+
+If your team sends 20 requests per week and each manual follow-up takes 5 minutes:
+
+- Manual: 20 requests x 5 min = **100 minutes/week** (1.7 hours)
+- With Pingdesk: **0 minutes** — it's automatic
+
+Over a year, that's **85+ hours saved** — more than two full work weeks.
+
+## Get Started
+
+Pingdesk is free for up to 3 users. Install in 60 seconds, and your first automatic follow-up happens within 24 hours.
+    `,
+  },
+  {
+    slug: 'slack-approval-workflow',
+    title: 'How to Build an Approval Workflow in Slack',
+    excerpt: 'Need approvals for expenses, time off, or content reviews? Here\'s how to build a simple approval workflow in Slack using Pingdesk.',
+    category: 'Guide',
+    date: 'Jun 3, 2026',
+    readTime: '5 min read',
+    content: `
+## Why Approval Workflows in Slack?
+
+Most approvals happen via email: someone sends a request, the approver sees it 4 hours later, replies "approved," and the requester doesn't see the reply until the next morning. Total cycle time: 24+ hours for something that should take 2 minutes.
+
+Moving approvals to Slack cuts this cycle to minutes — if you have the right structure.
+
+## The Simple Approach: Pingdesk
+
+You don't need a complex workflow engine for most approvals. Here's how teams use Pingdesk:
+
+### Step 1: Create an approval request
+
+\`\`\`
+/request Approve Q3 marketing budget @finance-lead
+\`\`\`
+
+Pingdesk creates a trackable request card in the channel with:
+- Title: "Approve Q3 marketing budget"
+- Assigned to: @finance-lead
+- Status: Pending
+- Action buttons: Mark as Done, In Progress
+
+### Step 2: Approver takes action
+
+The approver sees the request in their Slack feed and clicks **"Mark as Done"** to approve, or **"In Progress"** to indicate they're reviewing it.
+
+### Step 3: Auto follow-up if needed
+
+If the approver doesn't respond within 24 hours, Pingdesk sends an automatic reminder. No more chasing approvers.
+
+### Step 4: Track in dashboard
+
+All approval requests are visible in the Pingdesk dashboard. Filter by status to see what's pending, who's blocking, and what's been approved.
+
+## Common Approval Workflows Teams Build
+
+- **Expense approvals**: \`/request Approve $500 conference budget @manager\`
+- **PTO requests**: \`/request PTO Dec 23-27 @hr-team\`
+- **Content review**: \`/request Approve blog post draft @editor\`
+- **Design sign-off**: \`/request Sign off on homepage redesign @product-lead\`
+- **Vendor onboarding**: \`/request Approve new vendor contract @legal\`
+
+## When You Need More
+
+Pingdesk covers 80% of approval needs with zero configuration. If you need conditional routing (e.g., "if amount > $1000, route to VP"), you'll want a dedicated workflow tool like Wrangle or Jira SM.
+
+But for most teams, a simple \`/request\` + auto follow-up is all you need.
+
+## Start Building Approval Workflows
+
+Install Pingdesk free. Your first approval workflow is one slash command away.
+    `,
+  },
 ];
 
 const BlogPost = ({ post, onBack }) => (
