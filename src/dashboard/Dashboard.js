@@ -119,6 +119,7 @@ const Dashboard = () => {
       {section === 'overview' && (
         <Overview
           data={data}
+          token={token}
           range={range}
           setRange={setRange}
           filter={filter}

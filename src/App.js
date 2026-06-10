@@ -10,6 +10,7 @@ import WhoItsFor from './components/WhoItsFor';
 import Testimonials from './components/Testimonials';
 import Pricing from './components/Pricing';
 import Security from './components/Security';
+import FAQ from './components/FAQ';
 import FinalCTA from './components/FinalCTA';
 import Footer from './components/Footer';
 import Dashboard from './dashboard/Dashboard';
@@ -20,6 +21,8 @@ import Refund from './pages/Refund';
 import Shipping from './pages/Shipping';
 import Docs from './pages/Docs';
 import Admin from './pages/Admin';
+import Blog from './pages/Blog';
+import SlackApp from './pages/SlackApp';
 import { useRouteTracker } from './lib/useRouteTracker';
 
 const LandingPage = () => (
@@ -35,6 +38,7 @@ const LandingPage = () => (
     <Testimonials />
     <Security />
     <Pricing />
+    <FAQ />
     <FinalCTA />
     <Footer />
   </div>
@@ -60,6 +64,8 @@ function App() {
         <Route path="/cancellation" element={<Refund />} />
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/docs" element={<Docs />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/slack-app" element={<SlackApp />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>

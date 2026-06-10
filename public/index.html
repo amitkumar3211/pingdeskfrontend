@@ -10,7 +10,7 @@
 
     <!-- Primary SEO -->
     <title>Pingdesk — Never Lose a Request in Slack Again</title>
-    <meta name="description" content="Turn Slack messages into trackable requests with automatic follow-ups. Create, track, and manage requests directly in Slack. Free to start." />
+    <meta name="description" content="Pingdesk is a Slack app that turns messages into trackable requests with automatic follow-ups. Create, assign, and manage requests with /request. Free for small teams. Install in 60 seconds." />
     <meta name="keywords" content="Slack app, request tracking, Slack requests, follow-up automation, team productivity, Slack bot, task management, Slack integration, Pingdesk" />
     <meta name="author" content="Pingdesk" />
 
@@ -49,7 +49,7 @@
       });
     </script>
 
-    <!-- Structured Data -->
+    <!-- Structured Data: SoftwareApplication -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -69,18 +69,69 @@
         },
         {
           "@type": "Offer",
-          "price": "4",
+          "price": "12",
           "priceCurrency": "USD",
-          "name": "Pro Plan — Early Bird",
-          "description": "Per user/month. Unlimited requests with advanced features. Regular price $8/user/month.",
-          "priceValidUntil": "2027-12-31"
+          "name": "Starter Plan",
+          "description": "Up to 15 users, unlimited requests with analytics."
+        },
+        {
+          "@type": "Offer",
+          "price": "29",
+          "priceCurrency": "USD",
+          "name": "Growth Plan",
+          "description": "Up to 50 users, multiple admins, priority support."
         }
-      ],
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "ratingCount": "847"
-      }
+      ]
+    }
+    </script>
+
+    <!-- Structured Data: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I install Pingdesk on Slack?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Click 'Add to Slack' on our website. You'll authorize Pingdesk in your Slack workspace, and it's ready to use in under 60 seconds. No configuration needed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Pingdesk free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! Pingdesk has a free plan for up to 3 users and 50 requests per month. Paid plans start at $12/month for growing teams."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Pingdesk track requests in Slack?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use the /request slash command in any Slack channel to create a trackable request. Pingdesk automatically assigns it, tracks status, and sends follow-up reminders if it goes unanswered."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if someone doesn't respond to a request?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pingdesk automatically sends polite follow-up reminders to the assigned person. You can customize reminder intervals. No more manually chasing people."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my data secure?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Pingdesk uses encrypted connections, doesn't store message content beyond what's needed for request tracking, and follows Slack's security best practices."
+          }
+        }
+      ]
     }
     </script>
   </head>

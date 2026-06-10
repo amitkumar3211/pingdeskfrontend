@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { events } from '../../lib/analytics';
 import { Avatar, FadeIn, StatCard, StatusBadge } from '../components/shared';
+import InviteTeamBanner from '../components/InviteTeamBanner';
 import { detectCurrencySync } from '../lib/currency';
 
 /** Format an ISO date string in the user's local timezone */
@@ -135,16 +136,22 @@ const WelcomeBanner = ({ workspaceName }) => {
   );
 };
 
-const Overview = ({ data, range, setRange, filter, setFilter, page, setPage, onGoToUpgrade }) => {
+const Overview = ({ data, token, range, setRange, filter, setFilter, page, setPage, onGoToUpgrade }) => {
   const { workspace, stats, requests, pro } = data;
   const [activeRow, setActiveRow] = useState(null);
   const startingPrice = detectCurrencySync() === 'INR' ? '₹999/mo' : '$12/mo';
   const isFirstTime = stats.total === 0;
+  const showInviteBanner = stats.total <= 10 && (workspace.seat_count || 0) <= 1;
 
   return (
     <>
       {/* ── Welcome banner for new workspaces ── */}
       {isFirstTime && <WelcomeBanner workspaceName={workspace.name} />}
+
+      {/* ── Invite teammates prompt for new installs ── */}
+      {showInviteBanner && !isFirstTime && (
+        <InviteTeamBanner token={token} workspace={workspace} />
+      )}
 
       {/* ── Free plan small upgrade banner ── */}
       {!workspace.is_pro && !isFirstTime && (
