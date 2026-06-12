@@ -1,6 +1,9 @@
+import SEO from '../components/SEO';
+
 const Shipping = () => {
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
+      <SEO title="Shipping Information | Pingdesk" description="Pingdesk shipping information. Pingdesk is a digital product delivered instantly via Slack." canonical="https://www.getpingdesk.com/shipping" />
       <nav className="border-b border-gray-100 py-4 px-6">
         <div className="max-w-3xl mx-auto flex items-center gap-2.5">
           <a href="/" className="flex items-center gap-2.5">

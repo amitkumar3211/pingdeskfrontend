@@ -1,6 +1,7 @@
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { events } from '../../lib/analytics';
+import SEO from '../../components/SEO';
 
 const useCases = [
   { team: 'IT Teams', desc: 'Password resets, access requests, laptop issues — all tracked in #it-help without a separate tool.', emoji: '🖥️' },
@@ -13,6 +14,11 @@ const useCases = [
 
 const SlackHelpDesk = () => (
   <div className="bg-white font-sans text-gray-900 antialiased overflow-x-hidden">
+    <SEO
+      title="Slack Help Desk — Internal Help Desk for Slack | Pingdesk"
+      description="Set up an internal help desk in Slack with Pingdesk. Track requests, automate follow-ups, and manage tickets without leaving Slack."
+      canonical="https://www.getpingdesk.com/slack-help-desk"
+    />
     <Navbar />
 
     {/* Hero */}

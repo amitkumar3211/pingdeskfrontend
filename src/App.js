@@ -28,10 +28,18 @@ import SlackRequestTracking from './pages/seo/SlackRequestTracking';
 import SlackHelpDesk from './pages/seo/SlackHelpDesk';
 import HalpAlternative from './pages/compare/HalpAlternative';
 import PingdeskVsOthers from './pages/compare/PingdeskVsOthers';
+import CompareTemplate from './pages/compare/CompareTemplate';
+import IndustryTemplate from './pages/seo/IndustryTemplate';
+import SEO from './components/SEO';
 import { useRouteTracker } from './lib/useRouteTracker';
 
 const LandingPage = () => (
   <div className="bg-white font-sans text-gray-900 antialiased overflow-x-hidden">
+    <SEO
+      title="Pingdesk — Never Lose a Request in Slack Again"
+      description="Pingdesk is a Slack app that turns messages into trackable requests with automatic follow-ups. Free for up to 3 users. Setup in 60 seconds."
+      canonical="https://www.getpingdesk.com/"
+    />
     <Navbar />
     <Hero />
     <Stats />
@@ -76,6 +84,8 @@ function App() {
         <Route path="/slack-help-desk" element={<SlackHelpDesk />} />
         <Route path="/compare/halp-alternative" element={<HalpAlternative />} />
         <Route path="/compare/pingdesk-vs-others" element={<PingdeskVsOthers />} />
+        <Route path="/compare/:slug" element={<CompareTemplate />} />
+        <Route path="/slack-ticketing-for-:industry" element={<IndustryTemplate />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>

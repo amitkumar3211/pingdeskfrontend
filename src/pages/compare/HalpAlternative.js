@@ -1,6 +1,7 @@
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { events } from '../../lib/analytics';
+import SEO from '../../components/SEO';
 
 const alternatives = [
   {
@@ -52,6 +53,11 @@ const alternatives = [
 
 const HalpAlternative = () => (
   <div className="bg-white font-sans text-gray-900 antialiased overflow-x-hidden">
+    <SEO
+      title="Best Halp Alternatives for 2026 | Pingdesk"
+      description="Halp was discontinued by Atlassian. Compare the best Halp alternatives for Slack ticketing including Pingdesk, Jira SM, ClearFeed, and more."
+      canonical="https://www.getpingdesk.com/compare/halp-alternative"
+    />
     <Navbar />
 
     {/* Hero */}

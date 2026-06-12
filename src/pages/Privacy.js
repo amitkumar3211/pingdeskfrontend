@@ -1,6 +1,9 @@
+import SEO from '../components/SEO';
+
 const Privacy = () => {
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
+      <SEO title="Privacy Policy | Pingdesk" description="Pingdesk privacy policy. Learn how we handle your data, what we collect, and how we protect your information." canonical="https://www.getpingdesk.com/privacy" />
       <nav className="border-b border-gray-100 py-4 px-6">
         <div className="max-w-3xl mx-auto flex items-center gap-2.5">
           <a href="/" className="flex items-center gap-2.5">

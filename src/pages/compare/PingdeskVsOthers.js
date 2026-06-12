@@ -1,6 +1,7 @@
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { events } from '../../lib/analytics';
+import SEO from '../../components/SEO';
 
 const tools = ['Pingdesk', 'ClearFeed', 'Suptask', 'Wrangle', 'Jira SM'];
 
@@ -23,6 +24,11 @@ const features = [
 
 const PingdeskVsOthers = () => (
   <div className="bg-white font-sans text-gray-900 antialiased overflow-x-hidden">
+    <SEO
+      title="Pingdesk vs ClearFeed vs Suptask vs Wrangle — Comparison | Pingdesk"
+      description="Compare Slack ticketing tools: Pingdesk, ClearFeed, Suptask, Wrangle, and Jira Service Management. See features, pricing, and pros/cons."
+      canonical="https://www.getpingdesk.com/compare/pingdesk-vs-others"
+    />
     <Navbar />
 
     {/* Hero */}

@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
+import EmailCapture from '../components/EmailCapture';
+import allPosts from '../data/blogPosts';
 
-const posts = [
+const inlinePosts = [
   {
     slug: 'how-to-track-requests-in-slack',
     title: 'How to Track Requests in Slack Without Losing Your Mind',
@@ -427,8 +430,20 @@ Install Pingdesk free. Your first approval workflow is one slash command away.
   },
 ];
 
+// Merge: use inline content for existing posts, data file content for new posts
+const inlineContentMap = Object.fromEntries(inlinePosts.map((p) => [p.slug, p.content]));
+const posts = allPosts.map((p) => ({
+  ...p,
+  content: p.content || inlineContentMap[p.slug] || '',
+}));
+
 const BlogPost = ({ post, onBack }) => (
   <div className="bg-white font-sans text-gray-900 antialiased overflow-x-hidden">
+    <SEO
+      title={`${post.title} | Pingdesk Blog`}
+      description={post.excerpt}
+      canonical={`https://www.getpingdesk.com/blog/${post.slug}`}
+    />
     <Navbar />
     <article className="pt-32 pb-20 px-6">
       <div className="max-w-3xl mx-auto">
@@ -494,6 +509,11 @@ const BlogPost = ({ post, onBack }) => (
             Add to Slack — Free
           </a>
         </div>
+
+        {/* Email capture */}
+        <div className="mt-12">
+          <EmailCapture variant="sidebar" />
+        </div>
       </div>
     </article>
     <Footer />
@@ -502,6 +522,11 @@ const BlogPost = ({ post, onBack }) => (
 
 const BlogIndex = ({ onSelectPost }) => (
   <div className="bg-white font-sans text-gray-900 antialiased overflow-x-hidden">
+    <SEO
+      title="Slack Productivity Tips & Guides | Pingdesk Blog"
+      description="Learn how to track requests, automate follow-ups, and keep your Slack workspace organized. Tips and guides for productive teams."
+      canonical="https://www.getpingdesk.com/blog"
+    />
     <Navbar />
     <section className="pt-32 pb-20 px-6">
       <div className="max-w-5xl mx-auto">

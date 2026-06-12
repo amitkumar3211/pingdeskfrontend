@@ -1,6 +1,9 @@
+import SEO from '../components/SEO';
+
 const Terms = () => {
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
+      <SEO title="Terms of Service | Pingdesk" description="Pingdesk terms of service. Read our terms and conditions for using the Pingdesk Slack app." canonical="https://www.getpingdesk.com/terms" />
       <nav className="border-b border-gray-100 py-4 px-6">
         <div className="max-w-3xl mx-auto flex items-center gap-2.5">
           <a href="/" className="flex items-center gap-2.5">

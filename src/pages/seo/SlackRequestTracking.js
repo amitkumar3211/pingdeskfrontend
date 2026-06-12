@@ -1,9 +1,15 @@
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { events } from '../../lib/analytics';
+import SEO from '../../components/SEO';
 
 const SlackRequestTracking = () => (
   <div className="bg-white font-sans text-gray-900 antialiased overflow-x-hidden">
+    <SEO
+      title="Slack Request Tracking — Track Every Request in Slack | Pingdesk"
+      description="Track requests in Slack with automatic follow-ups. Never lose a request again with Pingdesk's /request command."
+      canonical="https://www.getpingdesk.com/slack-request-tracking"
+    />
     <Navbar />
 
     {/* Hero */}

@@ -1,6 +1,7 @@
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { events } from '../../lib/analytics';
+import SEO from '../../components/SEO';
 
 const features = [
   { title: 'Create tickets with /request', desc: 'Turn any Slack message into a trackable ticket. Just type /request and assign it to a teammate.', icon: '🎫' },
@@ -20,6 +21,11 @@ const comparisons = [
 
 const SlackTicketingSystem = () => (
   <div className="bg-white font-sans text-gray-900 antialiased overflow-x-hidden">
+    <SEO
+      title="Slack Ticketing System — Turn Slack Into a Help Desk | Pingdesk"
+      description="Use Pingdesk to turn Slack into a ticketing system. Create, assign, and track tickets with /request. Free for up to 3 users."
+      canonical="https://www.getpingdesk.com/slack-ticketing-system"
+    />
     <Navbar />
 
     {/* Hero */}

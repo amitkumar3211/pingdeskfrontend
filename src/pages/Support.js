@@ -1,6 +1,9 @@
+import SEO from '../components/SEO';
+
 const Support = () => {
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
+      <SEO title="Contact & Support | Pingdesk" description="Get help with Pingdesk. Contact our support team for questions about setup, billing, or features." canonical="https://www.getpingdesk.com/support" />
       <nav className="border-b border-gray-100 py-4 px-6">
         <div className="max-w-3xl mx-auto flex items-center gap-2.5">
           <a href="/" className="flex items-center gap-2.5">

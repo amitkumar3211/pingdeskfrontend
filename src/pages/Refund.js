@@ -1,6 +1,9 @@
+import SEO from '../components/SEO';
+
 const Refund = () => {
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
+      <SEO title="Refund & Cancellation Policy | Pingdesk" description="Pingdesk refund and cancellation policy. Learn about our refund process and how to cancel your subscription." canonical="https://www.getpingdesk.com/refund" />
       <nav className="border-b border-gray-100 py-4 px-6">
         <div className="max-w-3xl mx-auto flex items-center gap-2.5">
           <a href="/" className="flex items-center gap-2.5">

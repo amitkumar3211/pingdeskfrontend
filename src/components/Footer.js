@@ -1,7 +1,12 @@
+import EmailCapture from './EmailCapture';
+
 const Footer = () => {
   return (
     <footer className="border-t border-gray-100 py-12 px-6">
       <div className="max-w-6xl mx-auto">
+        <div className="mb-8">
+          <EmailCapture />
+        </div>
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2.5">
             <div className="relative w-8 h-8 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-xl flex items-center justify-center shadow-md shadow-violet-500/20">

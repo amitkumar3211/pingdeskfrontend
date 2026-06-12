@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import SEO from '../components/SEO';
 
 const sections = [
   { id: 'install', title: 'Install' },
@@ -76,6 +77,7 @@ const Docs = () => {
 
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
+      <SEO title="Documentation | Pingdesk" description="Pingdesk documentation. Learn how to install, configure, and use Pingdesk for Slack request tracking." canonical="https://www.getpingdesk.com/docs" />
       {/* Top nav */}
       <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">

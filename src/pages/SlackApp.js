@@ -1,9 +1,11 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import SEO from '../components/SEO';
 import { events } from '../lib/analytics';
 
 const SlackApp = () => (
   <div className="bg-white font-sans text-gray-900 antialiased overflow-x-hidden">
+    <SEO title="Pingdesk Slack App — Request Tracking for Slack" description="Install Pingdesk to track requests, automate follow-ups, and manage tasks directly in Slack. Free for up to 3 users." canonical="https://www.getpingdesk.com/slack-app" />
     <Navbar />
 
     <section className="pt-32 pb-20 px-6">
