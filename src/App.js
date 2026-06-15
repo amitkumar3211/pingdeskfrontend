@@ -30,6 +30,12 @@ import HalpAlternative from './pages/compare/HalpAlternative';
 import PingdeskVsOthers from './pages/compare/PingdeskVsOthers';
 import CompareTemplate from './pages/compare/CompareTemplate';
 import IndustryTemplate from './pages/seo/IndustryTemplate';
+import IntegrationTemplate from './pages/seo/IntegrationTemplate';
+import AlternativeTemplate from './pages/seo/AlternativeTemplate';
+import UseCaseTemplate from './pages/seo/UseCaseTemplate';
+import MeetingCostCalculator from './pages/tools/MeetingCostCalculator';
+import GlossaryIndex from './pages/GlossaryIndex';
+import GlossaryTerm from './pages/GlossaryTerm';
 import SEO from './components/SEO';
 import { useRouteTracker } from './lib/useRouteTracker';
 
@@ -86,6 +92,12 @@ function App() {
         <Route path="/compare/pingdesk-vs-others" element={<PingdeskVsOthers />} />
         <Route path="/compare/:slug" element={<CompareTemplate />} />
         <Route path="/slack-ticketing-for-:industry" element={<IndustryTemplate />} />
+        <Route path="/tools/meeting-cost-calculator" element={<MeetingCostCalculator />} />
+        <Route path="/glossary" element={<GlossaryIndex />} />
+        <Route path="/glossary/:slug" element={<GlossaryTerm />} />
+        <Route path="/integrations/:slug" element={<IntegrationTemplate />} />
+        <Route path="/alternative-to/:slug" element={<AlternativeTemplate />} />
+        <Route path="/use-cases/:slug" element={<UseCaseTemplate />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
