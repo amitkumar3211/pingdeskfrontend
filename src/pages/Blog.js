@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import SEO from '../components/SEO';
 import EmailCapture from '../components/EmailCapture';
 import allPosts from '../data/blogPosts';
+import blogCovers from '../data/blogCovers';
 
 // Category colors and icons
 const categoryStyles = {
@@ -45,25 +46,41 @@ const extractTOC = (content) => {
     .map((l, i) => ({ id: `section-${i}`, text: l.replace('## ', '') }));
 };
 
-// Animated illustration for blog hero
-const BlogHeroIllustration = ({ category }) => {
+// Blog hero — real image with gradient overlay fallback
+const BlogHeroIllustration = ({ category, slug }) => {
   const style = getStyle(category);
+  const cover = blogCovers[slug];
+
+  if (cover) {
+    return (
+      <div className="relative w-full h-56 md:h-72 rounded-2xl overflow-hidden mb-10 group">
+        <img
+          src={cover.url}
+          alt={cover.alt}
+          loading="eager"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
+        <div className="absolute bottom-4 left-5">
+          <span className={`text-xs font-bold text-white ${style.bg.replace('bg-', 'bg-')}/90 backdrop-blur-sm px-3 py-1.5 rounded-full`}>
+            {style.icon} {category}
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  // Fallback gradient if no image
   return (
-    <div className={`relative w-full h-48 md:h-64 rounded-2xl bg-gradient-to-br ${style.gradient} overflow-hidden mb-10`}>
-      {/* Floating shapes */}
+    <div className={`relative w-full h-56 md:h-72 rounded-2xl bg-gradient-to-br ${style.gradient} overflow-hidden mb-10`}>
       <div className="absolute inset-0">
         <div className="absolute top-6 left-8 w-16 h-16 bg-white/10 rounded-2xl animate-float-slow" />
         <div className="absolute top-16 right-12 w-10 h-10 bg-white/15 rounded-full animate-float-medium" />
         <div className="absolute bottom-8 left-1/4 w-20 h-20 bg-white/10 rounded-full animate-float-fast" />
-        <div className="absolute bottom-12 right-1/3 w-8 h-8 bg-white/20 rounded-lg animate-float-slow" />
-        <div className="absolute top-1/3 left-1/2 w-14 h-14 bg-white/10 rounded-full animate-float-medium" />
       </div>
-      {/* Category icon */}
       <div className="absolute inset-0 flex items-center justify-center">
         <span className="text-6xl md:text-8xl opacity-90 animate-bounce-slow">{style.icon}</span>
       </div>
-      {/* Mesh gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
     </div>
   );
 };
@@ -688,6 +705,7 @@ const BlogPost = ({ post, onBack }) => {
         title={`${post.title} | Pingdesk Blog`}
         description={post.excerpt}
         canonical={`https://www.getpingdesk.com/blog/${post.slug}`}
+        ogImage={blogCovers[post.slug]?.url || 'https://www.getpingdesk.com/logo512.png'}
       />
       <Navbar />
       <article className="pt-32 pb-20 px-6">
@@ -703,7 +721,7 @@ const BlogPost = ({ post, onBack }) => {
           </button>
 
           {/* Hero illustration */}
-          <BlogHeroIllustration category={post.category} />
+          <BlogHeroIllustration category={post.category} slug={post.slug} />
 
           <div className="flex items-center gap-3 mb-6">
             <span className={`text-xs font-bold ${style.text} ${style.bg} px-3 py-1 rounded-full`}>{post.category}</span>
@@ -843,16 +861,21 @@ const BlogIndex = ({ onSelectPost }) => {
                   onClick={() => onSelectPost(post)}
                   className="text-left bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
                 >
-                  {/* Card illustration header */}
-                  <div className={`relative h-32 bg-gradient-to-br ${s.gradient} overflow-hidden`}>
-                    <div className="absolute inset-0">
-                      <div className="absolute top-3 left-4 w-8 h-8 bg-white/10 rounded-lg animate-float-slow" />
-                      <div className="absolute top-6 right-6 w-5 h-5 bg-white/15 rounded-full animate-float-medium" />
-                      <div className="absolute bottom-4 left-1/3 w-10 h-10 bg-white/10 rounded-full animate-float-fast" />
-                    </div>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-4xl opacity-80 group-hover:scale-110 transition-transform duration-300">{s.icon}</span>
-                    </div>
+                  {/* Card cover image */}
+                  <div className="relative h-40 overflow-hidden">
+                    {blogCovers[post.slug] ? (
+                      <img
+                        src={blogCovers[post.slug].url}
+                        alt={blogCovers[post.slug].alt}
+                        loading="lazy"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    ) : (
+                      <div className={`w-full h-full bg-gradient-to-br ${s.gradient} flex items-center justify-center`}>
+                        <span className="text-4xl opacity-80">{s.icon}</span>
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
 
                   <div className="p-6">
