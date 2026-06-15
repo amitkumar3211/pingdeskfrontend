@@ -50,7 +50,7 @@ const blogCovers = {
     alt: 'IT server room with monitoring screens for request tracking',
   },
   'slack-based-support-system': {
-    url: 'https://images.unsplash.com/photo-1553484771-047a44eee27b?w=800&q=80&auto=format',
+    url: 'https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=800&q=80&auto=format',
     alt: 'Customer support representative helping through chat system',
   },
   'slack-workflow-automation-guide': {
@@ -58,7 +58,7 @@ const blogCovers = {
     alt: 'Code and automation workflow on computer screen',
   },
   'why-slack-ticketing-bot': {
-    url: 'https://images.unsplash.com/photo-1531746790095-e5995edc1857?w=800&q=80&auto=format',
+    url: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80&auto=format',
     alt: 'Chat bot interface representing Slack ticketing automation',
   },
   'track-design-requests-slack': {
