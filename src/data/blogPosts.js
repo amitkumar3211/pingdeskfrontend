@@ -1,3 +1,5 @@
+import seoPostsBatch1 from './blogPostsSEO';
+
 const posts = [
   // ============================================
   // EXISTING 8 POSTS (content = null, rendered inline by Blog component)
@@ -2644,5 +2646,7 @@ Start with the free tier of a dedicated tool. If it doesn't work, you can always
   }
 ];
 
-export default posts;
-export { posts };
+const allPosts = [...posts, ...seoPostsBatch1];
+
+export default allPosts;
+export { allPosts as posts };

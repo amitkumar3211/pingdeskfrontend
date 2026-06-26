@@ -27,6 +27,7 @@ const Shipping = lazy(() => import('./pages/Shipping'));
 const Docs = lazy(() => import('./pages/Docs'));
 const Admin = lazy(() => import('./pages/Admin'));
 const Blog = lazy(() => import('./pages/Blog'));
+const BlogPostPage = lazy(() => import('./pages/Blog').then(m => ({ default: m.BlogPost })));
 const SlackApp = lazy(() => import('./pages/SlackApp'));
 const SlackTicketingSystem = lazy(() => import('./pages/seo/SlackTicketingSystem'));
 const SlackRequestTracking = lazy(() => import('./pages/seo/SlackRequestTracking'));
@@ -39,6 +40,7 @@ const IntegrationTemplate = lazy(() => import('./pages/seo/IntegrationTemplate')
 const AlternativeTemplate = lazy(() => import('./pages/seo/AlternativeTemplate'));
 const UseCaseTemplate = lazy(() => import('./pages/seo/UseCaseTemplate'));
 const MeetingCostCalculator = lazy(() => import('./pages/tools/MeetingCostCalculator'));
+const CountryTemplate = lazy(() => import('./pages/seo/CountryTemplate'));
 const GlossaryIndex = lazy(() => import('./pages/GlossaryIndex'));
 const GlossaryTerm = lazy(() => import('./pages/GlossaryTerm'));
 
@@ -94,6 +96,7 @@ function App() {
           <Route path="/shipping" element={<Shipping />} />
           <Route path="/docs" element={<Docs />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPostPage />} />
           <Route path="/slack-app" element={<SlackApp />} />
           <Route path="/slack-ticketing-system" element={<SlackTicketingSystem />} />
           <Route path="/slack-request-tracking" element={<SlackRequestTracking />} />
@@ -108,6 +111,7 @@ function App() {
           <Route path="/integrations/:slug" element={<IntegrationTemplate />} />
           <Route path="/alternative-to/:slug" element={<AlternativeTemplate />} />
           <Route path="/use-cases/:slug" element={<UseCaseTemplate />} />
+          <Route path="/slack-ticketing-in/:country" element={<CountryTemplate />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </Suspense>

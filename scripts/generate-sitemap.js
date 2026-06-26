@@ -8,6 +8,22 @@ const useCases = require('../src/data/useCases.js').default || require('../src/d
 const alternatives = require('../src/data/alternatives.js').default || require('../src/data/alternatives.js');
 const industries = require('../src/data/industries.js').default || require('../src/data/industries.js');
 const competitors = require('../src/data/competitors.js').default || require('../src/data/competitors.js');
+// blogPosts.js uses ES imports that Node can't require() directly.
+// Parse slugs from both blog data files for sitemap generation.
+const blogPosts = [];
+const blogFiles = ['../src/data/blogPosts.js', '../src/data/blogPostsSEO.js'];
+blogFiles.forEach(file => {
+  try {
+    const content = fs.readFileSync(path.join(__dirname, file), 'utf8');
+    const slugMatches = content.matchAll(/slug:\s*'([^']+)'/g);
+    for (const match of slugMatches) {
+      if (!blogPosts.find(p => p.slug === match[1])) {
+        blogPosts.push({ slug: match[1] });
+      }
+    }
+  } catch(e) {}
+});
+const countries = require('../src/data/countries.js').default || require('../src/data/countries.js');
 
 const BASE = 'https://www.getpingdesk.com';
 const today = new Date().toISOString().split('T')[0];
@@ -38,6 +54,8 @@ const dynamicRoutes = [
   ...alternatives.map(x => ({ path: `/alternative-to/${x.slug}`, priority: '0.7', changefreq: 'monthly' })),
   ...industries.map(x => ({ path: `/slack-ticketing-for-${x.slug}`, priority: '0.7', changefreq: 'monthly' })),
   ...competitors.map(x => ({ path: `/compare/${x.slug}`, priority: '0.7', changefreq: 'monthly' })),
+  ...blogPosts.map(x => ({ path: `/blog/${x.slug}`, priority: '0.8', changefreq: 'weekly' })),
+  ...countries.map(x => ({ path: `/slack-ticketing-in/${x.slug}`, priority: '0.7', changefreq: 'monthly' })),
 ];
 
 const allRoutes = [...staticRoutes, ...dynamicRoutes];

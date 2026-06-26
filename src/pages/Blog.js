@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
@@ -657,16 +658,33 @@ const posts = allPosts.map((p) => ({
   content: p.content || inlineContentMap[p.slug] || '',
 }));
 
-const BlogPost = ({ post, onBack }) => {
+const BlogPost = () => {
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const post = posts.find(p => p.slug === slug);
   const headingIndex = useRef(0);
-  const toc = extractTOC(post.content);
-  const lines = post.content ? post.content.split('\n') : [];
-  const style = getStyle(post.category);
 
   useEffect(() => {
     headingIndex.current = 0;
     window.scrollTo(0, 0);
-  }, [post.slug]);
+  }, [slug]);
+
+  if (!post) {
+    return (
+      <div className="bg-white font-sans text-gray-900 antialiased min-h-screen flex items-center justify-center">
+        <Navbar />
+        <div className="text-center pt-32">
+          <h1 className="text-3xl font-bold mb-4">Post not found</h1>
+          <Link to="/blog" className="text-violet-600 hover:underline">Back to blog</Link>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  const toc = extractTOC(post.content);
+  const lines = post.content ? post.content.split('\n') : [];
+  const style = getStyle(post.category);
 
   const renderedContent = () => {
     headingIndex.current = 0;
@@ -710,15 +728,15 @@ const BlogPost = ({ post, onBack }) => {
       <Navbar />
       <article className="pt-32 pb-20 px-6">
         <div className="max-w-3xl mx-auto">
-          <button
-            onClick={onBack}
+          <Link
+            to="/blog"
             className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-violet-600 font-medium mb-8 transition-colors group"
           >
             <svg className="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
             </svg>
             Back to blog
-          </button>
+          </Link>
 
           {/* Hero illustration */}
           <BlogHeroIllustration category={post.category} slug={post.slug} />
@@ -809,7 +827,7 @@ const BlogPost = ({ post, onBack }) => {
   );
 };
 
-const BlogIndex = ({ onSelectPost }) => {
+const BlogIndex = () => {
   const [filter, setFilter] = useState('All');
   const categories = ['All', ...new Set(posts.map(p => p.category))];
   const filtered = filter === 'All' ? posts : posts.filter(p => p.category === filter);
@@ -856,10 +874,10 @@ const BlogIndex = ({ onSelectPost }) => {
             {filtered.map((post) => {
               const s = getStyle(post.category);
               return (
-                <button
+                <Link
                   key={post.slug}
-                  onClick={() => onSelectPost(post)}
-                  className="text-left bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+                  to={`/blog/${post.slug}`}
+                  className="text-left bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group block"
                 >
                   {/* Card cover image */}
                   <div className="relative h-40 overflow-hidden">
@@ -896,7 +914,7 @@ const BlogIndex = ({ onSelectPost }) => {
                       </svg>
                     </span>
                   </div>
-                </button>
+                </Link>
               );
             })}
           </div>
@@ -907,15 +925,5 @@ const BlogIndex = ({ onSelectPost }) => {
   );
 };
 
-const Blog = () => {
-  const [selectedPost, setSelectedPost] = useState(null);
-
-  if (selectedPost) {
-    return <BlogPost post={selectedPost} onBack={() => setSelectedPost(null)} />;
-  }
-
-  return <BlogIndex onSelectPost={setSelectedPost} />;
-};
-
-export { posts };
-export default Blog;
+export { posts, BlogPost, BlogIndex };
+export default BlogIndex;
