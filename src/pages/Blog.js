@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import SEO from '../components/SEO';
@@ -660,7 +660,6 @@ const posts = allPosts.map((p) => ({
 
 const BlogPost = () => {
   const { slug } = useParams();
-  const navigate = useNavigate();
   const post = posts.find(p => p.slug === slug);
   const headingIndex = useRef(0);
 
