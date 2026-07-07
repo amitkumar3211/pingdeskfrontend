@@ -156,7 +156,7 @@ const CountryTemplate = () => {
             {countries.filter((c) => c.slug !== country).map((c) => (
               <a
                 key={c.slug}
-                href={`/slack-ticketing-in-${c.slug}`}
+                href={`/slack-ticketing-in/${c.slug}`}
                 className="text-sm text-gray-500 hover:text-violet-600 bg-white border border-gray-200 hover:border-violet-200 px-4 py-2 rounded-full transition-colors"
               >
                 {c.name}

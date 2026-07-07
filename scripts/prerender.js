@@ -13,6 +13,17 @@ const useCases = require('../src/data/useCases.js').default || require('../src/d
 const alternatives = require('../src/data/alternatives.js').default || require('../src/data/alternatives.js');
 const industries = require('../src/data/industries.js').default || require('../src/data/industries.js');
 const competitors = require('../src/data/competitors.js').default || require('../src/data/competitors.js');
+const countries = require('../src/data/countries.js').default || require('../src/data/countries.js');
+
+// Parse blog post slugs from both blog data files
+const blogSlugs = [];
+['../src/data/blogPosts.js', '../src/data/blogPostsSEO.js'].forEach(file => {
+  try {
+    const content = fs.readFileSync(path.join(__dirname, file), 'utf8');
+    const matches = content.matchAll(/slug:\s*'([^']+)'/g);
+    for (const m of matches) blogSlugs.push(m[1]);
+  } catch(e) {}
+});
 
 const allRoutes = [
   '/',
@@ -27,6 +38,8 @@ const allRoutes = [
   ...alternatives.map(x => `/alternative-to/${x.slug}`),
   ...industries.map(x => `/slack-ticketing-for-${x.slug}`),
   ...competitors.map(x => `/compare/${x.slug}`),
+  ...countries.map(x => `/slack-ticketing-in/${x.slug}`),
+  ...blogSlugs.map(x => `/blog/${x}`),
 ];
 
 // Simple static file server for the build directory

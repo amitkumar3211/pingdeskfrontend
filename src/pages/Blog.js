@@ -723,6 +723,20 @@ const BlogPost = () => {
         description={post.excerpt}
         canonical={`https://www.getpingdesk.com/blog/${post.slug}`}
         ogImage={blogCovers[post.slug]?.url || 'https://www.getpingdesk.com/logo512.png'}
+        type="article"
+        articleDate={post.date}
+        articleCategory={post.category}
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'BlogPosting',
+          headline: post.title,
+          description: post.excerpt,
+          image: blogCovers[post.slug]?.url || 'https://www.getpingdesk.com/logo512.png',
+          datePublished: post.date,
+          author: { '@type': 'Organization', name: 'Pingdesk', url: 'https://www.getpingdesk.com' },
+          publisher: { '@type': 'Organization', name: 'Pingdesk', logo: { '@type': 'ImageObject', url: 'https://www.getpingdesk.com/logo512.png' } },
+          mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.getpingdesk.com/blog/${post.slug}` },
+        }}
       />
       <Navbar />
       <article className="pt-32 pb-20 px-6">
@@ -814,6 +828,30 @@ const BlogPost = () => {
               </a>
             </div>
           </div>
+
+          {/* Related Posts */}
+          {(() => {
+            const related = posts
+              .filter(p => p.slug !== post.slug && (p.category === post.category || p.title.split(' ').some(w => w.length > 4 && post.title.toLowerCase().includes(w.toLowerCase()))))
+              .slice(0, 3);
+            if (related.length === 0) return null;
+            return (
+              <div className="mt-16">
+                <h3 className="text-xl font-bold text-gray-900 mb-6">Related Articles</h3>
+                <div className="grid md:grid-cols-3 gap-4">
+                  {related.map(r => (
+                    <Link key={r.slug} to={`/blog/${r.slug}`} className="group border border-gray-100 rounded-xl p-5 hover:shadow-lg hover:-translate-y-0.5 transition-all">
+                      {blogCovers[r.slug] && (
+                        <img src={blogCovers[r.slug].url} alt={blogCovers[r.slug].alt} loading="lazy" className="w-full h-28 object-cover rounded-lg mb-3" />
+                      )}
+                      <span className={`text-[10px] font-bold ${getStyle(r.category).text} ${getStyle(r.category).bg} px-2 py-0.5 rounded-full`}>{r.category}</span>
+                      <h4 className="text-sm font-bold text-gray-900 mt-2 group-hover:text-violet-600 transition-colors leading-snug">{r.title}</h4>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
 
           {/* Email capture */}
           <div className="mt-12">
