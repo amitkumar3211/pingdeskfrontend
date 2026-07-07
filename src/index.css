@@ -91,3 +91,41 @@ html {
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
 }
+
+/* Mobile SEO: tap target sizing, text readability, touch optimizations */
+@media (max-width: 768px) {
+  /* Ensure minimum tap target size (48x48px per Google guidelines) */
+  a, button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Prevent text from being too small on mobile (Google flags <12px) */
+  body {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /* Reduce heavy animations on mobile for better performance (CLS/LCP) */
+  .animate-float,
+  .animate-float-slow,
+  .animate-float-delay {
+    animation: none;
+  }
+
+  /* Prevent horizontal overflow (common mobile SEO issue) */
+  html, body {
+    overflow-x: hidden;
+  }
+}
+
+/* Reduce motion for users who prefer it (accessibility + mobile battery) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -11,6 +11,8 @@ const SEO = ({
   articleCategory,
   // JSON-LD structured data
   jsonLd,
+  // Breadcrumbs for mobile SERP display
+  breadcrumbs,
 }) => (
   <Helmet>
     <title>{title}</title>
@@ -38,6 +40,18 @@ const SEO = ({
     {jsonLd && Array.isArray(jsonLd) && jsonLd.map((ld, i) => (
       <script key={i} type="application/ld+json">{JSON.stringify(ld)}</script>
     ))}
+    {breadcrumbs && breadcrumbs.length > 0 && (
+      <script type="application/ld+json">{JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumbs.map((crumb, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: crumb.name,
+          item: crumb.url,
+        })),
+      })}</script>
+    )}
   </Helmet>
 );
 

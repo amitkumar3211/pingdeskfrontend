@@ -13,7 +13,7 @@ const BeforeAfter = () => {
     <section className="py-20 md:py-28 px-6 bg-gray-50" ref={ref}>
       <div className="max-w-5xl mx-auto">
         <div className={`text-center mb-14 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-          <p className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">The Difference</p>
+          <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">The Difference</p>
           <h2 className="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight">
             Life before vs. after Pingdesk
           </h2>
@@ -34,7 +34,7 @@ const BeforeAfter = () => {
                 ].map((m, i) => (
                   <div key={i} className="bg-gray-50 rounded-xl px-4 py-3">
                     <p className="text-sm text-gray-600">{m.text}</p>
-                    <p className="text-[11px] text-gray-300 mt-1">{m.time}</p>
+                    <p className="text-[11px] text-gray-400 mt-1">{m.time}</p>
                   </div>
                 ))}
               </div>
@@ -61,7 +61,7 @@ const BeforeAfter = () => {
                       <p className="text-sm text-gray-600">{m.text}</p>
                       <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${m.color}`}>{m.status}</span>
                     </div>
-                    <p className="text-[11px] text-gray-300 mt-1">{m.time}</p>
+                    <p className="text-[11px] text-gray-400 mt-1">{m.time}</p>
                   </div>
                 ))}
               </div>

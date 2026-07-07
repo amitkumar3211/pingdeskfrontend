@@ -109,7 +109,7 @@ const WhoItsFor = () => {
                   </div>
                   <p className="text-gray-500 leading-relaxed mb-4">{a.description}</p>
                   <div className="bg-gray-50 rounded-xl px-4 py-3 border border-gray-100 group-hover:bg-gray-100/50 transition-colors">
-                    <p className="text-sm text-gray-400 italic leading-relaxed">{a.example}</p>
+                    <p className="text-sm text-gray-500 italic leading-relaxed">{a.example}</p>
                   </div>
                 </div>
               </div>

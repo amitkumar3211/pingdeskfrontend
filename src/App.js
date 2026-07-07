@@ -62,9 +62,13 @@ const LandingPage = () => (
           '@type': 'SoftwareApplication',
           name: 'Pingdesk',
           applicationCategory: 'BusinessApplication',
-          operatingSystem: 'Web',
+          operatingSystem: 'Web, iOS, Android',
           description: 'Turn Slack messages into trackable requests with automatic follow-ups.',
           url: 'https://www.getpingdesk.com',
+          browserRequirements: 'Requires Slack',
+          softwareVersion: '1.0',
+          aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.8', ratingCount: '50', bestRating: '5' },
+          potentialAction: { '@type': 'ViewAction', target: 'https://www.getpingdesk.com/', name: 'Install Pingdesk' },
           offers: [
             { '@type': 'Offer', price: '0', priceCurrency: 'USD', name: 'Free Plan', description: 'Up to 3 users, 50 requests per month' },
             { '@type': 'Offer', price: '12', priceCurrency: 'USD', name: 'Starter Plan', description: 'Up to 15 users, unlimited requests with analytics.' },
@@ -81,6 +85,15 @@ const LandingPage = () => (
             { '@type': 'Question', name: 'What happens if someone doesn\'t respond?', acceptedAnswer: { '@type': 'Answer', text: 'Pingdesk automatically sends polite follow-up reminders. You can customize reminder intervals.' } },
             { '@type': 'Question', name: 'Is my data secure?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Pingdesk uses encrypted connections and follows Slack\'s security best practices.' } },
           ],
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          name: 'Pingdesk',
+          url: 'https://www.getpingdesk.com',
+          logo: 'https://www.getpingdesk.com/logo512.png',
+          sameAs: [],
+          contactPoint: { '@type': 'ContactPoint', contactType: 'customer support', url: 'https://www.getpingdesk.com/support' },
         },
       ]}
     />

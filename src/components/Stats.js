@@ -48,7 +48,7 @@ const Stats = () => {
               <div className={`text-4xl md:text-5xl font-black bg-gradient-to-r ${s.gradient} bg-clip-text text-transparent mb-2`}>
                 <AnimatedNumber target={s.number} suffix={s.suffix} inView={inView} />
               </div>
-              <p className="text-sm text-gray-400 font-medium">{s.label}</p>
+              <p className="text-sm text-gray-500 font-medium">{s.label}</p>
             </div>
           ))}
         </div>
