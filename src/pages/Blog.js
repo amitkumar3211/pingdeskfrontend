@@ -726,6 +726,11 @@ const BlogPost = () => {
         type="article"
         articleDate={post.date}
         articleCategory={post.category}
+        breadcrumbs={[
+          { name: 'Home', url: 'https://www.getpingdesk.com/' },
+          { name: 'Blog', url: 'https://www.getpingdesk.com/blog' },
+          { name: post.title, url: `https://www.getpingdesk.com/blog/${post.slug}` },
+        ]}
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'BlogPosting',
@@ -733,9 +738,11 @@ const BlogPost = () => {
           description: post.excerpt,
           image: blogCovers[post.slug]?.url || 'https://www.getpingdesk.com/logo512.png',
           datePublished: post.date,
-          author: { '@type': 'Organization', name: 'Pingdesk', url: 'https://www.getpingdesk.com' },
+          dateModified: post.date,
+          author: { '@type': 'Person', name: 'Pingdesk Team', url: 'https://www.getpingdesk.com/support' },
           publisher: { '@type': 'Organization', name: 'Pingdesk', logo: { '@type': 'ImageObject', url: 'https://www.getpingdesk.com/logo512.png' } },
           mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.getpingdesk.com/blog/${post.slug}` },
+          wordCount: post.content ? post.content.split(/\s+/).length : 0,
         }}
       />
       <Navbar />
@@ -754,13 +761,22 @@ const BlogPost = () => {
           {/* Hero illustration */}
           <BlogHeroIllustration category={post.category} slug={post.slug} />
 
-          <div className="flex items-center gap-3 mb-6">
+          <div className="flex items-center gap-3 mb-4">
             <span className={`text-xs font-bold ${style.text} ${style.bg} px-3 py-1 rounded-full`}>{post.category}</span>
             <span className="text-xs text-gray-400">{post.date}</span>
             <span className="text-xs text-gray-400 flex items-center gap-1">
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z" /></svg>
               {post.readTime}
             </span>
+          </div>
+
+          {/* Author */}
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-9 h-9 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-full flex items-center justify-center text-white text-sm font-bold">P</div>
+            <div>
+              <p className="text-sm font-semibold text-gray-900">Pingdesk Team</p>
+              <p className="text-xs text-gray-400">Slack productivity experts</p>
+            </div>
           </div>
 
           <h1 className="text-3xl md:text-5xl font-black text-gray-900 tracking-tight leading-tight mb-6">

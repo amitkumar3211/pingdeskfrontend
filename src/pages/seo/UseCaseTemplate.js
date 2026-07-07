@@ -31,6 +31,11 @@ const UseCaseTemplate = () => {
         title={`${uc.headline} | Pingdesk`}
         description={uc.description}
         canonical={`https://www.getpingdesk.com/use-cases/${slug}`}
+        breadcrumbs={[
+          { name: 'Home', url: 'https://www.getpingdesk.com/' },
+          { name: 'Use Cases', url: 'https://www.getpingdesk.com/' },
+          { name: uc.headline, url: `https://www.getpingdesk.com/use-cases/${slug}` },
+        ]}
       />
       <Navbar />
 

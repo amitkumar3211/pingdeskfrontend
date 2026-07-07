@@ -28,6 +28,11 @@ const CountryTemplate = () => {
         title={`${data.headline} | Pingdesk`}
         description={data.description}
         canonical={`https://www.getpingdesk.com/slack-ticketing-in/${country}`}
+        breadcrumbs={[
+          { name: 'Home', url: 'https://www.getpingdesk.com/' },
+          { name: 'Countries', url: 'https://www.getpingdesk.com/' },
+          { name: data.name, url: `https://www.getpingdesk.com/slack-ticketing-in/${country}` },
+        ]}
       />
       <Navbar />
 

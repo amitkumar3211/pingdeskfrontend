@@ -31,6 +31,11 @@ const AlternativeTemplate = () => {
         title={`Best ${tool.name} Alternative for Slack Teams | Pingdesk`}
         description={`Looking for a ${tool.name} alternative? Pingdesk is a simpler, Slack-native option for request tracking. Free to start, 60-second setup.`}
         canonical={`https://www.getpingdesk.com/alternative-to/${slug}`}
+        breadcrumbs={[
+          { name: 'Home', url: 'https://www.getpingdesk.com/' },
+          { name: 'Alternatives', url: 'https://www.getpingdesk.com/' },
+          { name: `${tool.name} Alternative`, url: `https://www.getpingdesk.com/alternative-to/${slug}` },
+        ]}
       />
       <Navbar />
 

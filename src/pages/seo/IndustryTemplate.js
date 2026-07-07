@@ -29,6 +29,11 @@ const IndustryTemplate = () => {
         title={`${data.headline} | Pingdesk`}
         description={data.description}
         canonical={`https://www.getpingdesk.com/slack-ticketing-for-${industry}`}
+        breadcrumbs={[
+          { name: 'Home', url: 'https://www.getpingdesk.com/' },
+          { name: 'Industries', url: 'https://www.getpingdesk.com/' },
+          { name: data.name, url: `https://www.getpingdesk.com/slack-ticketing-for-${industry}` },
+        ]}
       />
       <Navbar />
 

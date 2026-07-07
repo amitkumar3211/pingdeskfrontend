@@ -28,9 +28,14 @@ const IntegrationTemplate = () => {
   return (
     <div className="bg-white font-sans text-gray-900 antialiased overflow-x-hidden">
       <SEO
-        title={`Pingdesk + ${app.name} — Slack Integration | Pingdesk`}
+        title={`Pingdesk + ${app.name} — Slack Integration`}
         description={`Use Pingdesk with ${app.name} in Slack. ${app.howItWorks}`}
         canonical={`https://www.getpingdesk.com/integrations/${slug}`}
+        breadcrumbs={[
+          { name: 'Home', url: 'https://www.getpingdesk.com/' },
+          { name: 'Integrations', url: 'https://www.getpingdesk.com/' },
+          { name: app.name, url: `https://www.getpingdesk.com/integrations/${slug}` },
+        ]}
       />
       <Navbar />
 
