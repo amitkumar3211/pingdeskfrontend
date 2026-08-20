@@ -5,8 +5,11 @@ import SEO from '../../components/SEO';
 import { events } from '../../lib/analytics';
 import industries from '../../data/industries';
 
-const IndustryTemplate = () => {
-  const { industry } = useParams();
+// `slug` is passed explicitly because React Router can't match a dynamic
+// segment inside a larger path segment (/slack-ticketing-for-:industry).
+const IndustryTemplate = ({ slug }) => {
+  const params = useParams();
+  const industry = slug || params.industry;
   const navigate = useNavigate();
   const data = industries.find((i) => i.slug === industry);
 

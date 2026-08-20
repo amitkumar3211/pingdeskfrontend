@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import industries from './data/industries';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Stats from './components/Stats';
@@ -144,7 +145,13 @@ function App() {
           <Route path="/compare/halp-alternative" element={<HalpAlternative />} />
           <Route path="/compare/pingdesk-vs-others" element={<PingdeskVsOthers />} />
           <Route path="/compare/:slug" element={<CompareTemplate />} />
-          <Route path="/slack-ticketing-for-:industry" element={<IndustryTemplate />} />
+          {industries.map((i) => (
+            <Route
+              key={i.slug}
+              path={`/slack-ticketing-for-${i.slug}`}
+              element={<IndustryTemplate slug={i.slug} />}
+            />
+          ))}
           <Route path="/tools/meeting-cost-calculator" element={<MeetingCostCalculator />} />
           <Route path="/glossary" element={<GlossaryIndex />} />
           <Route path="/glossary/:slug" element={<GlossaryTerm />} />

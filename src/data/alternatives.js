@@ -1,3 +1,5 @@
+import { CURATED_ALTERNATIVES } from './curated.js';
+
 const alternatives = [
   // ===== HELP DESK / TICKETING =====
   {
@@ -2160,4 +2162,8 @@ const alternatives = [
   }
 ];
 
-export default alternatives;
+// Only the curated set is published; the rest 301 to a surviving page.
+// `alternatives` still holds every entry so redirects can be generated from it.
+export const allAlternatives = alternatives;
+
+export default alternatives.filter((x) => CURATED_ALTERNATIVES.includes(x.slug));

@@ -28,7 +28,7 @@ const IntegrationTemplate = () => {
   return (
     <div className="bg-white font-sans text-gray-900 antialiased overflow-x-hidden">
       <SEO
-        title={`Pingdesk + ${app.name} — Slack Integration`}
+        title={`Pingdesk + ${app.name} for ${app.category} — Slack Integration`}
         description={`Use Pingdesk with ${app.name} in Slack. ${app.howItWorks}`}
         canonical={`https://www.getpingdesk.com/integrations/${slug}`}
         breadcrumbs={[
@@ -82,6 +82,79 @@ const IntegrationTemplate = () => {
           </div>
         </div>
       </section>
+
+      {app.overview && (
+        <section className="py-16 px-6">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Why teams connect {app.name} with Slack</h2>
+            {app.overview.map((para, i) => (
+              <p key={i} className="text-base text-gray-600 leading-relaxed mb-5">{para}</p>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {app.workflows && (
+        <section className="py-16 px-6 bg-gray-50">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-2xl font-bold text-gray-900 text-center mb-10">Common {app.name} workflows in Slack</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {app.workflows.map((w, i) => (
+                <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100">
+                  <h3 className="text-base font-bold text-gray-900 mb-2">{w.title}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">{w.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {app.setupSteps && (
+        <section className="py-16 px-6">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl font-bold text-gray-900 mb-8">Setting up Pingdesk with {app.name}</h2>
+            <ol className="space-y-5">
+              {app.setupSteps.map((s, i) => (
+                <li key={i} className="flex gap-4">
+                  <span className="w-8 h-8 flex-shrink-0 bg-violet-100 text-violet-700 rounded-lg flex items-center justify-center text-sm font-bold">{i + 1}</span>
+                  <p className="text-base text-gray-600 leading-relaxed pt-1">{s}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      )}
+
+      {app.faqs && (
+        <section className="py-16 px-6 bg-gray-50">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl font-bold text-gray-900 mb-8">{app.name} + Pingdesk FAQ</h2>
+            <div className="space-y-6">
+              {app.faqs.map((f, i) => (
+                <div key={i} className="bg-white rounded-2xl p-6 border border-gray-100">
+                  <h3 className="text-base font-bold text-gray-900 mb-2">{f.q}</h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">{f.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@type': 'FAQPage',
+                mainEntity: app.faqs.map((f) => ({
+                  '@type': 'Question',
+                  name: f.q,
+                  acceptedAnswer: { '@type': 'Answer', text: f.a },
+                })),
+              }),
+            }}
+          />
+        </section>
+      )}
 
       <section className="py-16 px-6">
         <div className="max-w-3xl mx-auto text-center">

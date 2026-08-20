@@ -98,7 +98,10 @@ async function prerender() {
         await page.setRequestInterception(true);
         page.on('request', (req) => {
           const url = req.url();
-          if (url.includes('googletagmanager') || url.includes('google-analytics') || url.includes('fonts.googleapis')) {
+          // Only block third-party requests — never our own pages, whose slugs
+          // can contain these same strings (e.g. /integrations/google-analytics).
+          const isLocal = url.startsWith(`http://localhost:${PORT}`);
+          if (!isLocal && (url.includes('googletagmanager') || url.includes('google-analytics') || url.includes('fonts.googleapis'))) {
             req.abort();
           } else {
             req.continue();
@@ -107,7 +110,7 @@ async function prerender() {
 
         await page.goto(`http://localhost:${PORT}${route}`, {
           waitUntil: 'networkidle0',
-          timeout: 15000,
+          timeout: 30000,
         });
 
         // Wait for React to render
@@ -141,6 +144,17 @@ async function prerender() {
   server.close();
 
   console.log(`\n✅ Pre-rendered ${rendered} pages (${failed} failed)`);
+
+  // A page that fails to pre-render ships as an empty shell and cannot rank,
+  // so treat a bad batch as a build failure rather than a silent regression.
+  const failureRate = failed / allRoutes.length;
+  if (failureRate > 0.02) {
+    console.error(`\n❌ ${failed}/${allRoutes.length} routes failed to pre-render (>2%). Failing the build.`);
+    process.exit(1);
+  }
 }
 
-prerender().catch(console.error);
+prerender().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

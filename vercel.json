@@ -1,25 +1,1225 @@
 {
+  "buildCommand": "npm run build:prerender",
   "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
   ],
   "headers": [
     {
       "source": "/static/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/(.*).html",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
       ]
     },
     {
       "source": "/favicon.(ico|svg)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/integrations/vs-code",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/circleci",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/jenkins",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/netlify",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/gcp",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/azure",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/docker",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/kubernetes",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/terraform",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/new-relic",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/grafana",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/supabase",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/firebase",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/mongodb",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/postgresql",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/redis",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/elasticsearch",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/shortcut",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/teamwork",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/hive",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/workfront",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/slack",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/discord",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/webex",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/goto-meeting",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/canva",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/adobe-xd",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/sketch",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/invision",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/figjam",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/zeplin",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/abstract",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/hotjar",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/fullstory",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/heap",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/looker",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/metabase",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/tableau",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/power-bi",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/adp",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/remote-com",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/lattice",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/15five",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/culture-amp",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/bill-com",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/freshbooks",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/wave",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/mailchimp",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/marketo",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/intercom-marketing",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/drift",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/activecampaign",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/convertkit",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/buffer",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/hootsuite",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/sprout-social",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/semrush",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/ahrefs",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/close",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/apollo",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/outreach",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/gong",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/chorus",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/zoominfo",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/lusha",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/kayako",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/liveagent",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/crisp",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/lastpass",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/crowdstrike",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/sentinelone",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/notion-docs",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/readme",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/docusaurus",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/slite",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/almanac",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/box",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/onedrive",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/evernote",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/todoist",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/things-3",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/obsidian",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/salesforce-crm",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/hubspot-crm",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/zoho-crm",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/copper",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/freshsales",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/insightly",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/nimble",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/argocd",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/ansible",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/puppet",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/chef",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/vault",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/consul",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/prometheus",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/splunk",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/nagios",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/twilio",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/sendgrid",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/postman",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/typeform",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/surveymonkey",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/coda",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/webflow",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/wordpress",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/shopify",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/woocommerce",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/ghost",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/pendo",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/launchdarkly",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/sonarqube",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/github-copilot",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/linear-dev",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/retool",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/snowflake",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/dbt",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/fivetran",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/chargebee",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/recurly",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/paddle",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/talkdesk",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/aircall",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/clicksend",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/grammarly",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/clockify",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/harvest",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/notion-pm",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/render",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/fly-io",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/railway",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/plausible",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/n8n",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/papertrail",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/integrations/slab",
+      "destination": "/slack-ticketing-system",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/otrs",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/request-tracker",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/mojo-helpdesk",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/ivanti",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/bmc-helix",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/cherwell",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/hornbill",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/easyvista",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/teamdynamix",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/invgate",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/monday",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/clickup",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/basecamp",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/wrike",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/smartsheet",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/teamwork",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/hive",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/workfront",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/airtable",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/shortcut",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/todoist",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/any-do",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/ticktick",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/workast",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/workplace-from-meta",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/webex",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/drift",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/olark",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/tawk-to",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/polly",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/workato",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/zapier",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/make",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/retool",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/budibase",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/appsmith",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/jitbit",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/teamviewer-servicecamp",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/connectwise-manage",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/autotask",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/supportbee",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/supportpal",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/useresponse",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/microsoft-planner",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/microsoft-project",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/pivotal-tracker",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/nifty",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/height",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/pendo",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/coda",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/zoho-projects",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/meistertask",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/freedcamp",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/podio",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/helpjuice",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/document360",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/guru",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/discord",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/mattermost",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/kissflow",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/process-street",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/pipefy",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/typeform",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/jotform",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/power-automate",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/servicetitan",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/google-forms",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/microsoft-forms",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/servicechannel",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/teamwork-desk",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/statuspage",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/pagerduty",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/opsgenie",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/statuscast",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/uservoice",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/aha",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/productboard",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/mantis-bug-tracker",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/bugzilla",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/redmine",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/youtrack",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/gitlab-issues",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/azure-devops",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/bitrix24",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/suitecrm",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/insightly",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/wix-answers",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/acquired-helpshift",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/proprofs-help-desk",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/acquire",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/richpanel",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/missive",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/spike",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/fibery",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/tempo-timesheets",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/kantata",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/accelo",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/freshping",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/uptime-robot",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/formstack",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/smartsupp",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
+    },
+    {
+      "source": "/alternative-to/zenkit",
+      "destination": "/compare/pingdesk-vs-others",
+      "permanent": true
     }
   ]
 }

@@ -1,3 +1,6 @@
+import { CURATED_INTEGRATIONS } from './curated.js';
+import integrationsContent from './integrationsContent.js';
+
 const integrations = [
   // ===== DEVELOPMENT =====
   {
@@ -1640,4 +1643,10 @@ const integrations = [
   }
 ];
 
-export default integrations;
+// Only the curated set is published; the rest 301 to a surviving page.
+// `integrations` still holds every entry so redirects can be generated from it.
+export const allIntegrations = integrations;
+
+export default integrations
+  .filter((x) => CURATED_INTEGRATIONS.includes(x.slug))
+  .map((x) => ({ ...x, ...(integrationsContent[x.slug] || {}) }));
