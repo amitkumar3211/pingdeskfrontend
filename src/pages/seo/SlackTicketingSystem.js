@@ -4,7 +4,7 @@ import { events } from '../../lib/analytics';
 import SEO from '../../components/SEO';
 
 const features = [
-  { title: 'Create tickets with /request', desc: 'Turn any Slack message into a trackable ticket. Just type /request and assign it to a teammate.', icon: '🎫' },
+  { title: 'Create tickets with /pingdesk-request', desc: 'Turn any Slack message into a trackable ticket. Just type /pingdesk-request and assign it to a teammate.', icon: '🎫' },
   { title: 'Auto-assign & track status', desc: 'Every ticket has a clear owner and status — Pending, In Progress, or Done. No ambiguity.', icon: '📋' },
   { title: 'Automatic follow-up reminders', desc: 'If a ticket goes unanswered, Pingdesk sends polite reminders. No more manual chasing.', icon: '🔔' },
   { title: 'Web dashboard & analytics', desc: 'See all tickets in one place. Filter by status, team member, or date. Export to CSV.', icon: '📊' },
@@ -23,7 +23,7 @@ const SlackTicketingSystem = () => (
   <div className="bg-white font-sans text-gray-900 antialiased overflow-x-hidden">
     <SEO
       title="Slack Ticketing System — Turn Slack Into a Help Desk | Pingdesk"
-      description="Use Pingdesk to turn Slack into a ticketing system. Create, assign, and track tickets with /request. Free for up to 3 users."
+      description="Use Pingdesk to turn Slack into a ticketing system. Create, assign, and track tickets with /pingdesk-request. Free for up to 3 users."
       canonical="https://www.getpingdesk.com/slack-ticketing-system"
     />
     <Navbar />
@@ -42,7 +42,7 @@ const SlackTicketingSystem = () => (
           <span className="bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">ticketing system</span>
         </h1>
         <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Pingdesk adds a simple <code className="bg-violet-50 text-violet-700 px-2 py-0.5 rounded text-base font-mono">/request</code> command to Slack. Create, assign, and track tickets without leaving your workspace. Free to start.
+          Pingdesk adds a simple <code className="bg-violet-50 text-violet-700 px-2 py-0.5 rounded text-base font-mono">/pingdesk-request</code> command to Slack. Create, assign, and track tickets without leaving your workspace. Free to start.
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
           <a
@@ -123,7 +123,7 @@ const SlackTicketingSystem = () => (
         <div className="space-y-8">
           {[
             { step: '1', title: 'Install Pingdesk', desc: 'Click "Add to Slack" and authorize. Takes 60 seconds.' },
-            { step: '2', title: 'Create a ticket', desc: 'Type /request Fix login bug @sarah in any Slack channel.' },
+            { step: '2', title: 'Create a ticket', desc: 'Type /pingdesk-request Fix login bug @sarah in any Slack channel.' },
             { step: '3', title: 'Track & follow up', desc: 'Pingdesk tracks status and sends automatic reminders until it\'s resolved.' },
           ].map((s) => (
             <div key={s.step} className="flex items-start gap-5">

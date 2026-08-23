@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 const pillars = [
   {
     title: 'We never read your messages',
-    desc: 'Pingdesk only sees the exact text you type after /request. Your channel conversations, DMs, and files are completely off-limits — Slack does not give us access to them.',
+    desc: 'Pingdesk only sees the exact text you type after /pingdesk-request. Your channel conversations, DMs, and files are completely off-limits — Slack does not give us access to them.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
@@ -21,7 +21,7 @@ const pillars = [
   },
   {
     title: 'Minimal Slack permissions',
-    desc: 'We request only what we need: post messages, read user names, and respond to /request. No access to channels you haven\'t invited the bot to. Review every scope before you install.',
+    desc: 'We request only what we need: post messages, read user names, and respond to /pingdesk-request. No access to channels you haven\'t invited the bot to. Review every scope before you install.',
     icon: (
       <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
@@ -118,9 +118,9 @@ const Security = () => {
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
             {[
-              { scope: 'commands', why: 'Handle the /request slash command — this is how you create, edit, and manage requests.' },
+              { scope: 'commands', why: 'Handle the /pingdesk-request slash command — this is how you create, edit, and manage requests.' },
               { scope: 'chat:write', why: 'Post request confirmations, status updates, and reminders in your channels.' },
-              { scope: 'chat:write.public', why: 'Let you use /request in any public channel without needing to invite the bot first.' },
+              { scope: 'chat:write.public', why: 'Let you use /pingdesk-request in any public channel without needing to invite the bot first.' },
               { scope: 'users:read', why: 'Show real names in the dashboard instead of raw Slack user IDs like U0AQX3RV2N.' },
             ].map((p) => (
               <div key={p.scope} className="flex items-start gap-3 bg-gray-50 rounded-xl p-4">
@@ -144,7 +144,7 @@ const Security = () => {
             </span>
             <div>
               <p className="text-sm font-bold text-gray-900">What we don't request</p>
-              <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">No access to your messages, files, DMs, channels, or conversations. We can't read anything in your workspace — only respond to /request and post messages as PingDesk.</p>
+              <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">No access to your messages, files, DMs, channels, or conversations. We can't read anything in your workspace — only respond to /pingdesk-request and post messages as PingDesk.</p>
             </div>
           </div>
         </div>

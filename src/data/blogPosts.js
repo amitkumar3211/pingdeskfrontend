@@ -1027,7 +1027,7 @@ Here are the 15 integrations every team should consider in 2026.
 ## Productivity & Request Tracking
 
 ### 1. Pingdesk — Request Tracking
-Turn Slack messages into trackable requests with \`/request\`. Auto follow-ups ensure nothing gets lost. Free for up to 3 users.
+Turn Slack messages into trackable requests with \`/pingdesk-request\`. Auto follow-ups ensure nothing gets lost. Free for up to 3 users.
 
 ### 2. Linear — Issue Tracking
 Create and manage engineering issues directly from Slack. Perfect for dev teams running sprints.
@@ -1115,7 +1115,7 @@ The challenge: Slack wasn't built for support. Messages get buried, there's no t
 ### Step 2: Add Structure with Pingdesk
 
 Without structure, support messages get lost. Pingdesk adds:
-- \`/request\` command to create trackable tickets
+- \`/pingdesk-request\` command to create trackable tickets
 - Auto-assignment to the right team member
 - Automatic follow-up reminders
 - Dashboard to track open/closed tickets
@@ -1124,7 +1124,7 @@ Without structure, support messages get lost. Pingdesk adds:
 
 Post a channel description with:
 - Expected response time (e.g., "We respond within 4 hours")
-- How to submit requests (e.g., "Use /request to create a ticket")
+- How to submit requests (e.g., "Use /pingdesk-request to create a ticket")
 - Escalation path for urgent issues
 
 ### Step 4: Use Threads for Context
@@ -1202,7 +1202,7 @@ Use prefixes to make channels scannable:
 2. **#random** — Water cooler chat
 3. **#help-it** — IT support requests
 4. **#help-hr** — HR questions
-5. **#requests** — Cross-team requests (use with Pingdesk's \`/request\`)
+5. **#requests** — Cross-team requests (use with Pingdesk's \`/pingdesk-request\`)
 6. **#wins** — Celebrate team achievements
 7. **#feedback** — Product/process feedback
 
@@ -1238,7 +1238,7 @@ Use prefixes to make channels scannable:
 
 The biggest organizational challenge is requests scattered across channels. Someone asks for a design review in \`#team-design\`, a code review in \`#team-engineering\`, and an approval in \`#team-finance\`.
 
-Pingdesk solves this by letting anyone create a \`/request\` from any channel, with all requests visible in one dashboard regardless of which channel they came from.
+Pingdesk solves this by letting anyone create a \`/pingdesk-request\` from any channel, with all requests visible in one dashboard regardless of which channel they came from.
 
 ## Start Today
 
@@ -1279,7 +1279,7 @@ Pin these messages at the top:
 ### Day 1: Welcome & Setup
 - Post a welcome message introducing the new hire
 - Share IT setup checklist (laptop, accounts, VPN)
-- Use \`/request\` to assign setup tasks: \`/request Set up laptop for @newhire @it-team\`
+- Use \`/pingdesk-request\` to assign setup tasks: \`/pingdesk-request Set up laptop for @newhire @it-team\`
 
 ### Day 2-3: Meet the Team
 - Share the team org chart
@@ -1305,9 +1305,9 @@ Create a workflow that triggers when someone joins a channel:
 The biggest onboarding failure: tasks falling through the cracks. The laptop isn't ready, accounts aren't created, the buddy meeting never happened.
 
 Use Pingdesk to track onboarding requests:
-- \`/request Create email account for @newhire @it\`
-- \`/request Schedule onboarding buddy meeting @hr\`
-- \`/request Order equipment for @newhire @ops\`
+- \`/pingdesk-request Create email account for @newhire @it\`
+- \`/pingdesk-request Schedule onboarding buddy meeting @hr\`
+- \`/pingdesk-request Order equipment for @newhire @ops\`
 
 Each request is tracked with auto-reminders, so nothing gets forgotten.
 
@@ -1384,7 +1384,7 @@ The biggest notification problem: being tagged for requests mixed with regular c
 
 > "@david can you review this when you get a chance?"
 
-This gets lost in a channel with 50 messages. Instead, teams that use \`/request\` through Pingdesk create structured, trackable requests that:
+This gets lost in a channel with 50 messages. Instead, teams that use \`/pingdesk-request\` through Pingdesk create structured, trackable requests that:
 - Show up in a dashboard (not buried in chat)
 - Send reminders if you don't respond
 - Don't require you to monitor channels constantly
@@ -1469,7 +1469,7 @@ Slack and Microsoft Teams are the two dominant workplace communication tools. Bo
 
 ## The Integration Factor
 
-Where Slack really wins is the integration ecosystem. Tools like Pingdesk can add \`/request\` commands for tracking requests directly in Slack. This kind of deep, native integration is harder to find in Teams.
+Where Slack really wins is the integration ecosystem. Tools like Pingdesk can add \`/pingdesk-request\` commands for tracking requests directly in Slack. This kind of deep, native integration is harder to find in Teams.
 
 ## Can You Use Both?
 
@@ -1516,7 +1516,7 @@ Never send a message that just says "Hi" or "Hey, are you free?" and wait for a 
 
 ## Rule 4: Respect DND and Status
 
-If someone's status says "Focusing" or "OOO", don't expect an immediate response. For urgent matters, use \`/request\` through Pingdesk — it'll send an auto-reminder when appropriate.
+If someone's status says "Focusing" or "OOO", don't expect an immediate response. For urgent matters, use \`/pingdesk-request\` through Pingdesk — it'll send an auto-reminder when appropriate.
 
 ## Rule 5: Use the Right Channel
 
@@ -1571,7 +1571,7 @@ Not all meetings are bad. But many could be replaced with structured Slack commu
 - **Status updates**: "What's everyone working on?" → Use async standups
 - **FYI meetings**: "Let me walk you through this update" → Post in a channel
 - **Quick decisions**: "Should we go with option A or B?" → Slack poll
-- **Request discussions**: "Can someone review this?" → Use \`/request\`
+- **Request discussions**: "Can someone review this?" → Use \`/pingdesk-request\`
 
 ### Keep These as Meetings
 - Brainstorming sessions (creative energy needs real-time)
@@ -1604,7 +1604,7 @@ This cuts meeting time from 60 min to 15 min.
 
 "Can we hop on a quick call to discuss the design review?"
 
-This happens because there's no structured way to make requests. Install Pingdesk and use \`/request Review homepage design @sarah\`. The request is tracked, assigned, and followed up automatically — no meeting needed.
+This happens because there's no structured way to make requests. Install Pingdesk and use \`/pingdesk-request Review homepage design @sarah\`. The request is tracked, assigned, and followed up automatically — no meeting needed.
 
 ## How to Replace Decision Meetings
 
@@ -1748,10 +1748,10 @@ Pin it to the channel.
 
 ### Step 3: Use Pingdesk for Task Tracking
 
-Create tasks with \`/request\`:
-- \`/request Design new homepage mockup @sarah\`
-- \`/request Write copy for landing page @david\`
-- \`/request Set up analytics tracking @mike\`
+Create tasks with \`/pingdesk-request\`:
+- \`/pingdesk-request Design new homepage mockup @sarah\`
+- \`/pingdesk-request Write copy for landing page @david\`
+- \`/pingdesk-request Set up analytics tracking @mike\`
 
 Each task is trackable with status (Pending → In Progress → Done) and auto-reminders.
 
@@ -1794,10 +1794,10 @@ A marketing team manages a product launch:
 
 1. \`#proj-q3-launch\` channel created
 2. Tasks created via Pingdesk:
-   - \`/request Write press release @pr-team\`
-   - \`/request Design social media assets @design\`
-   - \`/request Set up landing page @web-team\`
-   - \`/request Schedule email campaign @email-team\`
+   - \`/pingdesk-request Write press release @pr-team\`
+   - \`/pingdesk-request Design social media assets @design\`
+   - \`/pingdesk-request Set up landing page @web-team\`
+   - \`/pingdesk-request Schedule email campaign @email-team\`
 3. Each task auto-tracks status and sends reminders
 4. Dashboard shows what's done, what's pending, what's blocked
 5. Weekly update posted every Monday
@@ -1838,9 +1838,9 @@ If you reply in the main channel, your team will too. Always use threads.
 
 ## Delegation Tips
 
-### 5. Use /request for Task Assignment
+### 5. Use /pingdesk-request for Task Assignment
 Instead of: "Hey @sarah can you look at this when you get a chance?"
-Use: \`/request Review Q3 budget proposal @sarah\`
+Use: \`/pingdesk-request Review Q3 budget proposal @sarah\`
 
 The first gets forgotten. The second is tracked, assigned, and auto-followed up by Pingdesk.
 
@@ -1950,7 +1950,7 @@ This bot collects structured requests and routes them.
    - Finance → \`#help-finance\`
 
 ### Limitations
-Workflow Builder can route messages, but it can't track status, send follow-ups, or show a dashboard. For that, you'd need Pingdesk, which adds \`/request\` with full tracking and auto-reminders.
+Workflow Builder can route messages, but it can't track status, send follow-ups, or show a dashboard. For that, you'd need Pingdesk, which adds \`/pingdesk-request\` with full tracking and auto-reminders.
 
 ## When to Use Workflow Builder vs a Dedicated Tool
 
@@ -2030,7 +2030,7 @@ Post every day, even if it's "Yesterday: Meetings all day. Today: Actually codin
 If you're blocked, make it visible:
 > **Blocker**: Can't proceed on payment integration — need API keys from @ops-team (requested 3 days ago)
 
-Use Pingdesk to create a \`/request\` for the blocker so it gets tracked and auto-followed up.
+Use Pingdesk to create a \`/pingdesk-request\` for the blocker so it gets tracked and auto-followed up.
 
 ### Review Blockers in a Short Sync
 Keep one 15-minute meeting per week (not daily) to discuss blockers that couldn't be resolved async. This is your only meeting — everything else is in Slack.
@@ -2082,7 +2082,7 @@ Small businesses need:
 **Setup time**: 60 seconds
 **Best for**: Teams that live in Slack
 
-Pingdesk adds a \`/request\` command to Slack. Create, assign, and track requests without leaving your workspace. Auto follow-up reminders ensure nothing gets lost.
+Pingdesk adds a \`/pingdesk-request\` command to Slack. Create, assign, and track requests without leaving your workspace. Auto follow-up reminders ensure nothing gets lost.
 
 **Pros**: Instant setup, free tier, Slack-native, auto reminders
 **Cons**: Slack-only (no email channel), newer product
@@ -2215,7 +2215,7 @@ Emoji reactions work great for simple workflows, but they break down when you ne
 ## When to Graduate
 
 If your team outgrows emoji workflows, tools like Pingdesk add structure:
-- \`/request\` creates an assigned, trackable item
+- \`/pingdesk-request\` creates an assigned, trackable item
 - Status is explicit (Pending → In Progress → Done)
 - Auto-reminders if nobody responds
 - Dashboard shows everything in one place
@@ -2264,7 +2264,7 @@ Ambiguous ownership kills accountability. "Can someone handle this?" means nobod
 
 ### How
 - Every task has exactly one owner (not a team, a person)
-- Use \`/request Review the proposal @sarah\` not \`/request Review the proposal\`
+- Use \`/pingdesk-request Review the proposal @sarah\` not \`/pingdesk-request Review the proposal\`
 - If ownership changes, explicitly transfer it
 
 ## Principle 3: Automate Follow-ups
@@ -2324,7 +2324,7 @@ Build the system, trust your team, and let the tools do the nagging.`
 ## Feature Comparison
 
 ### Task Creation
-- **Slack + Pingdesk**: \`/request Review design @sarah\` — created in 5 seconds, right where the conversation happens
+- **Slack + Pingdesk**: \`/pingdesk-request Review design @sarah\` — created in 5 seconds, right where the conversation happens
 - **Asana**: Click New Task → Fill out form (title, assignee, due date, project, section) — takes 30+ seconds
 
 **Winner**: Slack for speed and context
@@ -2413,7 +2413,7 @@ Benefits:
 
 Create \`#help-it\` with this description:
 
-> Need IT help? Use \`/request\` to submit a ticket.
+> Need IT help? Use \`/pingdesk-request\` to submit a ticket.
 > Include: What's the issue? What device? How urgent?
 > We respond within 4 hours for normal requests, 30 min for urgent.
 
@@ -2426,11 +2426,11 @@ Go to getpingdesk.com and click "Add to Slack." Authorize for your workspace. Do
 Post and pin a guide for employees:
 
 **How to submit IT requests:**
-- Password reset: \`/request Password reset for [system] @it-team\`
-- New equipment: \`/request Need new monitor for [name] @it-team\`
-- Software install: \`/request Install [software] on my laptop @it-team\`
-- Access request: \`/request Need access to [system] @it-team\`
-- Bug/issue: \`/request [System] is showing error [description] @it-team\`
+- Password reset: \`/pingdesk-request Password reset for [system] @it-team\`
+- New equipment: \`/pingdesk-request Need new monitor for [name] @it-team\`
+- Software install: \`/pingdesk-request Install [software] on my laptop @it-team\`
+- Access request: \`/pingdesk-request Need access to [system] @it-team\`
+- Bug/issue: \`/pingdesk-request [System] is showing error [description] @it-team\`
 
 ### Step 4: Configure Auto-Reminders
 
@@ -2481,7 +2481,7 @@ But don't start with enterprise ITSM. Start simple with Slack + Pingdesk and add
 
 ## Total Setup Time: Under 10 Minutes
 
-No vendor demos. No implementation projects. No per-agent pricing. Just a Slack channel and a \`/request\` command.`
+No vendor demos. No implementation projects. No per-agent pricing. Just a Slack channel and a \`/pingdesk-request\` command.`
   },
   {
     slug: 'slack-productivity-stats-2026',
@@ -2581,10 +2581,10 @@ Create a Google Sheet with columns:
 ## The Dedicated Tool Approach (Pingdesk)
 
 ### Setup
-Install Pingdesk → Type \`/request\` in Slack → Done
+Install Pingdesk → Type \`/pingdesk-request\` in Slack → Done
 
 ### How It Works
-1. Someone types \`/request Review design @sarah\`
+1. Someone types \`/pingdesk-request Review design @sarah\`
 2. Status updates happen via Slack buttons (no context switching)
 3. Auto-reminders if no action taken
 4. Dashboard shows real-time status

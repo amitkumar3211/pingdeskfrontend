@@ -8,7 +8,7 @@ const alternatives = [
     name: 'Pingdesk',
     tagline: 'Lightweight Slack request tracking',
     pricing: 'Free / $12-59/mo',
-    pros: ['60-second setup', 'Free tier available', '/request slash command', 'Auto follow-up reminders', 'Web dashboard', 'No training needed'],
+    pros: ['60-second setup', 'Free tier available', '/pingdesk-request slash command', 'Auto follow-up reminders', 'Web dashboard', 'No training needed'],
     cons: ['Newer product', 'No email channel (Slack-only)'],
     best: 'Teams that want simple, fast request tracking in Slack without complexity.',
     highlight: true,

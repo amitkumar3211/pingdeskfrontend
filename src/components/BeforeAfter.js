@@ -52,7 +52,7 @@ const BeforeAfter = () => {
               <h3 className="text-lg font-bold text-gray-900 mb-5">With Pingdesk</h3>
               <div className="space-y-3">
                 {[
-                  { text: '/request "Review homepage design" → @sarah', status: 'Created', color: 'text-violet-600 bg-violet-50', time: 'Mon 9:30 AM' },
+                  { text: '/pingdesk-request "Review homepage design" → @sarah', status: 'Created', color: 'text-violet-600 bg-violet-50', time: 'Mon 9:30 AM' },
                   { text: 'Auto reminder sent to @sarah', status: 'Reminded', color: 'text-amber-600 bg-amber-50', time: 'Tue 9:30 AM' },
                   { text: '@sarah completed the review', status: 'Done', color: 'text-emerald-600 bg-emerald-50', time: 'Tue 3:00 PM' },
                 ].map((m, i) => (

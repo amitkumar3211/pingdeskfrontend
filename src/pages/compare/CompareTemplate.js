@@ -80,7 +80,7 @@ const CompareTemplate = () => {
               <p className="text-sm text-gray-500 mb-3">Lightweight Slack request tracking</p>
               <p className="text-sm font-semibold text-gray-900 mb-4">Free / $12-59/mo</p>
               <div className="space-y-2 mb-4">
-                {['60-second setup', 'Free tier (up to 3 users)', '/request slash command', 'Auto follow-up reminders', 'Web dashboard with analytics', 'No training needed'].map((p) => (
+                {['60-second setup', 'Free tier (up to 3 users)', '/pingdesk-request slash command', 'Auto follow-up reminders', 'Web dashboard with analytics', 'No training needed'].map((p) => (
                   <div key={p} className="flex items-start gap-2">
                     <svg className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
                     <span className="text-sm text-gray-600">{p}</span>

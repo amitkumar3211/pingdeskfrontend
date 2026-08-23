@@ -25,7 +25,7 @@ const integrationsContent = {
       'Install Pingdesk into your Slack workspace. The free tier covers up to three users, so you can trial the workflow with a small group before rolling it out.',
       'Invite the Pingdesk bot to the channels where engineering requests already arrive — typically your support, product, and team channels.',
       'Agree on a lightweight convention for what becomes a tracked request. Most teams start with anything that would otherwise become a GitHub issue.',
-      'Use /request in any channel, or convert an existing message directly, to capture the ask with an owner and a due date.',
+      'Use /pingdesk-request in any channel, or convert an existing message directly, to capture the ask with an owner and a due date.',
       'Review the open queue in your weekly engineering sync. Because every request has a status, the standing "what is blocked?" question answers itself.',
     ],
     faqs: [
@@ -53,7 +53,7 @@ const integrationsContent = {
       'Add Pingdesk to your Slack workspace and invite the bot to the channels where requests currently arrive.',
       'Identify the two or three channels that generate the most ad-hoc asks — usually a team help channel and one or two partner-team channels.',
       'Set a default owner or rotation for each channel so incoming requests always land with someone rather than sitting unassigned.',
-      'Start capturing requests with /request. Keep using Jira exactly as you do now for planned project work.',
+      'Start capturing requests with /pingdesk-request. Keep using Jira exactly as you do now for planned project work.',
       'After two weeks, compare the Pingdesk queue against your Jira intake. Most teams find a meaningful share of requests were never reaching Jira at all.',
     ],
     faqs: [
@@ -108,7 +108,7 @@ const integrationsContent = {
       'Install Pingdesk into Slack and invite the bot to the channels where your team receives ad-hoc asks.',
       'Leave Asana exactly as it is. This is deliberately additive — you are capturing the work that was never going to reach Asana.',
       'Nominate a default owner per channel so requests land with a person immediately rather than waiting for a volunteer.',
-      'Start converting Slack messages into requests with /request whenever someone asks for something that needs doing.',
+      'Start converting Slack messages into requests with /pingdesk-request whenever someone asks for something that needs doing.',
       'After a fortnight, look at the closed queue. The volume of tracked-but-previously-invisible work is usually the number that convinces the rest of the team.',
     ],
     faqs: [
@@ -136,7 +136,7 @@ const integrationsContent = {
       'Add Pingdesk to Slack and invite it to the channels where requests currently arrive.',
       'If you run an intake database in Notion, leave it in place for now and run both for two weeks so you can compare capture rates.',
       'Set a default owner per channel so nothing lands unassigned.',
-      'Use /request to capture asks, linking the relevant Notion page where useful.',
+      'Use /pingdesk-request to capture asks, linking the relevant Notion page where useful.',
       'Compare the two queues after two weeks. The gap between them is the work that was previously invisible.',
     ],
     faqs: [
@@ -164,7 +164,7 @@ const integrationsContent = {
       'Install Pingdesk in Slack. ServiceNow stays exactly as it is — this sits in front of it, not instead of it.',
       'Invite the bot to the channels where employees already ask IT for things informally.',
       'Set an owner or rotation per channel so requests are assigned on arrival.',
-      'Capture incoming asks with /request, escalating to ServiceNow only where formal tracking is genuinely required.',
+      'Capture incoming asks with /pingdesk-request, escalating to ServiceNow only where formal tracking is genuinely required.',
       'After a month, compare Pingdesk volume against ServiceNow ticket volume. The difference is the demand your reporting has been missing.',
     ],
     faqs: [
@@ -191,7 +191,7 @@ linear: {
       'Install Pingdesk in Slack and invite the bot to the channels where engineering fields questions from other teams.',
       'Leave Linear untouched — the point is to protect its cleanliness, not to duplicate it.',
       'Assign a default owner or a rotating triage role per channel so requests never sit unclaimed.',
-      'Capture incoming asks with /request, promoting to Linear only once something is confirmed as real work.',
+      'Capture incoming asks with /pingdesk-request, promoting to Linear only once something is confirmed as real work.',
       'Review tracked-but-not-promoted requests monthly. That list is a good signal of recurring friction worth fixing properly.',
     ],
     faqs: [
@@ -246,7 +246,7 @@ trello: {
       'Add Pingdesk to Slack and invite it to the channels where requests arrive.',
       'Keep your Trello boards for planned and visual work — this is aimed at the asks that never made it onto a board.',
       'Set a default owner per channel so incoming requests are assigned immediately.',
-      'Use /request to capture asks, referencing the relevant Trello card where one exists.',
+      'Use /pingdesk-request to capture asks, referencing the relevant Trello card where one exists.',
       'After a few weeks, check how many tracked requests never corresponded to a card. That gap is the work Trello was never seeing.',
     ],
     faqs: [
@@ -274,7 +274,7 @@ trello: {
       'Install Pingdesk in Slack and invite it to the channels where requests currently arrive.',
       'Leave your Confluence spaces alone — documentation stays where it is.',
       'If you have an intake table, run both in parallel for two weeks rather than migrating immediately.',
-      'Capture requests with /request, linking the relevant Confluence page for context.',
+      'Capture requests with /pingdesk-request, linking the relevant Confluence page for context.',
       'Compare the two after a fortnight. The difference is the demand your table was never capturing.',
     ],
     faqs: [

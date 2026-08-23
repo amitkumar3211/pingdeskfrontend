@@ -208,7 +208,7 @@ const MeetingCostCalculator = () => {
                   The fix
                 </h3>
                 <p className="text-sm text-emerald-800 mb-4">
-                  Replace status update meetings with a Slack <code className="bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded text-xs font-mono">/request</code> command. Track requests, get auto-reminders, and save <strong>${Math.round(yearlyCost * 0.6).toLocaleString()}/year</strong>.
+                  Replace status update meetings with a Slack <code className="bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded text-xs font-mono">/pingdesk-request</code> command. Track requests, get auto-reminders, and save <strong>${Math.round(yearlyCost * 0.6).toLocaleString()}/year</strong>.
                 </p>
                 <a
                   href="https://pindeskapi.himalayancoders.com/slack/install"
@@ -231,7 +231,7 @@ const MeetingCostCalculator = () => {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { step: '1', title: 'Audit your meetings', desc: 'Use this calculator to find your most expensive recurring meetings. Status updates and check-ins are usually the worst offenders.' },
-              { step: '2', title: 'Replace with /request', desc: 'Instead of a meeting, use Pingdesk\'s /request command in Slack. Create trackable requests with auto follow-ups.' },
+              { step: '2', title: 'Replace with /pingdesk-request', desc: 'Instead of a meeting, use Pingdesk\'s /pingdesk-request command in Slack. Create trackable requests with auto follow-ups.' },
               { step: '3', title: 'Save 60% of meeting time', desc: 'Teams using async requests in Slack report cutting 60% of meetings while improving accountability.' },
             ].map((item) => (
               <div key={item.step} className="text-center">

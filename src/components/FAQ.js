@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 const faqs = [
   {
     q: 'How do I install Pingdesk on Slack?',
-    a: "Click 'Add to Slack' on this page. You'll authorize Pingdesk in your workspace, and it's ready in under 60 seconds. No configuration needed — just start using /request in any channel.",
+    a: "Click 'Add to Slack' on this page. You'll authorize Pingdesk in your workspace, and it's ready in under 60 seconds. No configuration needed — just start using /pingdesk-request in any channel.",
   },
   {
     q: 'Is Pingdesk free?',
@@ -11,7 +11,7 @@ const faqs = [
   },
   {
     q: 'How does Pingdesk track requests in Slack?',
-    a: 'Type /request in any Slack channel to create a trackable request. Assign it to a teammate, and Pingdesk tracks the status, sends reminders, and notifies you when it\'s done.',
+    a: 'Type /pingdesk-request in any Slack channel to create a trackable request. Assign it to a teammate, and Pingdesk tracks the status, sends reminders, and notifies you when it\'s done.',
   },
   {
     q: 'What happens if someone doesn\'t respond?',

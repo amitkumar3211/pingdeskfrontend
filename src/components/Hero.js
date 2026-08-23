@@ -118,7 +118,7 @@ const SlackDemo = () => {
                     </div>
                     <div className="mt-1 bg-gray-50 border border-gray-200 rounded-lg px-3.5 py-2 inline-block">
                       <span className="text-[13px] font-mono">
-                        <span className="text-violet-600 font-bold">/request</span>{' '}
+                        <span className="text-violet-600 font-bold">/pingdesk-request</span>{' '}
                         <span className="text-gray-700">Review homepage design</span>{' '}
                         <span className="text-blue-600">@sarah</span>
                       </span>

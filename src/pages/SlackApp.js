@@ -44,7 +44,7 @@ const SlackApp = () => (
             <div>
               <h2 className="text-xl font-bold text-gray-900 mb-4">What Pingdesk Does</h2>
               <p className="text-gray-600 leading-relaxed mb-4">
-                Pingdesk adds a <code className="bg-violet-50 text-violet-700 px-1.5 py-0.5 rounded text-sm">/request</code> slash command to your Slack workspace. Use it to create, assign, and track requests directly in Slack — with automatic follow-up reminders.
+                Pingdesk adds a <code className="bg-violet-50 text-violet-700 px-1.5 py-0.5 rounded text-sm">/pingdesk-request</code> slash command to your Slack workspace. Use it to create, assign, and track requests directly in Slack — with automatic follow-up reminders.
               </p>
               <p className="text-gray-600 leading-relaxed">
                 No more lost messages. No more forgotten tasks. No more awkward "hey, did you see my message?" follow-ups.
@@ -55,7 +55,7 @@ const SlackApp = () => (
               <h2 className="text-xl font-bold text-gray-900 mb-4">Key Features</h2>
               <div className="grid sm:grid-cols-2 gap-3">
                 {[
-                  'Create requests with /request',
+                  'Create requests with /pingdesk-request',
                   'Assign to teammates with @mentions',
                   'Automatic follow-up reminders',
                   'Status tracking (Pending / In Progress / Done)',
@@ -79,7 +79,7 @@ const SlackApp = () => (
               <div className="space-y-4">
                 {[
                   { step: '1', title: 'Install', desc: 'Click "Add to Slack" — takes 60 seconds, no configuration needed.' },
-                  { step: '2', title: 'Create', desc: 'Type /request Review homepage design @sarah in any channel.' },
+                  { step: '2', title: 'Create', desc: 'Type /pingdesk-request Review homepage design @sarah in any channel.' },
                   { step: '3', title: 'Track', desc: 'Pingdesk creates a card with status, assignee, and buttons for actions.' },
                   { step: '4', title: 'Follow up', desc: 'If no response after 24 hours, Pingdesk sends automatic reminders.' },
                 ].map((s) => (
@@ -108,10 +108,10 @@ const SlackApp = () => (
                   </thead>
                   <tbody>
                     {[
-                      ['/request [title] @user', 'Create a new request and assign it'],
-                      ['/request mine', 'View requests assigned to you'],
-                      ['/request dashboard', 'Open your web dashboard'],
-                      ['/request help', 'Show all available commands'],
+                      ['/pingdesk-request [title] @user', 'Create a new request and assign it'],
+                      ['/pingdesk-request mine', 'View requests assigned to you'],
+                      ['/pingdesk-request dashboard', 'Open your web dashboard'],
+                      ['/pingdesk-request help', 'Show all available commands'],
                     ].map(([cmd, desc]) => (
                       <tr key={cmd} className="border-b border-gray-50 last:border-0">
                         <td className="px-5 py-3 font-mono text-violet-600 text-xs">{cmd}</td>
@@ -194,7 +194,7 @@ const SlackApp = () => (
                 </li>
               </ul>
               <p className="mt-3 text-[11px] text-gray-400">
-                Pingdesk does not read your messages. It only processes /request commands.
+                Pingdesk does not read your messages. It only processes /pingdesk-request commands.
               </p>
             </div>
           </div>

@@ -7,7 +7,7 @@ const SlackRequestTracking = () => (
   <div className="bg-white font-sans text-gray-900 antialiased overflow-x-hidden">
     <SEO
       title="Slack Request Tracking — Track Every Request in Slack | Pingdesk"
-      description="Track requests in Slack with automatic follow-ups. Never lose a request again with Pingdesk's /request command."
+      description="Track requests in Slack with automatic follow-ups. Never lose a request again with Pingdesk's /pingdesk-request command."
       canonical="https://www.getpingdesk.com/slack-request-tracking"
     />
     <Navbar />
@@ -81,11 +81,11 @@ const SlackRequestTracking = () => (
         </p>
         <div className="space-y-6">
           {[
-            { title: 'Create with /request', desc: 'Type /request Review Q3 report @david in any channel. Pingdesk instantly creates a trackable request card with status, assignee, and timestamp.', highlight: '/request Review Q3 report @david' },
+            { title: 'Create with /pingdesk-request', desc: 'Type /pingdesk-request Review Q3 report @david in any channel. Pingdesk instantly creates a trackable request card with status, assignee, and timestamp.', highlight: '/pingdesk-request Review Q3 report @david' },
             { title: 'Track status in real-time', desc: 'Every request shows Pending, In Progress, or Done. The assignee updates status with one click — the whole channel sees it.' },
             { title: 'Automatic follow-up reminders', desc: 'If a request sits unanswered for 24 hours (configurable), Pingdesk sends a polite reminder to the assignee. No manual chasing.' },
             { title: 'Dashboard for full visibility', desc: 'See all requests across channels in one dashboard. Filter by status, date, or team member. Export to CSV for reporting.' },
-            { title: 'View your tasks with /request mine', desc: 'Every team member can see what\'s assigned to them with a single command. No switching apps, no checking dashboards.' },
+            { title: 'View your tasks with /pingdesk-request mine', desc: 'Every team member can see what\'s assigned to them with a single command. No switching apps, no checking dashboards.' },
           ].map((item, i) => (
             <div key={i} className="flex items-start gap-5 bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-lg transition-all">
               <span className="w-10 h-10 bg-violet-100 rounded-xl flex items-center justify-center text-sm font-black text-violet-600 flex-shrink-0">{i + 1}</span>

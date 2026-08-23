@@ -70,7 +70,7 @@ const IntegrationTemplate = () => {
           <div className="grid md:grid-cols-3 gap-6">
             {[
               { step: '1', title: `Use ${app.name}`, desc: `Your team uses ${app.name} for ${app.category.toLowerCase()} tasks.` },
-              { step: '2', title: 'Track requests in Slack', desc: 'When someone needs action, use /request in Slack to create a trackable request.' },
+              { step: '2', title: 'Track requests in Slack', desc: 'When someone needs action, use /pingdesk-request in Slack to create a trackable request.' },
               { step: '3', title: 'Auto follow-up', desc: 'Pingdesk sends reminders and tracks status — nothing falls through the cracks.' },
             ].map((s) => (
               <div key={s.step} className="bg-white rounded-2xl p-6 text-center border border-gray-100">

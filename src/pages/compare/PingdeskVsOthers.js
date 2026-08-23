@@ -8,7 +8,7 @@ const tools = ['Pingdesk', 'ClearFeed', 'Suptask', 'Wrangle', 'Jira SM'];
 const features = [
   { name: 'Free plan', values: ['Yes (3 users)', 'No', 'Yes (limited)', 'No', 'Yes (3 agents)'] },
   { name: 'Setup time', values: ['60 seconds', '~30 min', '~15 min', 'Demo required', '1-2 weeks'] },
-  { name: 'Slack slash command', values: ['/request', 'No', '/suptask', 'No', '/jira'] },
+  { name: 'Slack slash command', values: ['/pingdesk-request', 'No', '/suptask', 'No', '/jira'] },
   { name: 'Auto follow-up reminders', values: ['Yes', 'No', 'No', 'No', 'Via automation rules'] },
   { name: 'Status tracking', values: ['Yes', 'Yes', 'Yes', 'Yes', 'Yes'] },
   { name: 'Web dashboard', values: ['Yes', 'Yes', 'Yes', 'Yes', 'Yes (Jira)'] },

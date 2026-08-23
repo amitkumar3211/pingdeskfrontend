@@ -63,7 +63,7 @@ const WelcomeBanner = ({ workspaceName }) => {
         <div className="space-y-4 max-w-lg mb-10">
           {[
             { num: '1', text: 'Go to any Slack channel', delay: 1 },
-            { num: '2', text: 'Type:  /request Review homepage design @teammate', code: true, delay: 2 },
+            { num: '2', text: 'Type:  /pingdesk-request Review homepage design @teammate', code: true, delay: 2 },
             { num: '3', text: 'That\'s it — Pingdesk starts tracking automatically', delay: 3 },
           ].map((s) => (
             <div
@@ -80,7 +80,7 @@ const WelcomeBanner = ({ workspaceName }) => {
               <div className="pt-1">
                 {s.code ? (
                   <p className="text-white/90 text-sm font-medium">
-                    Type: <code className="bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-lg text-violet-200 font-mono text-xs ml-1">/request Review homepage design @teammate</code>
+                    Type: <code className="bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-lg text-violet-200 font-mono text-xs ml-1">/pingdesk-request Review homepage design @teammate</code>
                   </p>
                 ) : (
                   <p className="text-white/90 text-sm font-medium">{s.text}</p>
@@ -105,18 +105,17 @@ const WelcomeBanner = ({ workspaceName }) => {
             </svg>
             Open Slack
           </a>
-          <button
+          <a
+            href="https://www.getpingdesk.com/docs"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-white/70 hover:text-white font-medium text-sm px-5 py-3.5 rounded-full border border-white/20 hover:border-white/40 transition-all hover:-translate-y-0.5"
-            onClick={() => {
-              const el = document.getElementById('how-to-video');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
           >
             Learn more
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7-7 7M3 12h18" />
             </svg>
-          </button>
+          </a>
         </div>
 
         {/* Subtle helper commands */}
@@ -124,9 +123,9 @@ const WelcomeBanner = ({ workspaceName }) => {
           step >= 4 ? 'opacity-100' : 'opacity-0'
         }`}>
           {[
-            '/request mine — see your assigned tasks',
-            '/request dashboard — open this dashboard',
-            '/request help — all commands',
+            '/pingdesk-request mine — see your assigned tasks',
+            '/pingdesk-request dashboard — open this dashboard',
+            '/pingdesk-request help — all commands',
           ].map((cmd) => (
             <span key={cmd} className="text-[11px] text-white/30 font-mono">{cmd}</span>
           ))}
@@ -411,7 +410,7 @@ const Overview = ({ data, token, range, setRange, filter, setFilter, page, setPa
                 <svg className="w-8 h-8 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
               </div>
               <p className="text-sm text-gray-500 font-medium">No requests yet</p>
-              <p className="text-xs text-gray-400 mt-1">Use <code className="bg-gray-100 px-1.5 py-0.5 rounded text-violet-600 font-mono">/request</code> in Slack to create one</p>
+              <p className="text-xs text-gray-400 mt-1">Use <code className="bg-gray-100 px-1.5 py-0.5 rounded text-violet-600 font-mono">/pingdesk-request</code> in Slack to create one</p>
             </div>
           ) : (
             <>

@@ -162,7 +162,7 @@ const Docs = () => {
               </h2>
               <p className="text-gray-600 leading-relaxed mb-3">Go to any Slack channel and type:</p>
               <CodeBlock>
-                <span className="text-violet-400">/request</span> Review homepage design <span className="text-blue-400">@sarah</span>
+                <span className="text-violet-400">/pingdesk-request</span> Review homepage design <span className="text-blue-400">@sarah</span>
               </CodeBlock>
               <p className="text-gray-600 leading-relaxed">Pingdesk creates a trackable request card with:</p>
               <ul className="mt-3 space-y-2">
@@ -197,7 +197,7 @@ const Docs = () => {
                 By default, Pingdesk reminds the assignee after <strong>24 hours</strong>. On paid plans, set a custom interval per request:
               </p>
               <CodeBlock>
-                <span className="text-violet-400">/request</span> Fix checkout bug <span className="text-blue-400">@james</span> <span className="text-amber-400">in 2h</span>
+                <span className="text-violet-400">/pingdesk-request</span> Fix checkout bug <span className="text-blue-400">@james</span> <span className="text-amber-400">in 2h</span>
               </CodeBlock>
               <p className="text-gray-600 leading-relaxed">
                 This request will send a reminder after 2 hours. Valid range: <InlineCode>1h</InlineCode> to <InlineCode>168h</InlineCode> (one week).
@@ -246,7 +246,7 @@ const Docs = () => {
 
               <h3 className="text-base font-bold text-gray-900 mt-6 mb-2">Slash command</h3>
               <CodeBlock>
-                <span className="text-violet-400">/request mine</span>
+                <span className="text-violet-400">/pingdesk-request mine</span>
               </CodeBlock>
               <p className="text-gray-600 text-sm">Shows an ephemeral list of your open requests with quick edit/delete shortcuts.</p>
 
@@ -278,7 +278,7 @@ const Docs = () => {
               </h2>
               <p className="text-gray-600 leading-relaxed">Access your dashboard anytime:</p>
               <CodeBlock>
-                <span className="text-violet-400">/request dashboard</span>
+                <span className="text-violet-400">/pingdesk-request dashboard</span>
               </CodeBlock>
               <p className="text-gray-600 leading-relaxed mb-4">
                 Or click "Open Dashboard" in your welcome DM or App Home tab.
@@ -317,16 +317,16 @@ const Docs = () => {
                   </thead>
                   <tbody className="divide-y divide-gray-100">
                     {[
-                      ['/request <title> @user', 'Create a new request'],
-                      ['/request <title> @user in 2h', 'Create with custom reminder (Starter+)'],
-                      ['/request mine', 'List your open assigned requests'],
-                      ['/request edit <id> new title', 'Edit a request (creator 3 min, admin anytime)'],
-                      ['/request delete <id>', 'Delete a request'],
-                      ['/request dashboard', 'Open the web dashboard'],
-                      ['/request admins', 'List workspace admins'],
-                      ['/request admin add @user', 'Add an admin (Growth+)'],
-                      ['/request admin remove @user', 'Remove an admin (Growth+)'],
-                      ['/request help', 'Show all commands'],
+                      ['/pingdesk-request <title> @user', 'Create a new request'],
+                      ['/pingdesk-request <title> @user in 2h', 'Create with custom reminder (Starter+)'],
+                      ['/pingdesk-request mine', 'List your open assigned requests'],
+                      ['/pingdesk-request edit <id> new title', 'Edit a request (creator 3 min, admin anytime)'],
+                      ['/pingdesk-request delete <id>', 'Delete a request'],
+                      ['/pingdesk-request dashboard', 'Open the web dashboard'],
+                      ['/pingdesk-request admins', 'List workspace admins'],
+                      ['/pingdesk-request admin add @user', 'Add an admin (Growth+)'],
+                      ['/pingdesk-request admin remove @user', 'Remove an admin (Growth+)'],
+                      ['/pingdesk-request help', 'Show all commands'],
                     ].map(([cmd, desc]) => (
                       <tr key={cmd} className="hover:bg-gray-50/50">
                         <td className="px-5 py-3 font-mono text-xs text-violet-600 whitespace-nowrap">{cmd}</td>
@@ -350,7 +350,7 @@ const Docs = () => {
 
               <div className="space-y-3">
                 {[
-                  { scope: 'commands', why: 'Handle the /request slash command' },
+                  { scope: 'commands', why: 'Handle the /pingdesk-request slash command' },
                   { scope: 'chat:write', why: 'Post request cards and reminders in channels' },
                   { scope: 'chat:write.public', why: 'Work in public channels without being invited first' },
                   { scope: 'users:read', why: 'Show real names instead of user IDs in the dashboard' },
@@ -370,7 +370,7 @@ const Docs = () => {
               </div>
 
               <Callout type="warn">
-                <strong>What we cannot access:</strong> Your messages, files, DMs, channel history, or conversations. We only see the text you type after <InlineCode>/request</InlineCode>.
+                <strong>What we cannot access:</strong> Your messages, files, DMs, channel history, or conversations. We only see the text you type after <InlineCode>/pingdesk-request</InlineCode>.
               </Callout>
             </section>
 

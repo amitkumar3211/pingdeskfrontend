@@ -85,7 +85,7 @@ const SlackHelpDesk = () => (
             </h3>
             <ul className="space-y-2.5 text-sm text-gray-700">
               <li>Submit requests right where you work — in Slack</li>
-              <li>One command: <code className="bg-violet-50 text-violet-700 px-1 rounded text-xs">/request</code></li>
+              <li>One command: <code className="bg-violet-50 text-violet-700 px-1 rounded text-xs">/pingdesk-request</code></li>
               <li>Free for small teams, $12/mo for unlimited</li>
               <li>60-second setup, zero training</li>
               <li>100% adoption — everyone already uses Slack</li>

@@ -82,7 +82,7 @@ const LandingPage = () => (
           mainEntity: [
             { '@type': 'Question', name: 'How do I install Pingdesk on Slack?', acceptedAnswer: { '@type': 'Answer', text: "Click 'Add to Slack' on our website. You'll authorize Pingdesk in your Slack workspace, and it's ready to use in under 60 seconds." } },
             { '@type': 'Question', name: 'Is Pingdesk free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes! Pingdesk has a free plan for up to 3 users and 50 requests per month. Paid plans start at $12/month.' } },
-            { '@type': 'Question', name: 'How does Pingdesk track requests in Slack?', acceptedAnswer: { '@type': 'Answer', text: 'Use the /request slash command in any Slack channel. Pingdesk automatically assigns it, tracks status, and sends follow-up reminders.' } },
+            { '@type': 'Question', name: 'How does Pingdesk track requests in Slack?', acceptedAnswer: { '@type': 'Answer', text: 'Use the /pingdesk-request slash command in any Slack channel. Pingdesk automatically assigns it, tracks status, and sends follow-up reminders.' } },
             { '@type': 'Question', name: 'What happens if someone doesn\'t respond?', acceptedAnswer: { '@type': 'Answer', text: 'Pingdesk automatically sends polite follow-up reminders. You can customize reminder intervals.' } },
             { '@type': 'Question', name: 'Is my data secure?', acceptedAnswer: { '@type': 'Answer', text: 'Yes. Pingdesk uses encrypted connections and follows Slack\'s security best practices.' } },
           ],

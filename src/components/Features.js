@@ -4,13 +4,13 @@ const features = [
   {
     badge: 'Create',
     title: 'Create Requests from Slack',
-    description: 'Use /request or convert any message into a trackable request with title, assignee, and timestamp — without leaving Slack.',
+    description: 'Use /pingdesk-request or convert any message into a trackable request with title, assignee, and timestamp — without leaving Slack.',
     gradient: 'from-blue-600 to-cyan-500',
     bgGradient: 'from-blue-50 to-cyan-50',
     borderHover: 'hover:border-blue-200',
     visual: (
       <div className="bg-white rounded-xl shadow-sm border border-blue-100/50 px-5 py-3">
-        <span className="text-[13px] font-mono"><span className="text-blue-600 font-bold">/request</span> <span className="text-gray-500">"Review homepage"</span> <span className="text-blue-500">@sarah</span></span>
+        <span className="text-[13px] font-mono"><span className="text-blue-600 font-bold">/pingdesk-request</span> <span className="text-gray-500">"Review homepage"</span> <span className="text-blue-500">@sarah</span></span>
       </div>
     ),
   },

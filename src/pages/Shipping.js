@@ -35,7 +35,7 @@ const Shipping = () => {
             <h2 className="text-xl font-bold text-gray-900 mb-3">3. Access to the Service</h2>
             <p>You access Pingdesk through:</p>
             <ul className="list-disc pl-5 space-y-2 mt-2">
-              <li>Slack slash commands (<code className="bg-gray-100 px-1.5 py-0.5 rounded text-violet-600 font-mono text-sm">/request</code>)</li>
+              <li>Slack slash commands (<code className="bg-gray-100 px-1.5 py-0.5 rounded text-violet-600 font-mono text-sm">/pingdesk-request</code>)</li>
               <li>Slack message buttons and modals</li>
               <li>The web dashboard at <a href="https://www.getpingdesk.com" className="text-violet-600 hover:underline">getpingdesk.com</a></li>
             </ul>

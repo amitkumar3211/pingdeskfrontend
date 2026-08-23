@@ -4,7 +4,7 @@ const steps = [
   {
     step: '01',
     title: 'Create a request in Slack',
-    description: 'Use the /request command or convert any existing message. It takes 5 seconds.',
+    description: 'Use the /pingdesk-request command or convert any existing message. It takes 5 seconds.',
     color: 'violet',
     bgColor: 'bg-violet-50',
     borderColor: 'border-violet-100',

@@ -47,11 +47,11 @@ const Support = () => {
               {[
                 {
                   q: 'How do I install Pingdesk?',
-                  a: 'Click "Add to Slack" on our homepage. You\'ll be redirected to Slack to authorize the app. Once authorized, Pingdesk is ready to use — just type /request in any channel.',
+                  a: 'Click "Add to Slack" on our homepage. You\'ll be redirected to Slack to authorize the app. Once authorized, Pingdesk is ready to use — just type /pingdesk-request in any channel.',
                 },
                 {
                   q: 'How do I create a request?',
-                  a: 'Type /request followed by your request title in any Slack channel. Example: /request Review homepage design @sarah',
+                  a: 'Type /pingdesk-request followed by your request title in any Slack channel. Example: /pingdesk-request Review homepage design @sarah',
                 },
                 {
                   q: 'How do reminders work?',
@@ -63,7 +63,7 @@ const Support = () => {
                 },
                 {
                   q: 'How do I upgrade to Pro?',
-                  a: 'Type /request dashboard in Slack to access your dashboard, then click "Upgrade Now". You can also upgrade directly from the pricing section on our website.',
+                  a: 'Type /pingdesk-request dashboard in Slack to access your dashboard, then click "Upgrade Now". You can also upgrade directly from the pricing section on our website.',
                 },
                 {
                   q: 'Can I cancel my Pro subscription?',

@@ -59,7 +59,7 @@ const UseCase = () => {
               {/* Command */}
               <div className="bg-gray-50 rounded-2xl px-5 py-4 border border-gray-100">
                 <p className="text-sm font-mono text-gray-600">
-                  <span className="text-violet-600 font-bold">/request</span>{' '}
+                  <span className="text-violet-600 font-bold">/pingdesk-request</span>{' '}
                   <span className="text-gray-800 font-medium">"Review homepage design"</span>
                 </p>
                 <div className="flex items-center gap-3 mt-2.5">

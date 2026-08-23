@@ -32,7 +32,7 @@ const Privacy = () => {
             <ul className="list-disc pl-5 space-y-2">
               <li><strong>Slack Workspace Information:</strong> Team ID, team name, and bot access token (required for the app to function).</li>
               <li><strong>User Information:</strong> Slack user IDs and display names of users who create or are assigned requests.</li>
-              <li><strong>Request Data:</strong> Request titles, status, timestamps, and channel IDs created through the /request command.</li>
+              <li><strong>Request Data:</strong> Request titles, status, timestamps, and channel IDs created through the /pingdesk-request command.</li>
               <li><strong>Payment Information:</strong> Processed securely by Razorpay. We do not store credit card numbers or bank details.</li>
             </ul>
           </section>

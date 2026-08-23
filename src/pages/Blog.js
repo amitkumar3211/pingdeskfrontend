@@ -249,11 +249,11 @@ You might think "just use email" or "create a Jira ticket." But here's the reali
 - **Jira/Linear** tickets are overkill for simple requests like "review this design" or "approve this copy"
 - **Spreadsheets** get outdated within hours
 
-## The /request Solution
+## The /pingdesk-request Solution
 
-Pingdesk adds a simple \`/request\` command to Slack. Here's how it works:
+Pingdesk adds a simple \`/pingdesk-request\` command to Slack. Here's how it works:
 
-1. **Create**: Type \`/request Review homepage design @sarah\` in any channel
+1. **Create**: Type \`/pingdesk-request Review homepage design @sarah\` in any channel
 2. **Track**: Pingdesk creates a trackable card with status, assignee, and timeline
 3. **Follow up**: If there's no response, Pingdesk automatically sends polite reminders
 4. **Complete**: The assignee clicks "Mark as Done" — everyone is notified
@@ -284,7 +284,7 @@ Create a channel like \`#requests\` or \`#team-requests\` where all formal reque
 
 ## 2. Always Assign an Owner
 
-A request without an owner is a request that won't get done. Always tag someone specific: \`/request Review Q3 report @david\`.
+A request without an owner is a request that won't get done. Always tag someone specific: \`/pingdesk-request Review Q3 report @david\`.
 
 ## 3. Set Clear Deadlines
 
@@ -355,7 +355,7 @@ You get Slack's speed and context, with email's persistence and accountability.
 
 For internal team requests, **Slack + Pingdesk beats email**. You stay where you work, and nothing falls through the cracks.
 
-For external communication, email still wins. But for your team? Stop sending "per my last email" and start using \`/request\`.
+For external communication, email still wins. But for your team? Stop sending "per my last email" and start using \`/pingdesk-request\`.
     `,
   },
   {
@@ -370,7 +370,7 @@ For external communication, email still wins. But for your team? Stop sending "p
 
 **Best for**: Teams that need to track internal requests and ensure follow-through.
 
-Pingdesk turns Slack messages into trackable requests with automatic reminders. Use \`/request\` to create, assign, and track requests without leaving Slack.
+Pingdesk turns Slack messages into trackable requests with automatic reminders. Use \`/pingdesk-request\` to create, assign, and track requests without leaving Slack.
 
 - Free plan for up to 3 users
 - Automatic follow-up reminders
@@ -439,7 +439,7 @@ We've all been there. And according to surveys, **follow-ups are the #1 most awk
 Pingdesk sends automatic follow-up reminders for pending requests. Here's how:
 
 ### Default Behavior
-When you create a request with \`/request\`, Pingdesk starts a 24-hour timer. If the request isn't acted on, it sends a polite reminder to the assignee.
+When you create a request with \`/pingdesk-request\`, Pingdesk starts a 24-hour timer. If the request isn't acted on, it sends a polite reminder to the assignee.
 
 ### Customize Intervals
 Pro plan users can set custom reminder intervals (1-168 hours). Set shorter intervals for urgent requests, longer for low-priority ones.
@@ -486,7 +486,7 @@ Your team spends 8+ hours a day in Slack. Switching to a separate task managemen
 
 **Best for**: Tracking requests, follow-ups, and ad-hoc tasks.
 
-Pingdesk lets you create tasks with \`/request\` and assign them to teammates. Every task has a status (Pending, In Progress, Done) and automatic follow-up reminders if it goes unanswered.
+Pingdesk lets you create tasks with \`/pingdesk-request\` and assign them to teammates. Every task has a status (Pending, In Progress, Done) and automatic follow-up reminders if it goes unanswered.
 
 - Free for up to 3 users
 - Auto follow-up reminders
@@ -560,7 +560,7 @@ Slack's Workflow Builder can create basic automated flows. You could build a wor
 
 ## Method 3: Pingdesk (Best — Automatic & Intelligent)
 
-Pingdesk automates follow-ups as a core feature. When you create a request with \`/request\`, Pingdesk:
+Pingdesk automates follow-ups as a core feature. When you create a request with \`/pingdesk-request\`, Pingdesk:
 
 1. **Tracks status automatically** — Pending, In Progress, Done
 2. **Sends reminders if no action** — After 24 hours (configurable), Pingdesk sends a polite reminder to the assignee
@@ -609,7 +609,7 @@ You don't need a complex workflow engine for most approvals. Here's how teams us
 ### Step 1: Create an approval request
 
 \`\`\`
-/request Approve Q3 marketing budget @finance-lead
+/pingdesk-request Approve Q3 marketing budget @finance-lead
 \`\`\`
 
 Pingdesk creates a trackable request card in the channel with:
@@ -632,17 +632,17 @@ All approval requests are visible in the Pingdesk dashboard. Filter by status to
 
 ## Common Approval Workflows Teams Build
 
-- **Expense approvals**: \`/request Approve $500 conference budget @manager\`
-- **PTO requests**: \`/request PTO Dec 23-27 @hr-team\`
-- **Content review**: \`/request Approve blog post draft @editor\`
-- **Design sign-off**: \`/request Sign off on homepage redesign @product-lead\`
-- **Vendor onboarding**: \`/request Approve new vendor contract @legal\`
+- **Expense approvals**: \`/pingdesk-request Approve $500 conference budget @manager\`
+- **PTO requests**: \`/pingdesk-request PTO Dec 23-27 @hr-team\`
+- **Content review**: \`/pingdesk-request Approve blog post draft @editor\`
+- **Design sign-off**: \`/pingdesk-request Sign off on homepage redesign @product-lead\`
+- **Vendor onboarding**: \`/pingdesk-request Approve new vendor contract @legal\`
 
 ## When You Need More
 
 Pingdesk covers 80% of approval needs with zero configuration. If you need conditional routing (e.g., "if amount > $1000, route to VP"), you'll want a dedicated workflow tool like Wrangle or Jira SM.
 
-But for most teams, a simple \`/request\` + auto follow-up is all you need.
+But for most teams, a simple \`/pingdesk-request\` + auto follow-up is all you need.
 
 ## Start Building Approval Workflows
 

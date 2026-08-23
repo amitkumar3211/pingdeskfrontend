@@ -124,7 +124,7 @@ const InviteTeamBanner = ({ token, workspace, onInvited }) => {
 
           {invited.length > 0 && (
             <p className="mt-3 text-xs text-emerald-600 font-medium">
-              {invited.length} teammate{invited.length > 1 ? 's' : ''} added! They can now use /request in Slack.
+              {invited.length} teammate{invited.length > 1 ? 's' : ''} added! They can now use /pingdesk-request in Slack.
             </p>
           )}
         </div>
