@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { events } from '../../lib/analytics';
-import { getExportUrl } from '../api';
+import { downloadExport } from '../api';
 
 const NAV_ITEMS = [
   { key: 'overview', label: 'Overview', icon: (
@@ -23,7 +23,7 @@ const NAV_ITEMS = [
   ) },
 ];
 
-const DashboardLayout = ({ token, workspace, section, onSectionChange, range, children }) => {
+const DashboardLayout = ({ token, workspace, section, onSectionChange, range, viewer, onLogout, children }) => {
   const [collapsed, setCollapsed] = useState(() => localStorage.getItem('pingdesk_sidebar_collapsed') === '1');
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -40,6 +40,20 @@ const DashboardLayout = ({ token, workspace, section, onSectionChange, range, ch
   const handleNavClick = (key) => {
     onSectionChange(key);
     setMobileOpen(false);
+  };
+
+  const [exporting, setExporting] = useState(false);
+  const handleExport = async () => {
+    if (exporting) return;
+    setExporting(true);
+    try {
+      events.csvExport();
+      await downloadExport(token, range);
+    } catch {
+      // 401s are handled globally; anything else is a transient failure.
+    } finally {
+      setExporting(false);
+    }
   };
 
   const sidebarLabel = workspace?.is_pro ? 'Pro' : 'Free';
@@ -140,16 +154,17 @@ const DashboardLayout = ({ token, workspace, section, onSectionChange, range, ch
             </div>
             <div className="flex items-center gap-3">
               {workspace?.is_pro && (
-                <a
-                  href={getExportUrl(token, range)}
-                  onClick={() => events.csvExport()}
-                  className="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-gray-700 transition-colors px-3 py-2 rounded-lg hover:bg-gray-50"
+                <button
+                  type="button"
+                  onClick={handleExport}
+                  disabled={exporting}
+                  className="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-gray-700 transition-colors px-3 py-2 rounded-lg hover:bg-gray-50 disabled:opacity-50"
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                   </svg>
-                  Export CSV
-                </a>
+                  {exporting ? 'Exporting…' : 'Export CSV'}
+                </button>
               )}
               <span className={`text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full ${
                 workspace?.is_pro
@@ -158,6 +173,26 @@ const DashboardLayout = ({ token, workspace, section, onSectionChange, range, ch
               }`}>
                 {workspace?.plan}
               </span>
+              {onLogout && (
+                <div className="flex items-center gap-2 pl-3 border-l border-gray-200">
+                  {viewer?.name && (
+                    <span className="hidden md:inline text-xs text-gray-500 font-medium truncate max-w-[140px]" title={viewer.name}>
+                      {viewer.name}
+                    </span>
+                  )}
+                  <button
+                    type="button"
+                    onClick={onLogout}
+                    className="flex items-center gap-1.5 text-xs font-semibold text-gray-500 hover:text-gray-700 transition-colors px-3 py-2 rounded-lg hover:bg-gray-50"
+                    title="Sign out"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                    </svg>
+                    Sign out
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </header>

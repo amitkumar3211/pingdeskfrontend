@@ -1,8 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { events } from '../lib/analytics';
-import { fetchDashboard } from './api';
+import {
+  UNAUTHENTICATED_EVENT,
+  UnauthenticatedError,
+  clearSessionToken,
+  fetchDashboard,
+  getSessionToken,
+  logout,
+  setSessionToken,
+} from './api';
 import DashboardLayout from './components/DashboardLayout';
+import SignIn from './components/SignIn';
 import Admins from './sections/Admins';
 import Billing from './sections/Billing';
 import Overview from './sections/Overview';
@@ -17,12 +26,29 @@ const getInitialSection = () => {
   return VALID_SECTIONS.includes(hash) ? hash : 'overview';
 };
 
+/**
+ * After "Sign in with Slack" the backend redirects here with the session token
+ * in the URL fragment (#auth=...). Persist it and scrub it from the address bar
+ * so it never lands in history, bookmarks, or the Referer header.
+ */
+const captureAuthFromHash = (token) => {
+  const m = window.location.hash.match(/^#auth=([A-Za-z0-9]+)$/);
+  if (!m) return false;
+  setSessionToken(token, m[1]);
+  window.history.replaceState(null, '', window.location.pathname + window.location.search);
+  return true;
+};
+
 const Dashboard = () => {
   const { token } = useParams();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Auth: capture a fresh login from the URL fragment, otherwise use the stored one.
+  const [authed, setAuthed] = useState(() => captureAuthFromHash(token) || !!getSessionToken(token));
+  const [authError, setAuthError] = useState(() => searchParams.get('auth_error'));
 
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(authed);
   const [section, setSection] = useState(getInitialSection);
 
   // Overview-specific state (lifted so it persists across navigation)
@@ -31,18 +57,57 @@ const Dashboard = () => {
   const [page, setPage] = useState(1);
 
   const load = useCallback(async () => {
+    if (!getSessionToken(token)) {
+      setAuthed(false);
+      setLoading(false);
+      return;
+    }
     try {
       const d = await fetchDashboard(token, filter, page, range);
       setData(d);
       events.dashboardView();
-    } catch {
+    } catch (e) {
       setData(null);
+      if (e instanceof UnauthenticatedError) {
+        setAuthed(false);
+        setAuthError(e.code === 'not_admin' ? 'not_admin' : 'session_expired');
+      }
     } finally {
       setLoading(false);
     }
   }, [token, filter, page, range]);
 
-  useEffect(() => { load(); }, [load]);
+  useEffect(() => { if (authed) load(); }, [authed, load]);
+
+  // Any API call that comes back 401 (expired / revoked login) sends us back to sign-in.
+  useEffect(() => {
+    const onUnauthenticated = (e) => {
+      if (e.detail?.token && e.detail.token !== token) return;
+      setAuthed(false);
+      setData(null);
+      setAuthError(e.detail?.error === 'not_admin' ? 'not_admin' : 'session_expired');
+    };
+    window.addEventListener(UNAUTHENTICATED_EVENT, onUnauthenticated);
+    return () => window.removeEventListener(UNAUTHENTICATED_EVENT, onUnauthenticated);
+  }, [token]);
+
+  // Drop ?auth_error= from the URL once we've read it, so a refresh doesn't re-show it.
+  useEffect(() => {
+    if (searchParams.has('auth_error')) {
+      const next = new URLSearchParams(searchParams);
+      next.delete('auth_error');
+      setSearchParams(next, { replace: true });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleLogout = async () => {
+    await logout(token);
+    clearSessionToken(token);
+    setData(null);
+    setAuthError(null);
+    setAuthed(false);
+  };
 
   // Razorpay script
   useEffect(() => {
@@ -74,6 +139,11 @@ const Dashboard = () => {
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
+
+  /* ── Not signed in ── */
+  if (!authed) {
+    return <SignIn token={token} error={authError} />;
+  }
 
   /* ── Loading ── */
   if (loading) {
@@ -115,6 +185,8 @@ const Dashboard = () => {
       section={section}
       onSectionChange={handleSectionChange}
       range={range}
+      viewer={data.viewer}
+      onLogout={handleLogout}
     >
       {section === 'overview' && (
         <Overview

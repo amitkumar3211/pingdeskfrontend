@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { events } from '../../lib/analytics';
 import { Avatar, FadeIn, StatCard, StatusBadge } from '../components/shared';
 import InviteTeamBanner from '../components/InviteTeamBanner';
@@ -105,8 +106,8 @@ const WelcomeBanner = ({ workspaceName }) => {
             </svg>
             Open Slack
           </a>
-          <a
-            href="https://www.getpingdesk.com/docs"
+          <Link
+            to="/docs#dashboard"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-white/70 hover:text-white font-medium text-sm px-5 py-3.5 rounded-full border border-white/20 hover:border-white/40 transition-all hover:-translate-y-0.5"
@@ -115,7 +116,7 @@ const WelcomeBanner = ({ workspaceName }) => {
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7-7 7M3 12h18" />
             </svg>
-          </a>
+          </Link>
         </div>
 
         {/* Subtle helper commands */}
