@@ -79,10 +79,20 @@ async function prerender() {
   console.log(`Pre-rendering ${allRoutes.length} routes...`);
 
   const server = await startServer();
-  const browser = await puppeteer.launch({
-    headless: 'new',
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  });
+
+  // Some build environments (Vercel's build image) cannot run Chrome. A missing
+  // browser must not block the deploy: ship the plain SPA build instead.
+  let browser;
+  try {
+    browser = await puppeteer.launch({
+      headless: 'new',
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
+  } catch (err) {
+    console.warn(`\n⚠️  Could not launch Chrome, skipping pre-render: ${err.message}`);
+    server.close();
+    return;
+  }
 
   let rendered = 0;
   let failed = 0;
